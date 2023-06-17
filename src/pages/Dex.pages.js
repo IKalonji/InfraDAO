@@ -52,7 +52,7 @@ export default class DexPage extends Component {
                 height={50}
                 className="mb-3"
               />
-              <div>Dex</div>
+              <div className="text-900 text-3xl font-medium mb-3">Dex</div>
               <div className="flex mb-3">
                 <div className="mr-2">
                   <label htmlFor="firstInput" className="block text-900 font-medium mb-2">
@@ -86,7 +86,7 @@ export default class DexPage extends Component {
                   <label htmlFor="secondInput" className="block text-900 font-medium mb-2">
                     Second Input
                   </label>
-                  <InputText id="secondInput" type="text" value={secondInputValue} readOnly />
+                  <InputText className='w-full mb-3' id="secondInput" type="text" value={secondInputValue} readOnly />
                 </div>
                 <div className="mr-2">
                   <label htmlFor="secondInputBlockchain" className="block text-900 font-medium mb-2">
