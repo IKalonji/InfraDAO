@@ -20,9 +20,11 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path='/' element={<Landingpage/>}/>
-          <Route path='/view-projects' element={<Viewprojects/>}/>
+          <Route path='/user/view-projects' element={<Viewprojects/>}/>
+          <Route path='/member/view-projects' element={<Viewprojects/>}/>
           <Route path='/submit' element={<SubmitProject/>}/>
-          <Route path='/View-the-project' element={<ViewProject/>}/>
+          <Route path='/user/view-the-project' element={<ViewProject/>}/>
+          <Route path='/member/view-the-project' element={<ViewProject/>}/>
           <Route path='/joinDAO' element={<JoinDAO/>} />
           <Route path='/dex-page' element={<DexPage/>}/>
         </Routes>

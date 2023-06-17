@@ -12,17 +12,20 @@ export default class JoinDAO extends Component {
                 <div className="surface-card p-4 shadow-2 border-round w-full lg:w-6">
                     <div className="text-center mb-5">
                         <img src="https://blocks.primereact.org/demo/images/blocks/logos/hyper.svg" alt="hyper" height={50} className="mb-3" />
-                        <div className="text-900 text-3xl font-medium mb-3">Welcome Back</div>
-                        <span className="text-600 font-medium line-height-3">Don't have an account?</span>
+                        <div className="text-900 text-3xl font-medium mb-3">Join DAO</div>
+                        <span className="text-600 font-medium line-height-3">
+                        "Lorem ipsum dolor sit amet, 
+                        consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
+                        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
+                        Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                        </span>
                     </div>
 
                     <div>
-                        <label htmlFor="email" className="block text-900 font-medium mb-2">Email</label>
-                        <InputText id="email" type="text" placeholder="Email address" className="w-full mb-3" />
+                        <label htmlFor="email" className="block text-900 font-medium mb-2">Stake</label>
+                        <InputText id="text" type="text" placeholder="Stake to dApp" className="w-full mb-3" />
 
-                        <label htmlFor="password" className="block text-900 font-medium mb-2">Password</label>
-                        <InputText id="password" type="password" placeholder="Password" className="w-full mb-3" />
-                        <Button label="Submit Your Project" icon="pi pi-user" className="w-full" />
+                        <Button label="Stake" icon="pi pi-user" className="w-full" />
                     </div>
                 </div>
             </div>

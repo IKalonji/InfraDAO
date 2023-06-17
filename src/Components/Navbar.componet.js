@@ -4,6 +4,8 @@ import { Toolbar } from 'primereact/toolbar';
 import { Button } from 'primereact/button';
 import { SplitButton } from 'primereact/splitbutton';
 
+import Image from './Assets/ai.jpg'
+
 class Navbar extends React.Component {
     //const router = useRouter();
     GoBackHome(){
@@ -13,10 +15,7 @@ class Navbar extends React.Component {
         window.location.href = '/submit'
     }
     GoToView(){
-        window.location.href = '/view-projects'
-    }
-    GoToJoinDAO(){
-        window.location.href = '/joinDAO'
+        window.location.href = '/user/view-projects'
     }
     GoToDexPage(){
         window.location.href = '/dex-page'
@@ -27,7 +26,7 @@ class Navbar extends React.Component {
             label: 'DAO MEmbers',
             icon: 'pi pi-external-link',
             command: () => {
-                window.location.href = '/view-projects'
+                window.location.href = '/member/view-projects'
             }
         },
         {
@@ -41,7 +40,11 @@ class Navbar extends React.Component {
 
     startContent = (
         <React.Fragment>
-            <Button label="Home" icon="pi pi-home" className="p-button-success"  onClick={this.GoBackHome}/>
+            {/* <Button label="Home" icon="pi pi-home" className="p-button-outlined"  onClick={this.GoBackHome}/> */}
+            <Button className="p-button-text" onClick={this.GoBackHome}>
+                <img src={Image} alt='' style={{width:"10%", height:"5%", borderRadius:"25%"}}/>
+                <h2>InfraDAO</h2>
+            </Button>
         </React.Fragment>
     );
 

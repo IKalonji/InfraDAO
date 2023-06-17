@@ -4,7 +4,7 @@ import { Button } from 'primereact/button'
 
 export default class Viewprojects extends Component {
     ViewSpecificProject(){
-        window.location.href = "/View-the-project"
+        window.location.href = "/user/view-the-project"
     }
   render() {
     return (
