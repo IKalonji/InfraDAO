@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
+import { InputNumber } from 'primereact/inputnumber'
 import { Editor } from 'primereact/editor';
 import { MultiSelect } from 'primereact/multiselect';
 import { FileUpload } from 'primereact/fileupload';
@@ -16,8 +17,12 @@ export default class SubmitProject extends Component {
       submitorAddress: '',
       projectName: '',
       projectDetails: '',
-      projectCost: '',
+      projectCost: 0,
+      raiseAmount: '',
       tokenization: '',
+      initPricePerToken: '',
+      ExpectedBuyBack:'',
+      ReturnOnInvestment:'',
       contractedDevelopers: '',
       files: [],
       financials: []
@@ -46,14 +51,18 @@ export default class SubmitProject extends Component {
   }
 
   
-  //Once th button is clicked this is the function called
+  //Once the button is clicked this is the function called
   handleButtonClick = () => {
     const {
       submitorAddress,
       projectName,
       projectDetails,
       projectCost,
+      raiseAmount,
       tokenization,
+      initPricePerToken,
+      ExpectedBuyBack,
+      ReturnOnInvestment,
       contractedDevelopers,
       selectedCategory,
       files,
@@ -67,7 +76,11 @@ export default class SubmitProject extends Component {
       projectName,
       projectDetails,
       projectCost,
+      raiseAmount,
       tokenization,
+      initPricePerToken,
+      ExpectedBuyBack,
+      ReturnOnInvestment,
       contractedDevelopers,
       selectedCategory,
       files,
@@ -100,7 +113,11 @@ export default class SubmitProject extends Component {
       projectName,
       projectDetails,
       projectCost,
+      raiseAmount,
       tokenization,
+      initPricePerToken,
+      ExpectedBuyBack,
+      ReturnOnInvestment,
       contractedDevelopers,
       files,
       financials
@@ -161,11 +178,27 @@ export default class SubmitProject extends Component {
                   <div style={{ height: "12px" }}></div>
 
                   <label htmlFor="ProjectCost" className="block text-900 font-medium mb-2">Project Cost</label>
-                  <InputText id="projectCost" inputMode="numeric" placeholder="Project Cost" className="w-full mb-3" onChange={this.handleChange} value={projectCost} />
+                  <InputNumber id="projectCost" placeholder="Project Cost" className="w-full mb-3" onChange={this.handleChange} value={projectCost} />
                   <div style={{ height: "12px" }}></div>
 
-                  <label htmlFor="Tokenization" className="block text-900 font-medium mb-2">Tokenization</label>
-                  <InputText id="tokenization" type="text" placeholder="Tokenization" className="w-full mb-3" onChange={this.handleChange} value={tokenization} />
+                  <label htmlFor="RaiseAmount" className="block text-900 font-medium mb-2">Raise Amount Required</label>
+                  <InputText id="raiseAmount" inputMode="numeric" placeholder="Raise amount required" className="w-full mb-3" onChange={this.handleChange} value={raiseAmount} />
+                  <div style={{ height: "12px" }}></div>
+
+                  <label htmlFor="TotalTokenAmount" className="block text-900 font-medium mb-2">Total Token Amount</label>
+                  <InputText id="tokenization" type="text" placeholder="Total token amount" className="w-full mb-3" onChange={this.handleChange} value={tokenization} />
+                  <div style={{ height: "12px" }}></div>
+
+                  <label htmlFor="InitPrice" className="block text-900 font-medium mb-2">Initial Price per Token</label>
+                  <InputText id="initPricePerToken" type="text" placeholder="Initial Price per Token" className="w-full mb-3" onChange={this.handleChange} value={initPricePerToken} />
+                  <div style={{ height: "12px" }}></div>
+
+                  <label htmlFor="ExpectedBuyBack" className="block text-900 font-medium mb-2">Expected Token Buy Back {"(After project completion)"}</label>
+                  <InputText id="ExpectedBuyBack" type="text" placeholder="Expected Token Buy Back" className="w-full mb-3" onChange={this.handleChange} value={ExpectedBuyBack} />
+                  <div style={{ height: "12px" }}></div>
+
+                  <label htmlFor="ReturnOnInvestment" className="block text-900 font-medium mb-2"> Return On Investment </label>
+                  <InputText id="ReturnOnInvestment" type="text" placeholder="ROI" className="w-full mb-3" onChange={this.handleChange} value={ReturnOnInvestment} />
                   <div style={{ height: "12px" }}></div>
 
                   <label htmlFor="ContractedDevelopers" className="block text-900 font-medium mb-2">Contracted Developers</label>
