@@ -21,8 +21,9 @@ export default class Viewprojects extends Component {
                             <div className="text-600">Plan description</div>
                             <hr className="my-3 mx-0 border-top-1 border-bottom-none border-300" />
                             <div className="flex align-items-center">
-                                <span className="font-bold text-2xl text-900">$9</span>
-                                <span className="ml-2 font-medium text-600">per month</span>
+                                <img src={'https://static.vecteezy.com/system/resources/previews/004/641/880/original/illustration-of-high-school-building-school-building-free-vector.jpg'}
+                                    alt=''
+                                    style={{ width: '60%', height: '60%', objectFit: 'cover', borderRadius: '6px' }}/>
                             </div>
                             <hr className="my-3 mx-0 border-top-1 border-bottom-none border-300" />
                             <ul className="list-none p-0 m-0 flex-grow-1">
@@ -52,8 +53,9 @@ export default class Viewprojects extends Component {
                             <div className="text-600">Plan description</div>
                             <hr className="my-3 mx-0 border-top-1 border-bottom-none border-300" />
                             <div className="flex align-items-center">
-                                <span className="font-bold text-2xl text-900">$29</span>
-                                <span className="ml-2 font-medium text-600">per month</span>
+                                    <img src={'https://static.vecteezy.com/system/resources/previews/004/641/880/original/illustration-of-high-school-building-school-building-free-vector.jpg'}
+                                    alt=''
+                                    style={{ width: '60%', height: '60%', objectFit: 'cover', borderRadius: '6px' }}/>
                             </div>
                             <hr className="my-3 mx-0 border-top-1 border-bottom-none border-300" />
                             <ul className="list-none p-0 m-0 flex-grow-1">
@@ -69,10 +71,7 @@ export default class Viewprojects extends Component {
                                     <i className="pi pi-check-circle text-green-500 mr-2"></i>
                                     <span>Morbi tincidunt augue</span>
                                 </li>
-                                <li className="flex align-items-center mb-3">
-                                    <i className="pi pi-check-circle text-green-500 mr-2"></i>
-                                    <span>Duis ultricies lacus sed</span>
-                                </li>
+                                
                             </ul>
                             <hr className="mb-3 mx-0 border-top-1 border-bottom-none border-300" />
                             <Button label="View" className="p-3 w-full mt-auto" onClick={this.ViewSpecificProject}/>
@@ -87,8 +86,9 @@ export default class Viewprojects extends Component {
                             <div className="text-600">Plan description</div>
                             <hr className="my-3 mx-0 border-top-1 border-bottom-none border-300" />
                             <div className="flex align-items-center">
-                                <span className="font-bold text-2xl text-900">$49</span>
-                                <span className="ml-2 font-medium text-600">per month</span>
+                            <img src={'https://static.vecteezy.com/system/resources/previews/004/641/880/original/illustration-of-high-school-building-school-building-free-vector.jpg'}
+                                    alt=''
+                                    style={{ width: '60%', height: '60%', objectFit: 'cover', borderRadius: '6px' }}/>
                             </div>
                             <hr className="my-3 mx-0 border-top-1 border-bottom-none border-300" />
                             <ul className="list-none p-0 m-0 flex-grow-1">
@@ -104,18 +104,7 @@ export default class Viewprojects extends Component {
                                     <i className="pi pi-check-circle text-green-500 mr-2"></i>
                                     <span>Morbi tincidunt augue</span>
                                 </li>
-                                <li className="flex align-items-center mb-3">
-                                    <i className="pi pi-check-circle text-green-500 mr-2"></i>
-                                    <span>Duis ultricies lacus sed</span>
-                                </li>
-                                <li className="flex align-items-center mb-3">
-                                    <i className="pi pi-check-circle text-green-500 mr-2"></i>
-                                    <span>Imperdiet proin</span>
-                                </li>
-                                <li className="flex align-items-center mb-3">
-                                    <i className="pi pi-check-circle text-green-500 mr-2"></i>
-                                    <span>Nisi scelerisque</span>
-                                </li>
+                                
                             </ul>
                             <hr className="mb-3 mx-0 border-top-1 border-bottom-none border-300" />
                             <Button label="View" className="p-3 w-full mt-auto" onClick={this.ViewSpecificProject}/>

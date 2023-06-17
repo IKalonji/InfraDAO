@@ -41,10 +41,15 @@ class Navbar extends React.Component {
     startContent = (
         <React.Fragment>
             {/* <Button label="Home" icon="pi pi-home" className="p-button-outlined"  onClick={this.GoBackHome}/> */}
-            <Button className="p-button-text" onClick={this.GoBackHome}>
-                <img src={Image} alt='' style={{width:"10%", height:"5%", borderRadius:"25%"}}/>
+            <Button className="p-button-text" onClick={this.GoBackHome} style={{width:"290px"}}>
+                <img src={Image} alt='' style={{width:"28%", height:"12.5%", borderRadius:"25%"}}/>
                 <h2>InfraDAO</h2>
             </Button>
+
+            {/* <div onClick={this.GoBackHome} style={{cursor:"pointer", gap:"14px" }}>
+                <img src={Image} alt='' style={{ width: '10%', height: '5%', borderRadius: '25%' }} />
+                <h2>InfraDAO</h2>
+            </div> */}
         </React.Fragment>
     );
 
@@ -53,8 +58,8 @@ class Navbar extends React.Component {
            
             <Button label="Submit project" icon="pi pi-plus" className="mr-2" onClick={this.GoToSUbmit}/>
             <Button label="View" icon="pi pi-image" className="mr-2" onClick={this.GoToView} />
-            <Button label="Dex" className="mr-2" onClick={this.GoToDexPage} />
             <SplitButton label="DAO Members" icon="pi pi-view" model={this.items} className="mr-2"></SplitButton>
+            <Button label="Dex" className="mr-2" onClick={this.GoToDexPage} />
         </React.Fragment>
     );
 
