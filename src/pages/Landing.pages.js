@@ -12,7 +12,7 @@ export default class Landingpage extends Component {
                 <section>
                     <span className="block text-6xl font-bold mb-1">Infrastructure Tokenization</span>
                     <div className="text-6xl text-primary font-bold mb-3">For Decentralized Project Financing</div>
-                    <p className="mt-0 mb-4 text-700 line-height-3">With IfraDAO projects are tokenized to mmaximise funding opportunities in the DeFi ecosystem</p>
+                    <p className="mt-0 mb-4 text-700 line-height-3">With InfraDAO projects are tokenized to maximize funding opportunities in the DeFi ecosystem</p>
 
                     <Button label="View Projects" type="button" className="mr-3 p-button-raised" />
                     <Button label="Live Demo" type="button" className="p-button-outlined" />
@@ -24,67 +24,68 @@ export default class Landingpage extends Component {
         </div>
 
         <Divider variant="middle" />
+        <div style={{ height: "22px" }}></div>
         
         <div className="surface-0 text-center">
             <div className="mb-3 font-bold text-3xl">
-                <span className="text-900">One Product, </span>
-                <span className="text-blue-600">Many Solutions</span>
+                <span className="text-900">Get easy, </span>
+                <span className="text-blue-600">Funding from the Community</span>
             </div>
-            <div className="text-700 mb-6">Ac turpis egestas maecenas pharetra convallis posuere morbi leo urna.</div>
+            <div className="text-700 mb-6">InfraDAO makes it easy for big projects to get funding</div>
             <div className="grid">
                 <div className="col-12 md:col-4 mb-4 px-5">
                     <span className="p-3 shadow-2 mb-3 inline-block" style={{ borderRadius: '10px' }}>
                         <i className="pi pi-desktop text-4xl text-blue-500"></i>
                     </span>
-                    <div className="text-900 text-xl mb-3 font-medium">Built for Developers</div>
-                    <span className="text-700 line-height-3">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</span>
+                    <div className="text-900 text-xl mb-3 font-medium">Simple UI</div>
+                    <span className="text-700 line-height-3">InfraDAO has a very clean and easy to use user Interface.</span>
                 </div>
                 <div className="col-12 md:col-4 mb-4 px-5">
                     <span className="p-3 shadow-2 mb-3 inline-block" style={{ borderRadius: '10px' }}>
                         <i className="pi pi-lock text-4xl text-blue-500"></i>
                     </span>
-                    <div className="text-900 text-xl mb-3 font-medium">End-to-End Encryption</div>
-                    <span className="text-700 line-height-3">Risus nec feugiat in fermentum posuere urna nec. Posuere sollicitudin aliquam ultrices sagittis.</span>
+                    <div className="text-900 text-xl mb-3 font-medium">Secure Funding</div>
+                    <span className="text-700 line-height-3">All funding that takes place on the platform is secure .</span>
                 </div>
                 <div className="col-12 md:col-4 mb-4 px-5">
                     <span className="p-3 shadow-2 mb-3 inline-block" style={{ borderRadius: '10px' }}>
                         <i className="pi pi-check-circle text-4xl text-blue-500"></i>
                     </span>
                     <div className="text-900 text-xl mb-3 font-medium">Easy to Use</div>
-                    <span className="text-700 line-height-3">Ornare suspendisse sed nisi lacus sed viverra tellus. Neque volutpat ac tincidunt vitae semper.</span>
+                    <span className="text-700 line-height-3">With our simple UI, user's can navigate through the application easily .</span>
                 </div>
                 <div className="col-12 md:col-4 mb-4 px-5">
                     <span className="p-3 shadow-2 mb-3 inline-block" style={{ borderRadius: '10px' }}>
                         <i className="pi pi-globe text-4xl text-blue-500"></i>
                     </span>
-                    <div className="text-900 text-xl mb-3 font-medium">Fast & Global Support</div>
-                    <span className="text-700 line-height-3">Fermentum et sollicitudin ac orci phasellus egestas tellus rutrum tellus.</span>
+                    <div className="text-900 text-xl mb-3 font-medium">Global Funding</div>
+                    <span className="text-700 line-height-3">Fund projects all around the world wherever you you are.</span>
                 </div>
                 <div className="col-12 md:col-4 mb-4 px-5">
                     <span className="p-3 shadow-2 mb-3 inline-block" style={{ borderRadius: '10px' }}>
                         <i className="pi pi-github text-4xl text-blue-500"></i>
                     </span>
                     <div className="text-900 text-xl mb-3 font-medium">Open Source</div>
-                    <span className="text-700 line-height-3">Nec tincidunt praesent semper feugiat. Sed adipiscing diam donec adipiscing tristique risus nec feugiat. </span>
+                    <span className="text-700 line-height-3">InfraDAO is an open source project.Feel free to check out the Github Repository. </span>
                 </div>
                 <div className="col-12 md:col-4 md:mb-4 mb-0 px-3">
                     <span className="p-3 shadow-2 mb-3 inline-block" style={{ borderRadius: '10px' }}>
                         <i className="pi pi-shield text-4xl text-blue-500"></i>
                     </span>
                     <div className="text-900 text-xl mb-3 font-medium">Trusted Securitty</div>
-                    <span className="text-700 line-height-3">Mattis rhoncus urna neque viverra justo nec ultrices. Id cursus metus aliquam eleifend.</span>
+                    <span className="text-700 line-height-3">InfraDAO is secure and trustworthy.</span>
                 </div>
             </div>
         </div>
 
         <Divider/>
-
+        <div style={{ height: "22px" }}></div>
         
         <div className="surface-0 text-700 text-center">
             <div className="text-blue-600 font-bold mb-3"><i className="pi pi-github"></i>&nbsp;POWERED BY GITHUB</div>
-            <div className="text-900 font-bold text-5xl mb-3">Join Our Design Community</div>
-            <div className="text-700 text-2xl mb-5">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Velit numquam eligendi quos.</div>
-            <Button label="Join Now" icon="pi pi-github" className="font-bold px-5 py-3 p-button-raised p-button-rounded white-space-nowrap" />
+            <div className="text-900 font-bold text-5xl mb-3">Feel free and view the code on Github</div>
+            <div className="text-700 text-2xl mb-5">InfraDAO's codebase is open source click the button below and go check it out.</div>
+            <Button label="View the Repo" icon="pi pi-github" className="font-bold px-5 py-3 p-button-raised p-button-rounded white-space-nowrap" />
         </div>
     
     

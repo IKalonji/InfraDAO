@@ -122,25 +122,25 @@ export default class SubmitProject extends Component {
                 <div>
                   <label htmlFor="SubmitorAddress" className="block text-900 font-medium mb-2">Submitor</label>
                   <InputText id="submitorAddress" type="text" placeholder="Submitor Address" className="w-full mb-3" onChange={this.handleChange} value={submitorAddress} />
-                  <div style={{ height: "6px" }}></div>
+                  <div style={{ height: "12px" }}></div>
 
                   <label htmlFor="ProjectName" className="block text-900 font-medium mb-2">Project Name</label>
                   <div style={{height:"13px"}}></div>
                   <InputText id="projectName" type="text" placeholder="Project Name" className="w-full mb-3" onChange={this.handleChange} value={projectName} />
-                  <div style={{ height: "6px" }}></div>
+                  <div style={{ height: "12px" }}></div>
 
                   
                   <label htmlFor="SelectCategory" className="block text-900 font-medium w-full">Select Project Category</label>
                   <MultiSelect value={selectedCategory} onChange={this.handleMultiSelectChange} options={this.InfrastructureOptions} optionLabel="name"
                     placeholder="Select Infrastructure Category"  className="w-full md:w-20rem" />
                   
-                  <div style={{ height: "6px" }}></div>
+                  <div style={{ height: "12px" }}></div>
                 
                   <div className="card">
                       <label htmlFor="ProjectDetails" className="block text-900 font-medium mb-2">Project Details</label>
                       <Editor headerTemplate={header} style={{ height: '320px' }} value={projectDetails} onTextChange={(e) => this.setState({ projectDetails: e.htmlValue })} />
                   </div>
-                  <div style={{ height: "6px" }}></div>
+                  <div style={{ height: "12px" }}></div>
 
                   <label htmlFor="FileUpload" className="block text-900 font-medium mb-2">Upload Plans</label>
                   {/* <FileUpload name="demo[]" multiple accept="image/*" mode="basic"  /> */}
@@ -149,7 +149,7 @@ export default class SubmitProject extends Component {
                   emptyTemplate={<p className="m-0">Upload all your project plans </p>} 
                   onUpload={(e) => this.setState({ files: e.files })}/>
 
-                  <div style={{ height: "6px" }}></div>
+                  <div style={{ height: "12px" }}></div>
 
                   <div>
                       <label htmlFor="FinancialsUpload" className="block text-900 font-medium mb-2">Upload Financials</label>
@@ -158,19 +158,19 @@ export default class SubmitProject extends Component {
                       emptyTemplate={<p className="m-0">Upload your financials here</p>} 
                       onUpload={(e) => this.setState({ financials: e.files })}/>
                   </div>
-                  <div style={{ height: "6px" }}></div>
+                  <div style={{ height: "12px" }}></div>
 
                   <label htmlFor="ProjectCost" className="block text-900 font-medium mb-2">Project Cost</label>
                   <InputText id="projectCost" inputMode="numeric" placeholder="Project Cost" className="w-full mb-3" onChange={this.handleChange} value={projectCost} />
-                  <div style={{ height: "6px" }}></div>
+                  <div style={{ height: "12px" }}></div>
 
                   <label htmlFor="Tokenization" className="block text-900 font-medium mb-2">Tokenization</label>
                   <InputText id="tokenization" type="text" placeholder="Tokenization" className="w-full mb-3" onChange={this.handleChange} value={tokenization} />
-                  <div style={{ height: "6px" }}></div>
+                  <div style={{ height: "12px" }}></div>
 
                   <label htmlFor="ContractedDevelopers" className="block text-900 font-medium mb-2">Contracted Developers</label>
                   <InputText id="contractedDevelopers" type="text" placeholder="Contracted Developers" className="w-full mb-3" onChange={this.handleChange} value={contractedDevelopers} />
-                  <div style={{ height: "6px" }}></div>
+                  <div style={{ height: "12px" }}></div>
 
                   <Button label="Submit Your Project" icon="pi pi-cloud-upload" className="w-full" onClick={this.handleButtonClick} />
                   </div>
