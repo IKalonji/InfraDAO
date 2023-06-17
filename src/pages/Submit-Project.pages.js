@@ -34,11 +34,19 @@ export default class SubmitProject extends Component {
     { name: 'Forestry', code: 'FOR' }
   ];
 
+  //Handling the changes for the multi select
+  handleMultiSelectChange = (e) => {
+    this.setState({ selectedCategory: e.value });
+  }
+
+  //All changes for the input fiels
   handleChange = (e) => {
     const { id, value } = e.target;
     this.setState({ [id]: value });
   }
 
+  
+  //Once th button is clicked this is the function called
   handleButtonClick = () => {
     const {
       submitorAddress,
@@ -123,8 +131,8 @@ export default class SubmitProject extends Component {
 
                   
                   <label htmlFor="SelectCategory" className="block text-900 font-medium w-full">Select Project Category</label>
-                  <MultiSelect value={selectedCategory} onChange={this.handleChange} options={this.InfrastructureOptions} optionLabel="name"
-                    placeholder="Select Infrastructure Category" maxSelectedLabels={3} className="w-full md:w-20rem" />
+                  <MultiSelect value={selectedCategory} onChange={this.handleMultiSelectChange} options={this.InfrastructureOptions} optionLabel="name"
+                    placeholder="Select Infrastructure Category"  className="w-full md:w-20rem" />
                   
                   <div style={{ height: "6px" }}></div>
                 
@@ -146,7 +154,7 @@ export default class SubmitProject extends Component {
                   <div>
                       <label htmlFor="FinancialsUpload" className="block text-900 font-medium mb-2">Upload Financials</label>
                       <FileUpload name="financials" url={'/api/upload'} multiple 
-                      accept="image/*" 
+                      accept="*" 
                       emptyTemplate={<p className="m-0">Upload your financials here</p>} 
                       onUpload={(e) => this.setState({ financials: e.files })}/>
                   </div>
@@ -157,7 +165,7 @@ export default class SubmitProject extends Component {
                   <div style={{ height: "6px" }}></div>
 
                   <label htmlFor="Tokenization" className="block text-900 font-medium mb-2">Tokenization</label>
-                  <InputText id="tokenization" type="text" placeholder="Submitor Address" className="w-full mb-3" onChange={this.handleChange} value={tokenization} />
+                  <InputText id="tokenization" type="text" placeholder="Tokenization" className="w-full mb-3" onChange={this.handleChange} value={tokenization} />
                   <div style={{ height: "6px" }}></div>
 
                   <label htmlFor="ContractedDevelopers" className="block text-900 font-medium mb-2">Contracted Developers</label>
