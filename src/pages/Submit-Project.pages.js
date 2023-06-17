@@ -135,13 +135,20 @@ export default class SubmitProject extends Component {
                   <div style={{ height: "6px" }}></div>
 
                   <label htmlFor="FileUpload" className="block text-900 font-medium mb-2">Upload Plans</label>
-                  <FileUpload name="demo[]" multiple accept="image/*" mode="basic" onUpload={(e) => this.setState({ files: e.files })} />
+                  {/* <FileUpload name="demo[]" multiple accept="image/*" mode="basic"  /> */}
+                  <FileUpload name="PlanUpload" url={'/api/upload'} multiple 
+                  accept="image/*" 
+                  emptyTemplate={<p className="m-0">Upload all your project plans </p>} 
+                  onUpload={(e) => this.setState({ files: e.files })}/>
+
                   <div style={{ height: "6px" }}></div>
 
                   <div>
                       <label htmlFor="FinancialsUpload" className="block text-900 font-medium mb-2">Upload Financials</label>
-                      <FileUpload name="financials" multiple accept="*" mode="basic" onUpload={(e) => this.setState({ financials: e.files })} />
-                      {/* <Button label="Upload" icon="pi pi-upload" className="p-button-success" /> */}
+                      <FileUpload name="financials" url={'/api/upload'} multiple 
+                      accept="image/*" 
+                      emptyTemplate={<p className="m-0">Upload your financials here</p>} 
+                      onUpload={(e) => this.setState({ financials: e.files })}/>
                   </div>
                   <div style={{ height: "6px" }}></div>
 
