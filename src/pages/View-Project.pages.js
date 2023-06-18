@@ -9,7 +9,12 @@ export default class ViewProject extends Component {
         super(props);
         this.state = {
           name: '',
-          description: ''
+          description: '',
+          projectType:'',
+          fullDescription:'',
+          projectDevelopers:'',
+          amountRaise:'',
+
         };
       }
 
@@ -17,14 +22,16 @@ export default class ViewProject extends Component {
         const query = new URLSearchParams(window.location.search);
         const encodedData = query.get('data');
         const decodedData = JSON.parse(decodeURIComponent(encodedData));
-        const { name, description } = decodedData;
-        this.setState({ name, description });
+        const { name, description, projectType, fullDescription, projectDevelopers, amountRaise } = decodedData;
+        this.setState({ name, description, projectType, fullDescription, projectDevelopers, amountRaise });
       }
 
   render() {
-    const { name, description } = this.state;
+    const { name, description, projectType, fullDescription, projectDevelopers, amountRaise } = this.state;
     return (
       <div>
+
+        <div style={{height:"20px"}}></div>
 
         <div className="grid">
             <div className="col-12 md:col-6 lg:col-3">
@@ -89,60 +96,59 @@ export default class ViewProject extends Component {
             </div>
         </div>
 
+        {/* Additional Information for each project */}
+
         <div className='horizontal-spacer' ></div>
         <div className="surface-0">
             <div className="font-medium text-3xl text-900 mb-3">
                 {name}
-                <div className="mt-3 lg:mt-0">
-                <Button label="Buy Tokens" className="mr-3 p-button-raised"/>
-                </div>
-                
-
             </div>
-            <div className="text-500 mb-5">Morbi tristique blandit turpis. In viverra ligula id nulla hendrerit rutrum.</div>
+            <div className="text-500 mb-5">{description}</div>
             <ul className="list-none p-0 m-0">
                 <li className="flex align-items-center py-3 px-2 border-top-1 border-300 flex-wrap">
-                    <div className="text-500 w-6 md:w-2 font-medium">Title</div>
-                    <div className="text-900 w-full md:w-8 md:flex-order-0 flex-order-1">Heat</div>
+                    <div className="text-500 w-6 md:w-2 font-medium">Project Name:</div>
+                    <div className="text-900 w-full md:w-8 md:flex-order-0 flex-order-1">{name}</div>
                     <div className="w-6 md:w-2 flex justify-content-end">
-                        <Button label="Edit" icon="pi pi-pencil" className="p-button-text" />
+                        
                     </div>
                 </li>
                 <li className="flex align-items-center py-3 px-2 border-top-1 border-300 flex-wrap">
-                    <div className="text-500 w-6 md:w-2 font-medium">Genre</div>
+                    <div className="text-500 w-6 md:w-2 font-medium">Type of project:</div>
                     <div className="text-900 w-full md:w-8 md:flex-order-0 flex-order-1">
-                        <Chip label="Crime" className="mr-2" />
-                        <Chip label="Drama" className="mr-2" />
-                        <Chip label="Thriller" />
+                        <Chip label={`${projectType}`} className="mr-2" />
+                       
                     </div>
                     <div className="w-6 md:w-2 flex justify-content-end">
-                        <Button label="Edit" icon="pi pi-pencil" className="p-button-text" />
-                    </div>
-                </li>
-                <li className="flex align-items-center py-3 px-2 border-top-1 border-300 flex-wrap">
-                    <div className="text-500 w-6 md:w-2 font-medium">Director</div>
-                    <div className="text-900 w-full md:w-8 md:flex-order-0 flex-order-1">Michael Mann</div>
-                    <div className="w-6 md:w-2 flex justify-content-end">
-                        <Button label="Edit" icon="pi pi-pencil" className="p-button-text" />
+                        
                     </div>
                 </li>
                 <li className="flex align-items-center py-3 px-2 border-top-1 border-300 flex-wrap">
-                    <div className="text-500 w-6 md:w-2 font-medium">Actors</div>
-                    <div className="text-900 w-full md:w-8 md:flex-order-0 flex-order-1">Robert De Niro, Al Pacino</div>
+                    <div className="text-500 w-6 md:w-2 font-medium">Developers:</div>
+                    <div className="text-900 w-full md:w-8 md:flex-order-0 flex-order-1">{projectDevelopers}</div>
                     <div className="w-6 md:w-2 flex justify-content-end">
-                        <Button label="Edit" icon="pi pi-pencil" className="p-button-text" />
+                        
+                    </div>
+                </li>
+                <li className="flex align-items-center py-3 px-2 border-top-1 border-300 flex-wrap">
+                    <div className="text-500 w-6 md:w-2 font-medium">Amount Raised: </div>
+                    <div className="text-900 w-full md:w-8 md:flex-order-0 flex-order-1">{amountRaise}</div>
+                    <div className="w-6 md:w-2 flex justify-content-end">
+                        
                     </div>
                 </li>
                 <li className="flex align-items-center py-3 px-2 border-top-1 border-bottom-1 border-300 flex-wrap">
-                    <div className="text-500 w-6 md:w-2 font-medium">Plot</div>
+                    <div className="text-500 w-6 md:w-2 font-medium">Full description:</div>
                     <div className="text-900 w-full md:w-8 md:flex-order-0 flex-order-1 line-height-3">
-                        A group of professional bank robbers start to feel the heat from police
-                        when they unknowingly leave a clue at their latest heist.</div>
+                        {fullDescription}
+                    </div>
                     <div className="w-6 md:w-2 flex justify-content-end">
-                        <Button label="Edit" icon="pi pi-pencil" className="p-button-text" />
+                        
                     </div>
                 </li>
             </ul>
+            <div style={{height:"20px"}}></div>
+            <Button label="Buy Tokens" className="w-full"/>
+            <div style={{height:"20px"}}></div>
         </div>
     
     

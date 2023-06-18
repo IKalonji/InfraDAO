@@ -14,7 +14,11 @@ export default class Viewprojects extends Component {
     GoToViewProject = (Project) => {
         const data = {
             name: Project.projectName,
-            description: Project.projectShortDescription
+            description: Project.projectShortDescription,
+            projectType: Project.projectType,
+            fullDescription: Project.fullDescription,
+            projectDevelopers: Project.projectDevelopers,
+            amountRaise: Project.ammountToBeRaised
           };
           const encodedData = encodeURIComponent(JSON.stringify(data));
           window.location.href = `/user/view-the-project?data=${encodedData}`;
@@ -25,14 +29,14 @@ export default class Viewprojects extends Component {
 
     if (window.location.pathname === "/member/view-projects"){
         return(
-            <div className="text-900 font-bold text-6xl mb-4 text-center">View all un-approved projects</div>    
+            <div className="text-900 font-bold text-6xl mb-4 text-center">Projects require approval</div>    
         )
     }else if (window.location.pathname === "/user/view-projects"){
 
     return (
         <div>
         <div className="surface-0">
-            <div className="text-900 font-bold text-6xl mb-4 text-center">Pricing Plans</div>
+            <div className="text-900 font-bold text-6xl mb-4 text-center">Approved projects</div>
             <div className="text-700 text-xl mb-6 text-center line-height-3"> These are all the project that have been approved by the communtiy. </div>
 
             <div className="grid">
@@ -44,11 +48,11 @@ export default class Viewprojects extends Component {
                               <div className="text-900 font-medium text-xl mb-2">{project.projectName}</div>
                               <div className="text-600">{project.projectShortDescription}</div>
                               <hr className="my-3 mx-0 border-top-1 border-bottom-none border-300" />
-                              <div className="flex align-items-center">
+                              <div className="flex justify-content-center flex-wrap" >
                                 <img
                                   src={project.projectImage}
                                   alt=""
-                                  style={{ width: '60%', height: '60%', objectFit: 'cover', borderRadius: '6px' }}
+                                  className='max-w-full max-h-full'
                                 />
                               </div>
                               <hr className="my-3 mx-0 border-top-1 border-bottom-none border-300" />
@@ -63,7 +67,7 @@ export default class Viewprojects extends Component {
                                 </li>
                                 <li className="flex align-items-center mb-3">
                                   <i className="pi pi-check-circle text-green-500 mr-2"></i>
-                                  <span>Has Funding</span>
+                                  <span>Tokenized</span>
                                 </li>
                               </ul>
                               <hr className="mb-3 mx-0 border-top-1 border-bottom-none border-300" />
