@@ -41,26 +41,20 @@ class Navbar extends React.Component {
   ];
 
   startContent = (
-    // <Button className="p-button-text" onClick={this.GoBackHome} >
-    //   <img src={Image} alt='' style={{ width: "28%", height: "42.5%", borderRadius: "25%" }} />
-    //   InfraDAO
-    // </Button>
-    <a href="/" style={{ textDecoration: 'none', color: 'black' }}>
-    <div style={{ display: 'flex', alignItems: 'center' }}>
-      <img src={Image} alt="" style={{ width: '25%', height: '50px', marginRight: '10px' }} />
-      <Typography variant="h6" noWrap>
+  <a className="p-button-text" onClick={this.GoBackHome} style={{cursor:"pointer"}}>
+    <i className='pi pi-building' style={{ fontSize: '2rem' }}></i>
+    <label>
         InfraDAO
-      </Typography>
-    </div>
+    </label>
   </a>
   );
 
   endContent = (
     <>
-      <Button label="Submit project" icon="pi pi-plus" className="mr-2" onClick={this.GoToSubmit} />
-      <Button label="View" icon="pi pi-image" className="mr-2" onClick={this.GoToView} />
-      <SplitButton label="DAO Members" icon="pi pi-view" model={this.items} className="mr-2"></SplitButton>
-      <Button label="Dex" className="mr-2" onClick={this.GoToDexPage} />
+      <Button label="Submit project" icon="pi pi-plus" className="mr-2" onClick={this.GoToSubmit} text/>
+      <Button label="View" icon="pi pi-image" className="mr-2" onClick={this.GoToView} text/>
+      <Button label="DEX" className="mr-2" onClick={this.GoToDexPage} text/>
+      <SplitButton label="DAO Members" icon="pi pi-view" model={this.items} className="mr-2" text severity='success'></SplitButton>
     </>
   );
 
