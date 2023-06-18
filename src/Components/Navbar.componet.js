@@ -2,9 +2,6 @@ import React from 'react';
 import { Button } from 'primereact/button';
 import { SplitButton } from 'primereact/splitbutton';
 import { Toolbar } from 'primereact/toolbar';
-import Typography from '@mui/material/Typography';
-
-import Image from './Assets/TopIcon.png';
 
 class Navbar extends React.Component {
   GoBackHome() {
@@ -42,7 +39,7 @@ class Navbar extends React.Component {
 
   startContent = (
   <a className="p-button-text" onClick={this.GoBackHome} style={{cursor:"pointer"}}>
-    <i className='pi pi-building' style={{ fontSize: '2rem' }}></i>
+    <i className='pi pi-building' style={{ fontSize: '2rem'}}></i>
     <label>
         InfraDAO
     </label>
