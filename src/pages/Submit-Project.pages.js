@@ -44,27 +44,31 @@ export default class SubmitProject extends Component {
     this.setState({ selectedCategory: e.value });
   }
 
-  //All changes for the input fiels
-  // handleChange = (e) => {
-  //   const { id, value } = e.target;
-  //   this.setState({ [id]: value });
-  // }
-
   handleChange = (e) => {
     const { id, value } = e.target;
     let updatedState = { [id]: value };
   
-    if (id === "ExpectedBuyBack" || id === "initPricePerToken") {
+    // if (id === "ExpectedBuyBack" || id === "initPricePerToken") {
       const { ExpectedBuyBack, initPricePerToken } = this.state;
-      const ROI = ((parseFloat(ExpectedBuyBack) - parseFloat(initPricePerToken)) / parseFloat(initPricePerToken)) * 100;
-      updatedState.ReturnOnInvestment = ROI.toFixed(2);
-    }
+      const ROI = this.calculateROI(initPricePerToken, ExpectedBuyBack);
+      updatedState.ReturnOnInvestment = ROI.toFixed(0);
+    // }
+    // if (id === "raiseAmount" || id === "tokenization") {
+      const { raiseAmount, tokenization } = this.state;
+      const price = this.calculateTokenPrice(raiseAmount, tokenization);
+      updatedState.initPricePerToken = price.toFixed(18);
+    // }
   
     this.setState(updatedState);
   }
-  
-  
 
+  calculateROI = (tokenPrice, buyBackAmount) => {
+    return ((buyBackAmount-tokenPrice)/tokenPrice)*100
+  }
+
+  calculateTokenPrice = (raiseAmount, totalTokens) => {
+    return raiseAmount/totalTokens
+  }
   
   //Once the button is clicked this is the function called
   handleButtonClick = () => {
@@ -101,16 +105,34 @@ export default class SubmitProject extends Component {
       files,
       financials
     };
+
+
+    if (!submitorAddress||
+        !projectName||
+        !projectDetails||
+        !projectCost||
+        !raiseAmount||
+        !tokenization||
+        !initPricePerToken||
+        !ExpectedBuyBack||
+        !ReturnOnInvestment||
+        !contractedDevelopers
+      
+      ){
+
+        this.toast.show({severity:'error', summary: 'Error', detail:'Please complete all inputs', life: 3000});
+    }else{
+      this.toast.show({
+        severity: 'success',
+        summary: 'Successfully uploaded Project',
+        detail: JSON.stringify(values)
+      });
+    }
   
-    this.toast.show({
-      severity: 'success',
-      summary: 'Successfully uploaded Project',
-      detail: JSON.stringify(values)
-    });
+
   }
-
-  
-
+ 
+    
   renderHeader = () => {
     return (
       <span className="ql-formats">
@@ -135,14 +157,19 @@ export default class SubmitProject extends Component {
       ReturnOnInvestment,
       contractedDevelopers,
       files,
-      financials
+      financials,
+      error,
     } = this.state;
   
     const header = this.renderHeader();
     // const { selectedCategory } = this.state;
     return (
     <div>
+
+      <div>
       <Toast ref={(el) => (this.toast = el)} />
+      </div>
+
       <div style={{ height: "60px" }}></div>
         <div className="flex align-items-center justify-content-center">
           <div className="surface-card p-4 shadow-2 border-round w-full lg:w-6">
@@ -203,7 +230,7 @@ export default class SubmitProject extends Component {
                 <div style={{ height: "12px" }}></div>
 
                 <label htmlFor="InitPrice" className="block text-900 font-medium mb-2">Initial Price per Token</label>
-                <InputText id="initPricePerToken" type="text" placeholder="Initial Price per Token" className="w-full mb-3" onChange={this.handleChange} value={initPricePerToken} keyfilter="int" />
+                <InputText id="initPricePerToken" type="text" placeholder="Initial Price per Token" className="w-full mb-3" onChange={this.handleChange} readOnly value={initPricePerToken} keyfilter="int"/>
                 <div style={{ height: "12px" }}></div>
 
                 <label htmlFor="ExpectedBuyBack" className="block text-900 font-medium mb-2">Expected Token Buy Back {"(After project completion)"}</label>
@@ -211,7 +238,7 @@ export default class SubmitProject extends Component {
                 <div style={{ height: "12px" }}></div>
 
                 <label htmlFor="ReturnOnInvestment" className="block text-900 font-medium mb-2"> Return On Investment </label>
-                <InputText id="ReturnOnInvestment" type="text" placeholder="ROI" className="w-full mb-3" onChange={this.handleChange} readOnly value={ReturnOnInvestment} keyfilter="int" />
+                <InputText id="ReturnOnInvestment" type="text" placeholder="ROI" className="w-full mb-3" onChange={this.handleChange} readOnly value={ReturnOnInvestment} keyfilter="int"/>
                 <div style={{ height: "12px" }}></div>
 
                 <label htmlFor="ContractedDevelopers" className="block text-900 font-medium mb-2">Contracted Developers</label>
