@@ -4,6 +4,11 @@ import Divider from '@mui/material/Divider';
 
 
 export default class Landingpage extends Component {
+
+    GoViewProjects(){
+        window.location.href = "/user/view-projects";
+    }
+
   render() {
     return (
       <div>
@@ -14,7 +19,7 @@ export default class Landingpage extends Component {
                     <div className="text-6xl text-primary font-bold mb-3">For Decentralized Project Financing</div>
                     <p className="mt-0 mb-4 text-700 line-height-3">With InfraDAO projects are tokenized to maximize funding opportunities in the DeFi ecosystem</p>
 
-                    <Button label="View Projects" type="button" className="mr-3 p-button-raised" />
+                    <Button label="View Projects" type="button" className="mr-3 p-button-raised" onClick={this.GoViewProjects}/>
                     <Button label="Live Demo" type="button" className="p-button-outlined" />
                 </section>
             </div>

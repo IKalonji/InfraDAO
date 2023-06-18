@@ -27,3 +27,25 @@ export let ApprovedProjects = [
         ammountToBeRaised: "12000000",
     },
 ]
+
+export let NeedApproval = [
+    {
+        projectName:"Hospital building project",
+        projectShortDescription:"With this project we aim to build a better hospital in a certain area ",
+        projectImage:"https://pbs.twimg.com/media/DedZykhXkAATmRD.jpg",
+        projectType:"Health",
+        fullDescription: "This is the full description",
+        projectDevelopers: "SA Infrastructure community",
+        ammountToBeRaised: "270000000",
+    },
+
+    {
+        projectName:"Railroad building project",
+        projectShortDescription:"This priject aims to make transportation easy and cheaper",
+        projectImage:"https://cdn.xxl.thumbs.canstockphoto.com/modern-steel-glass-railway-station-building-front-view-flat-image-with-speed-intercity-train-vector-eps-vector_csp97727247.jpg",
+        projectType:"Railway",
+        fullDescription: "This is the fulldescription",
+        projectDevelopers: "Sandton Railway Soc.",
+        ammountToBeRaised: "580000000",
+    }
+]
