@@ -4,7 +4,25 @@ import { Button } from 'primereact/button'
 import './Styles/View-Project.style.css'
 
 export default class ViewProject extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+          name: '',
+          description: ''
+        };
+      }
+
+    componentDidMount() {
+        const query = new URLSearchParams(window.location.search);
+        const encodedData = query.get('data');
+        const decodedData = JSON.parse(decodeURIComponent(encodedData));
+        const { name, description } = decodedData;
+        this.setState({ name, description });
+      }
+
   render() {
+    const { name, description } = this.state;
     return (
       <div>
 
@@ -70,10 +88,11 @@ export default class ViewProject extends Component {
                 </div>
             </div>
         </div>
+
         <div className='horizontal-spacer' ></div>
         <div className="surface-0">
             <div className="font-medium text-3xl text-900 mb-3">
-                Movie Information
+                {name}
                 <div className="mt-3 lg:mt-0">
                 <Button label="Buy Tokens" className="mr-3 p-button-raised"/>
                 </div>
