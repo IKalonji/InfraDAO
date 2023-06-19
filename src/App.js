@@ -7,7 +7,7 @@ import 'primeicons/primeicons.css';
 
 import Navbar from './Components/Navbar.componet';
 import Landingpage from './pages/Landing.pages';
-import Viewprojects from './pages/View-Projects.pages';
+import Viewprojects from './pages/View-projects.pages';
 import SubmitProject from './pages/Submit-Project.pages';
 import ViewProject from './pages/View-Project.pages';
 import JoinDAO from './pages/Join-DAO.pages';
