@@ -41,9 +41,9 @@ export default class DexPage extends Component {
 
     return (
       <div>
-        <div style={{ height: '60px' }}></div>
+        <div style={{ height: '60px' }} ></div>
 
-        <div className="flex align-items-center justify-content-center">
+        <div className="flex justify-content-center flex-wrap justify-content-center" >
           <div className="surface-card p-4 shadow-2 border-round w-full lg:w-6">
             <div className="text-center mb-5">
               <img
@@ -54,7 +54,7 @@ export default class DexPage extends Component {
               />
               <div className="text-900 text-3xl font-medium mb-3">Dex</div>
               <div className="flex mb-3">
-                <div className="mr-2">
+                <div className="mr-2 flex justify-content-center flex-wrap">
                   <label htmlFor="firstInput" className="block text-900 font-medium mb-2">
                     First Input
                   </label>
@@ -67,7 +67,7 @@ export default class DexPage extends Component {
                     className="w-full mb-3"
                   />
                 </div>
-                <div className="mr-2">
+                <div className="mr-2 ">
                   <label htmlFor="firstInputBlockchain" className="block text-900 font-medium mb-2">
                     First Input Blockchain
                   </label>
@@ -82,13 +82,13 @@ export default class DexPage extends Component {
               </div>
 
               <div className="flex mb-3">
-                <div className="mr-2">
+                <div className="mr-2 flex justify-content-center flex-wrap">
                   <label htmlFor="secondInput" className="block text-900 font-medium mb-2">
                     Second Input
                   </label>
                   <InputText className='w-full mb-3' id="secondInput" type="text" value={secondInputValue} readOnly />
                 </div>
-                <div className="mr-2">
+                <div className="mr-2 ">
                   <label htmlFor="secondInputBlockchain" className="block text-900 font-medium mb-2">
                     Second Input Blockchain
                   </label>

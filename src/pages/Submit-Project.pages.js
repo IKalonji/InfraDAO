@@ -117,7 +117,6 @@ export default class SubmitProject extends Component {
         !ExpectedBuyBack||
         !ReturnOnInvestment||
         !contractedDevelopers
-      
       ){
 
         this.toast.show({severity:'error', summary: 'Error', detail:'Please complete all inputs', life: 3000});
