@@ -12,6 +12,7 @@ import SubmitProject from './pages/Submit-Project.pages';
 import ViewProject from './pages/View-Project.pages';
 import JoinDAO from './pages/Join-DAO.pages';
 import DexPage from './pages/Dex.pages';
+import ProfilePage from './pages/ProfilePage.pages';
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
           <Route path='/member/view-the-project' element={<ViewProject/>}/>
           <Route path='/joinDAO' element={<JoinDAO/>} />
           <Route path='/dex-page' element={<DexPage/>}/>
+          <Route path='/profile' element={<ProfilePage />}/>
         </Routes>
       </BrowserRouter>
     </div>

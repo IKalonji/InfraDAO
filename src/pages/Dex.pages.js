@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Button } from 'primereact/button';
+import { Dialog } from 'primereact/dialog';
 import { InputText } from 'primereact/inputtext';
 import { MultiSelect } from 'primereact/multiselect';
 
@@ -10,7 +11,8 @@ export default class DexPage extends Component {
       firstInputValue: '',
       firstInputBlockchain: null,
       secondInputValue: '',
-      secondInputBlockchain: null
+      secondInputBlockchain: null,
+      visible: false,
     };
   }
 
@@ -30,6 +32,15 @@ export default class DexPage extends Component {
     });
   };
 
+  
+  onHideDialog = () => {
+    this.setState({ visible: false });
+  };
+
+  onShowDialog = () => {
+    this.setState({ visible: true });
+  };
+
   render() {
     const { firstInputValue, firstInputBlockchain, secondInputValue, secondInputBlockchain } = this.state;
     const blockchainOptions = [
@@ -38,6 +49,18 @@ export default class DexPage extends Component {
       { label: 'Cardano', value: 'ADA' },
       { label: 'Solana', value: 'SOL' },
     ];
+
+    const footerContent = (
+      <div>
+        <Button
+          label="Close"
+          icon="pi pi-times"
+          onClick={this.onHideDialog}
+          className="p-button-text"
+          severity="danger"
+        />
+      </div>
+    );
 
     return (
       <div>
@@ -76,7 +99,7 @@ export default class DexPage extends Component {
                     value={firstInputBlockchain}
                     options={blockchainOptions}
                     onChange={this.handleFirstInputBlockchainChange}
-                    placeholder="Select Blockchain"
+                    placeholder="Select Token"
                   />
                 </div>
               </div>
@@ -86,23 +109,44 @@ export default class DexPage extends Component {
                   <label htmlFor="secondInput" className="block text-900 font-medium mb-2">
                     Second Input
                   </label>
-                  <InputText className='w-full mb-3' id="secondInput" type="text" value={secondInputValue} readOnly />
+                  
+                  <InputText
+                    id="secondInput"
+                    type="text"
+                    placeholder="Calculated value"
+                    value={secondInputValue}
+                    className="w-full mb-3"
+                    readOnly
+                  />
                 </div>
                 <div className="mr-2 ">
                   <label htmlFor="secondInputBlockchain" className="block text-900 font-medium mb-2">
-                    Second Input Blockchain
+                    Swap with
                   </label>
                   <MultiSelect
                     id="secondInputBlockchain"
                     value={secondInputBlockchain}
                     options={blockchainOptions}
                     onChange={this.handleSecondInputBlockchainChange}
-                    placeholder="Select Blockchain"
+                    placeholder="Select Token"
+                    className='flex align-self-end'
                   />
                 </div>
               </div>
 
-              <Button label="Submit Your Project" icon="pi pi-user" className="w-full" />
+              <Dialog
+                header="Header"
+                visible={this.state.visible}
+                style={{ width: '50vw' }}
+                onHide={this.onHideDialog}
+                footer={footerContent}
+              >
+
+                <InputText placeholder='Swap tokens' className='w-full mb-3' id="secondInput" type="text"/>
+                <Button label="Confirm swap" icon="pi pi-check-circle" className="w-full"/>
+            </Dialog>
+
+              <Button label="Swap" icon="pi pi-external-link" className="w-full" onClick={this.onShowDialog} />
             </div>
           </div>
         </div>

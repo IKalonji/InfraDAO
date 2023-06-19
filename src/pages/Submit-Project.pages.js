@@ -7,6 +7,8 @@ import { MultiSelect } from 'primereact/multiselect';
 import { FileUpload } from 'primereact/fileupload';
 import { Toast } from 'primereact/toast';
 
+import { NeedApproval } from '../Models/ApprovedAndUnapprovedProjects';
+
 import Image from './Assets/ai.jpg'
 
 export default class SubmitProject extends Component {
@@ -16,6 +18,7 @@ export default class SubmitProject extends Component {
       selectedCategory: null,
       submitorAddress: '',
       projectName: '',
+      projectImage:'',
       projectDetails: '',
       projectCost: '',
       raiseAmount: '',
@@ -75,6 +78,7 @@ export default class SubmitProject extends Component {
     const {
       submitorAddress,
       projectName,
+      projectImage,
       projectDetails,
       projectCost,
       raiseAmount,
@@ -93,6 +97,7 @@ export default class SubmitProject extends Component {
     const values = {
       submitorAddress,
       projectName,
+      projectImage,
       projectDetails,
       projectCost,
       raiseAmount,
@@ -106,9 +111,20 @@ export default class SubmitProject extends Component {
       financials
     };
 
+    let InformationToAppent =   {
+      "projectName": projectName,
+      "projectShortDescription":"With this project we aim to build a better hospital in a certain area ",
+      "projectImage":projectImage,
+      "projectType":selectedCategory,
+      "fullDescription": projectDetails,
+      "projectDevelopers": contractedDevelopers,
+      "ammountToBeRaised": raiseAmount,
+    }
+
 
     if (!submitorAddress||
         !projectName||
+        !projectImage||
         !projectDetails||
         !projectCost||
         !raiseAmount||
@@ -116,22 +132,32 @@ export default class SubmitProject extends Component {
         !initPricePerToken||
         !ExpectedBuyBack||
         !ReturnOnInvestment||
-        !contractedDevelopers
+        !contractedDevelopers||
+        !selectedCategory
       ){
 
         this.toast.show({severity:'error', summary: 'Error', detail:'Please complete all inputs', life: 3000});
     }else{
+
+      NeedApproval.push({
+        projectName: projectName,
+        projectShortDescription:"With this project we aim to build a better hospital in a certain area ",
+        projectImage:projectImage,
+        projectType:selectedCategory,
+        fullDescription: projectDetails,
+        projectDevelopers: contractedDevelopers,
+        ammountToBeRaised: raiseAmount,
+      })
+
+      console.log(NeedApproval);
       this.toast.show({
         severity: 'success',
         summary: 'Successfully uploaded Project',
         detail: JSON.stringify(values)
       });
     }
-  
-
   }
- 
-    
+   
   renderHeader = () => {
     return (
       <span className="ql-formats">
@@ -146,6 +172,7 @@ export default class SubmitProject extends Component {
     const {
       selectedCategory,
       submitorAddress,
+      projectImage,
       projectName,
       projectDetails,
       projectCost,
@@ -184,6 +211,12 @@ export default class SubmitProject extends Component {
                 <label htmlFor="ProjectName" className="block text-900 font-medium mb-2">Project Name</label>
                 <div style={{height:"13px"}}></div>
                 <InputText id="projectName" type="text" placeholder="Project Name" className="w-full mb-3" onChange={this.handleChange} value={projectName} />
+                <div style={{ height: "12px" }}></div>
+
+                
+                <label htmlFor="projectImage" className="block text-900 font-medium mb-2">Project Image Url</label>
+                <div style={{height:"13px"}}></div>
+                <InputText id="projectImage" type="text" placeholder="Project Image" className="w-full mb-3" onChange={this.handleChange} value={projectImage} />
                 <div style={{ height: "12px" }}></div>
 
                 

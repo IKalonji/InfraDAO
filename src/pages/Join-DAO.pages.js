@@ -24,7 +24,6 @@ export default class JoinDAO extends Component {
                     <div>
                         <label htmlFor="email" className="block text-900 font-medium mb-2">Stake</label>
                         <InputText id="text" type="text" placeholder="Stake to dApp" className="w-full mb-3" />
-
                         <Button label="Stake" icon="pi pi-user" className="w-full" />
                     </div>
                 </div>

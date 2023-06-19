@@ -25,6 +25,19 @@ export default class Viewprojects extends Component {
           window.location.href = `/user/view-the-project?data=${encodedData}`;
       };
 
+      GoToMemberViewProject = (Project) => {
+        const data = {
+            name: Project.projectName,
+            description: Project.projectShortDescription,
+            projectType: Project.projectType,
+            fullDescription: Project.fullDescription,
+            projectDevelopers: Project.projectDevelopers,
+            amountRaise: Project.ammountToBeRaised
+          };
+          const encodedData = encodeURIComponent(JSON.stringify(data));
+          window.location.href = `/member/view-the-project?data=${encodedData}`;
+      };
+
   render() {
 
 
@@ -33,8 +46,7 @@ export default class Viewprojects extends Component {
           <div>
           <div className="surface-0">
               <div className="text-900 font-bold text-6xl mb-4 text-center">The following projects require approval</div>
-              <div className="text-700 text-xl mb-6 text-center line-height-3"> These are all the project that have been approved by the communtiy. </div>
-  
+              <div className="text-700 text-xl mb-6 text-center line-height-3"> These are all the project that have been approved by the communtiy. </div>  
               <div className="grid">
                   {
                       this.unApproved.map((project, index) => (
@@ -55,19 +67,19 @@ export default class Viewprojects extends Component {
                                 <ul className="list-none p-0 m-0 flex-grow-1">
                                   <li className="flex align-items-center mb-3">
                                     <i className="pi pi-check-circle text-green-500 mr-2"></i>
-                                    <span>KYC Contract</span>
+                                    <span> KYC </span>
                                   </li>
                                   <li className="flex align-items-center mb-3">
                                     <i className="pi pi-times-circle text-red-500 mr-2"></i>
                                     <span>Approved</span>
                                   </li>
                                   <li className="flex align-items-center mb-3">
-                                    <i className="pi pi-check-circle text-green-500 mr-2"></i>
+                                    <i className="pi pi-times-circle text-red-500 mr-2"></i>
                                     <span>Tokenized</span>
                                   </li>
                                 </ul>
                                 <hr className="mb-3 mx-0 border-top-1 border-bottom-none border-300" />
-                                <Button label="View" className="p-3 w-full mt-auto" onClick={() => {this.GoToViewProject(project)}} />
+                                <Button label="View" className="p-3 w-full mt-auto" onClick={() => {this.GoToMemberViewProject(project)}} />
                               </div>
                             </div>
                           </div>
