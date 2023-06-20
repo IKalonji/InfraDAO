@@ -30,7 +30,7 @@ export default class ViewProject extends Component {
 
   render() {
     const { name, description, projectType, fullDescription, projectDevelopers, amountRaise } = this.state;
-    alert('The array: ',NeedApproval);
+    console.log('The array: ',NeedApproval);
     if (window.location.pathname ==="/member/view-the-project"){
         
         return(

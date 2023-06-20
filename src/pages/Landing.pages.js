@@ -20,7 +20,7 @@ export default class Landingpage extends Component {
                     <p className="mt-0 mb-4 text-700 line-height-3">With InfraDAO projects are tokenized to maximize funding opportunities in the DeFi ecosystem</p>
 
                     <Button label="View Projects" type="button" className="mr-3 p-button-raised" onClick={this.GoViewProjects}/>
-                    <Button label="Live Demo" type="button" className="p-button-outlined" />
+                    <Button label="Watch Demo" type="button" className="p-button-outlined" />
                 </section>
             </div>
             <div className="col-12 md:col-6 overflow-hidden">

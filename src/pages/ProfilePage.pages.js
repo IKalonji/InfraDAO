@@ -4,14 +4,21 @@ import { InputText } from 'primereact/inputtext';
 import { Card } from 'primereact/card';
 
 export default class ProfilePage extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+          stakeAmount: 0
+        };
+      }
 
   render() {
+    const { stakeAmount } = this.state;
     const header = (
       <i className="pi pi-user" style={{ fontSize: '2.5rem' }}></i>
     );
 
     const footer = (
-      <Button label="Edit Profile" icon="pi pi-pencil" className="p-button-secondary" />
+      <Button label="Return Stake" icon="pi pi-money-bill" className="p-button-secondary" disabled={stakeAmount === 0}/>
     );
 
     return (
@@ -26,10 +33,16 @@ export default class ProfilePage extends Component {
                   <strong>Wallet Address:</strong> 0xA
                 </div>
                 <div>
+                  <strong>Staked Amount:</strong> 0
+                </div>
+                <div>
                   <strong>Project voted:</strong> 0
                 </div>
                 <div>
-                  <strong>Location:</strong> New York, USA
+                  <strong>DAO member:</strong> 0
+                </div>
+                <div>
+                  <strong>Portfolio:</strong> New York, USA
                 </div>
               </Card>
             </div>

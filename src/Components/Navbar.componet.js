@@ -3,6 +3,8 @@ import { Button } from 'primereact/button';
 import { SplitButton } from 'primereact/splitbutton';
 import { Toolbar } from 'primereact/toolbar';
 
+import Icon from './Assets/TopIcon.png';
+
 class Navbar extends React.Component {
   GoBackHome() {
     window.location.href = "/";
@@ -25,7 +27,7 @@ class Navbar extends React.Component {
 
   items = [
     {
-      label: 'DAO Members',
+      label: 'Pending Projects',
       icon: 'pi pi-external-link',
       command: () => {
         window.location.href = '/member/view-projects';
@@ -41,7 +43,7 @@ class Navbar extends React.Component {
   ];
 
   startContent = (
-  <a className="p-button-text" onClick={this.GoBackHome} style={{cursor:"pointer"}}>
+  <a className="p-button-text"  style={{cursor:"pointer"}} onClick={this.GoBackHome}>
     <i className='pi pi-building' style={{ fontSize: '2rem'}}></i>
     <label>
         InfraDAO
