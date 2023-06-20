@@ -4,6 +4,8 @@ import { Dialog } from 'primereact/dialog';
 import { InputText } from 'primereact/inputtext';
 import { MultiSelect } from 'primereact/multiselect';
 
+import Image from './Assets/Icon.png'
+
 export default class DexPage extends Component {
   constructor(props) {
     super(props);
@@ -70,30 +72,25 @@ export default class DexPage extends Component {
           <div className="surface-card p-4 shadow-2 border-round w-full lg:w-6">
             <div className="text-center mb-5">
               <img
-                src="https://blocks.primereact.org/demo/images/blocks/logos/hyper.svg"
+                src={Image}
                 alt="hyper"
                 height={50}
                 className="mb-3"
               />
               <div className="text-900 text-3xl font-medium mb-3">Dex</div>
               <div className="flex mb-3">
-                <div className="mr-2 flex justify-content-center flex-wrap">
-                  <label htmlFor="firstInput" className="block text-900 font-medium mb-2">
-                    First Input
-                  </label>
+
+                <div style={{position:"relative", left:"15%"}}>
                   <InputText
                     id="firstInput"
                     type="text"
                     placeholder="Enter value"
                     value={firstInputValue}
                     onChange={this.handleFirstInputChange}
-                    className="w-full mb-3"
+                   
                   />
                 </div>
-                <div className="mr-2 ">
-                  <label htmlFor="firstInputBlockchain" className="block text-900 font-medium mb-2">
-                    First Input Blockchain
-                  </label>
+                <div style={{position:"relative", left:"24%"}}>
                   <MultiSelect
                     id="firstInputBlockchain"
                     value={firstInputBlockchain}
@@ -105,10 +102,7 @@ export default class DexPage extends Component {
               </div>
 
               <div className="flex mb-3">
-                <div className="mr-2 flex justify-content-center flex-wrap">
-                  <label htmlFor="secondInput" className="block text-900 font-medium mb-2">
-                    Second Input
-                  </label>
+                <div style={{position:"relative", left:"15%"}}>
                   
                   <InputText
                     id="secondInput"
@@ -120,18 +114,20 @@ export default class DexPage extends Component {
                   />
                 </div>
                 <div className="mr-2 ">
-                  <label htmlFor="secondInputBlockchain" className="block text-900 font-medium mb-2">
-                    Swap with
-                  </label>
-                  <MultiSelect
-                    id="secondInputBlockchain"
-                    value={secondInputBlockchain}
-                    options={blockchainOptions}
-                    onChange={this.handleSecondInputBlockchainChange}
-                    placeholder="Select Token"
-                    className='flex align-self-end'
-                  />
+                  <div style={{position:"relative", left:"96%"}}>
+                
+                    <MultiSelect
+                      id="secondInputBlockchain"
+                      value={secondInputBlockchain}
+                      options={blockchainOptions}
+                      onChange={this.handleSecondInputBlockchainChange}
+                      placeholder="Select Token"
+                      
+                      
+                      />
+                  </div>
                 </div>
+                
               </div>
 
               <Dialog
@@ -143,7 +139,7 @@ export default class DexPage extends Component {
               >
 
                 <InputText placeholder='Swap tokens' className='w-full mb-3' id="secondInput" type="text"/>
-                <Button label="Confirm swap" icon="pi pi-check-circle" className="w-full"/>
+                <Button label="Stake" icon="pi pi-check-circle" className="w-full"/>
             </Dialog>
 
               <Button label="Swap" icon="pi pi-external-link" className="w-full" onClick={this.onShowDialog} />
@@ -151,6 +147,7 @@ export default class DexPage extends Component {
           </div>
         </div>
         <div style={{ height: '40px' }}></div>
+        
       </div>
     );
   }

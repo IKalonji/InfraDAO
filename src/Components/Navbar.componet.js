@@ -19,6 +19,9 @@ class Navbar extends React.Component {
   GoToDexPage() {
     window.location.href = '/dex-page';
   }
+  GoToProfilePage() {
+    window.location.href = '/profile';
+  }
 
   items = [
     {
@@ -52,6 +55,7 @@ class Navbar extends React.Component {
       <Button label="View" icon="pi pi-image" className="mr-2" onClick={this.GoToView} text/>
       <Button label="DEX" className="mr-2" onClick={this.GoToDexPage} text/>
       <SplitButton label="DAO Members" icon="pi pi-view" model={this.items} className="mr-2" text severity='success'></SplitButton>
+      <Button icon="pi pi-user" rounded outlined severity="secondary" aria-label="User" onClick={this.GoToProfilePage} />
     </>
   );
 

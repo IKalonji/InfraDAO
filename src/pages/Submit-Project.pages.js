@@ -20,6 +20,8 @@ export default class SubmitProject extends Component {
       projectName: '',
       projectImage:'',
       projectDetails: '',
+      linkToPlans:'',
+      linkToFinancials:'',
       projectCost: '',
       raiseAmount: '',
       tokenization: '',
@@ -48,20 +50,16 @@ export default class SubmitProject extends Component {
   }
 
   handleChange = (e) => {
+
     const { id, value } = e.target;
     let updatedState = { [id]: value };
-  
-    // if (id === "ExpectedBuyBack" || id === "initPricePerToken") {
-      const { ExpectedBuyBack, initPricePerToken } = this.state;
-      const ROI = this.calculateROI(initPricePerToken, ExpectedBuyBack);
-      updatedState.ReturnOnInvestment = ROI.toFixed(0);
-    // }
-    // if (id === "raiseAmount" || id === "tokenization") {
-      const { raiseAmount, tokenization } = this.state;
-      const price = this.calculateTokenPrice(raiseAmount, tokenization);
-      updatedState.initPricePerToken = price.toFixed(18);
-    // }
-  
+    const { ExpectedBuyBack, initPricePerToken } = this.state;
+    const ROI = this.calculateROI(initPricePerToken, ExpectedBuyBack);
+    updatedState.ReturnOnInvestment = ROI.toFixed(0);
+      
+    const { raiseAmount, tokenization } = this.state;
+    const price = this.calculateTokenPrice(raiseAmount, tokenization);
+    updatedState.initPricePerToken = price.toFixed(18);
     this.setState(updatedState);
   }
 
@@ -80,6 +78,8 @@ export default class SubmitProject extends Component {
       projectName,
       projectImage,
       projectDetails,
+      linkToPlans,
+      linkToFinancials,
       projectCost,
       raiseAmount,
       tokenization,
@@ -99,6 +99,8 @@ export default class SubmitProject extends Component {
       projectName,
       projectImage,
       projectDetails,
+      linkToPlans,
+      linkToFinancials,
       projectCost,
       raiseAmount,
       tokenization,
@@ -126,6 +128,8 @@ export default class SubmitProject extends Component {
         !projectName||
         !projectImage||
         !projectDetails||
+        !linkToPlans||
+        !linkToFinancials||
         !projectCost||
         !raiseAmount||
         !tokenization||
@@ -143,7 +147,7 @@ export default class SubmitProject extends Component {
         projectName: projectName,
         projectShortDescription:"With this project we aim to build a better hospital in a certain area ",
         projectImage:projectImage,
-        projectType:selectedCategory,
+        projectType:"selectedCategory",
         fullDescription: projectDetails,
         projectDevelopers: contractedDevelopers,
         ammountToBeRaised: raiseAmount,
@@ -175,6 +179,8 @@ export default class SubmitProject extends Component {
       projectImage,
       projectName,
       projectDetails,
+      linkToPlans,
+      linkToFinancials,
       projectCost,
       raiseAmount,
       tokenization,
@@ -232,7 +238,17 @@ export default class SubmitProject extends Component {
                 </div>
                 <div style={{ height: "12px" }}></div>
 
-                <label htmlFor="FileUpload" className="block text-900 font-medium mb-2">Upload Plans</label>
+                <label htmlFor="linkToPlans" className="block text-900 font-medium mb-2">Link to the project plans</label>
+                <div style={{height:"13px"}}></div>
+                <InputText id="linkToPlans" type="text" placeholder="Link to the project plans" className="w-full mb-3" onChange={this.handleChange} value={linkToPlans} />
+                <div style={{ height: "12px" }}></div>
+
+                <label htmlFor="linkToFinancials" className="block text-900 font-medium mb-2">Link to your financials</label>
+                <div style={{height:"13px"}}></div>
+                <InputText id="linkToFinancials" type="text" placeholder="Link to financials" className="w-full mb-3" onChange={this.handleChange} value={linkToFinancials} />
+                <div style={{ height: "12px" }}></div>
+
+                <label htmlFor="FileUpload" className="block text-900 font-medium mb-2">Upload KYC</label>
                 <FileUpload name="PlanUpload" url={'/api/upload'} multiple 
                 accept="image/*" 
                 emptyTemplate={<p className="m-0">Upload all your project plans </p>} 
@@ -240,13 +256,7 @@ export default class SubmitProject extends Component {
 
                 <div style={{ height: "12px" }}></div>
 
-                <div>
-                    <label htmlFor="FinancialsUpload" className="block text-900 font-medium mb-2">Upload Financials</label>
-                    <FileUpload name="financials" url={'/api/upload'} multiple 
-                    accept="*" 
-                    emptyTemplate={<p className="m-0">Upload your financials here</p>} 
-                    onUpload={(e) => this.setState({ financials: e.files })}/>
-                </div>
+        
                 <div style={{ height: "12px" }}></div>
 
                 <label htmlFor="ProjectCost" className="block text-900 font-medium mb-2">Project Cost</label>
