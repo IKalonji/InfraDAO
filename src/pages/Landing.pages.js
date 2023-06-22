@@ -6,7 +6,7 @@ import Divider from '@mui/material/Divider';
 export default class Landingpage extends Component {
 
     GoViewProjects(){
-        window.location.href = "/user/view-projects";
+        window.location.pathname = "/user/view-projects";
     }
 
   render() {

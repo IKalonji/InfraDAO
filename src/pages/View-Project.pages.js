@@ -1,36 +1,41 @@
 import React, { Component } from 'react'
 import {Chip} from 'primereact/chip'
 import { Button } from 'primereact/button'
+import { useLocation } from 'react-router-dom'
 import './Styles/View-Project.style.css'
 
 import { NeedApproval } from '../Models/ApprovedAndUnapprovedProjects'
 
-export default class ViewProject extends Component {
+export default function ViewProject(){
 
-    constructor(props) {
-        super(props);
-        this.state = {
-          name: '',
-          description: '',
-          projectType:'',
-          fullDescription:'',
-          projectDevelopers:'',
-          amountRaise:'',
+    // constructor(props) {
+    //     super(props);
+    //     this.state = {
+    //       name: '',
+    //       description: '',
+    //       projectType:'',
+    //       fullDescription:'',
+    //       projectDevelopers:'',
+    //       amountRaise:'',
 
-        };
-      }
+    //     };
+    //   }
 
-    componentDidMount() {
-        const query = new URLSearchParams(window.location.search);
-        const encodedData = query.get('data');
-        const decodedData = JSON.parse(decodeURIComponent(encodedData));
-        const { name, description, projectType, fullDescription, projectDevelopers, amountRaise } = decodedData;
-        this.setState({ name, description, projectType, fullDescription, projectDevelopers, amountRaise });
-      }
+    // componentDidMount() {
+    //     const query = new URLSearchParams(window.location.search);
+    //     const encodedData = query.get('data');
+    //     const decodedData = JSON.parse(decodeURIComponent(encodedData));
+    //     const { name, description, projectType, fullDescription, projectDevelopers, amountRaise } = decodedData;
+    //     this.setState({ name, description, projectType, fullDescription, projectDevelopers, amountRaise });
+    //   }
 
-  render() {
-    const { name, description, projectType, fullDescription, projectDevelopers, amountRaise } = this.state;
-    console.log('The array: ',NeedApproval);
+//   render() {
+    // const { name, description, projectType, fullDescription, projectDevelopers, amountRaise } = this.state;
+    // console.log('The array: ',NeedApproval);
+
+    const location = useLocation();
+    const data = location.state
+
     if (window.location.pathname ==="/member/view-the-project"){
         
         return(
@@ -106,13 +111,13 @@ export default class ViewProject extends Component {
         <div className='horizontal-spacer' ></div>
         <div className="surface-0">
             <div className="font-medium text-3xl text-900 mb-3">
-                {name}
+                {data.name}
             </div>
-            <div className="text-500 mb-5">{description}</div>
+            <div className="text-500 mb-5">{data.description}</div>
             <ul className="list-none p-0 m-0">
                 <li className="flex align-items-center py-3 px-2 border-top-1 border-300 flex-wrap">
                     <div className="text-500 w-6 md:w-2 font-medium">Project Name:</div>
-                    <div className="text-900 w-full md:w-8 md:flex-order-0 flex-order-1">{name}</div>
+                    <div className="text-900 w-full md:w-8 md:flex-order-0 flex-order-1">{data.name}</div>
                     <div className="w-6 md:w-2 flex justify-content-end">
                         
                     </div>
@@ -120,7 +125,7 @@ export default class ViewProject extends Component {
                 <li className="flex align-items-center py-3 px-2 border-top-1 border-300 flex-wrap">
                     <div className="text-500 w-6 md:w-2 font-medium">Type of project:</div>
                     <div className="text-900 w-full md:w-8 md:flex-order-0 flex-order-1">
-                        <Chip label={`${projectType}`} className="mr-2" />
+                        <Chip label={`${data.projectType}`} className="mr-2" />
                        
                     </div>
                     <div className="w-6 md:w-2 flex justify-content-end">
@@ -129,14 +134,14 @@ export default class ViewProject extends Component {
                 </li>
                 <li className="flex align-items-center py-3 px-2 border-top-1 border-300 flex-wrap">
                     <div className="text-500 w-6 md:w-2 font-medium">Developers:</div>
-                    <div className="text-900 w-full md:w-8 md:flex-order-0 flex-order-1">{projectDevelopers}</div>
+                    <div className="text-900 w-full md:w-8 md:flex-order-0 flex-order-1">{data.projectDevelopers}</div>
                     <div className="w-6 md:w-2 flex justify-content-end">
                         
                     </div>
                 </li>
                 <li className="flex align-items-center py-3 px-2 border-top-1 border-300 flex-wrap">
                     <div className="text-500 w-6 md:w-2 font-medium">Amount Raised: </div>
-                    <div className="text-900 w-full md:w-8 md:flex-order-0 flex-order-1">{amountRaise}</div>
+                    <div className="text-900 w-full md:w-8 md:flex-order-0 flex-order-1">{data.amountRaise}</div>
                     <div className="w-6 md:w-2 flex justify-content-end">
                         
                     </div>
@@ -144,7 +149,7 @@ export default class ViewProject extends Component {
                 <li className="flex align-items-center py-3 px-2 border-top-1 border-bottom-1 border-300 flex-wrap">
                     <div className="text-500 w-6 md:w-2 font-medium">Full description:</div>
                     <div className="text-900 w-full md:w-8 md:flex-order-0 flex-order-1 line-height-3">
-                        {fullDescription}
+                        {data.fullDescription}
                     </div>
                     <div className="w-6 md:w-2 flex justify-content-end">
                         
@@ -159,8 +164,7 @@ export default class ViewProject extends Component {
     
       </div>
         )
-    }
-    
+    }    
     else if (window.location.pathname === "/user/view-the-project"){
         return (
         <div>
@@ -235,13 +239,13 @@ export default class ViewProject extends Component {
             <div className='horizontal-spacer' ></div>
             <div className="surface-0">
                 <div className="font-medium text-3xl text-900 mb-3">
-                    {name}
+                    {data.name}
                 </div>
-                <div className="text-500 mb-5">{description}</div>
+                <div className="text-500 mb-5">{data.description}</div>
                 <ul className="list-none p-0 m-0">
                     <li className="flex align-items-center py-3 px-2 border-top-1 border-300 flex-wrap">
                         <div className="text-500 w-6 md:w-2 font-medium">Project Name:</div>
-                        <div className="text-900 w-full md:w-8 md:flex-order-0 flex-order-1">{name}</div>
+                        <div className="text-900 w-full md:w-8 md:flex-order-0 flex-order-1">{data.name}</div>
                         <div className="w-6 md:w-2 flex justify-content-end">
                             
                         </div>
@@ -249,7 +253,7 @@ export default class ViewProject extends Component {
                     <li className="flex align-items-center py-3 px-2 border-top-1 border-300 flex-wrap">
                         <div className="text-500 w-6 md:w-2 font-medium">Type of project:</div>
                         <div className="text-900 w-full md:w-8 md:flex-order-0 flex-order-1">
-                            <Chip label={`${projectType}`} className="mr-2" />
+                            <Chip label={`${data.projectType}`} className="mr-2" />
                         
                         </div>
                         <div className="w-6 md:w-2 flex justify-content-end">
@@ -258,14 +262,14 @@ export default class ViewProject extends Component {
                     </li>
                     <li className="flex align-items-center py-3 px-2 border-top-1 border-300 flex-wrap">
                         <div className="text-500 w-6 md:w-2 font-medium">Developers:</div>
-                        <div className="text-900 w-full md:w-8 md:flex-order-0 flex-order-1">{projectDevelopers}</div>
+                        <div className="text-900 w-full md:w-8 md:flex-order-0 flex-order-1">{data.projectDevelopers}</div>
                         <div className="w-6 md:w-2 flex justify-content-end">
                             
                         </div>
                     </li>
                     <li className="flex align-items-center py-3 px-2 border-top-1 border-300 flex-wrap">
                         <div className="text-500 w-6 md:w-2 font-medium">Amount Raised: </div>
-                        <div className="text-900 w-full md:w-8 md:flex-order-0 flex-order-1">{amountRaise}</div>
+                        <div className="text-900 w-full md:w-8 md:flex-order-0 flex-order-1">{data.amountRaise}</div>
                         <div className="w-6 md:w-2 flex justify-content-end">
                             
                         </div>
@@ -273,7 +277,7 @@ export default class ViewProject extends Component {
                     <li className="flex align-items-center py-3 px-2 border-top-1 border-bottom-1 border-300 flex-wrap">
                         <div className="text-500 w-6 md:w-2 font-medium">Full description:</div>
                         <div className="text-900 w-full md:w-8 md:flex-order-0 flex-order-1 line-height-3">
-                            {fullDescription}
+                            {data.fullDescription}
                         </div>
                         <div className="w-6 md:w-2 flex justify-content-end">
                             
@@ -289,5 +293,5 @@ export default class ViewProject extends Component {
         </div>
         )
     }
-  }
+//   }
 }

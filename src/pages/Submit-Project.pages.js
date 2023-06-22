@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React, { useState, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
 import { InputNumber } from 'primereact/inputnumber'
@@ -8,34 +9,34 @@ import { FileUpload } from 'primereact/fileupload';
 import { Toast } from 'primereact/toast';
 
 import { NeedApproval } from '../Models/ApprovedAndUnapprovedProjects';
+import AppStateService from '../AppstateService/AppState.service';
 
 import Image from './Assets/ai.jpg'
+let service = new AppStateService();
 
-export default class SubmitProject extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      selectedCategory: null,
-      submitorAddress: '',
-      projectName: '',
-      projectImage:'',
-      projectDetails: '',
-      linkToPlans:'',
-      linkToFinancials:'',
-      projectCost: '',
-      raiseAmount: '',
-      tokenization: '',
-      initPricePerToken: '',
-      ExpectedBuyBack:'',
-      ReturnOnInvestment:'',
-      contractedDevelopers: '',
-      files: [],
-      financials: []
-    };
-  }
-  
+export default function SubmitProject(){
+  const [selectedCategory, setselectedCategory] = useState('');
+  const [submitorAddress, setsubmitorAddress] = useState('');
+  const [projectName, setprojectName] = useState('');
+  const [projectImage, setprojectImage] = useState('');
+  const [projectDetails, setprojectDetails] = useState('');
+  const [linkToPlans, setlinkToPlans] = useState('');
+  const [linkToFinancials, setlinkToFinancials] = useState('');
+  const [projectCost, setprojectCost] = useState(0);
+  const [raiseAmount, setraiseAmount] = useState(0);
+  const [tokenization, settokenization] = useState(0);
+  const [initPricePerToken, setinitPricePerToken] = useState(0);
+  const [ExpectedBuyBack, setExpectedBuyBack] = useState(0);
+  const [ReturnOnInvestment, setReturnOnInvestment] = useState(0);
+  const [contractedDevelopers, setcontractedDevelopers] = useState('');
+  const [mileStones, setmileStones] = useState('');
+  const [files, setfiles] = useState([]);
+  const [financials, setfinancials] = useState([]);
+  const toast = useRef(null);
 
-  InfrastructureOptions = [
+  const navigate = useNavigate();
+
+  const InfrastructureOptions = [
     { name: 'Residency', code: 'RES' },
     { name: 'Railway', code: 'RW' },
     { name: 'Telecoms', code: 'TLKM' },
@@ -44,53 +45,76 @@ export default class SubmitProject extends Component {
     { name: 'Forestry', code: 'FOR' }
   ];
 
+  const handleSubmitorAddressChange = (event) => {
+    setsubmitorAddress(event.target.value);
+  }
+
+  const handleProjectNameChange = (event) => {
+    setprojectName(event.target.value)
+  }
+
+  const handleProjectImageChange = (event) => {
+    setprojectImage(event.target.value)
+  }
+
+  const handleProjectDetailsChange = (event) => {
+    setprojectDetails(event.target.value)
+  }
+
+  const handleLinkToPlansChange = (event) => {
+    setlinkToPlans(event.target.value)
+  }
+
+  const handleLinktToFinancialsChange = (event) => {
+    setlinkToFinancials(event.target.value)
+  }
+
+  const handleProjectCostChange = (event) => {
+    setprojectCost(Number(event.target.value))
+  }
+
+  const handleRaiseAmountChange = (event) => {
+    setraiseAmount(Number(event.target.value))
+  }
+
+  const handleTokenization = (event) => {
+    settokenization(Number(event.target.value))
+    setinitPricePerToken(raiseAmount / tokenization)
+  }
+
+  const handleExpectedBuyBackChange = (event) => {
+    setExpectedBuyBack(Number(event.target.value)); 
+    setReturnOnInvestment(Number(((ExpectedBuyBack-tokenization)/tokenization)*100))
+  }
+
+  const handleContractedDevelopersChange = (event) => {
+    setcontractedDevelopers(event.target.value)
+  }
+
+  const handleMilestanesChange  = (event) => {
+    setmileStones(event.target.value)
+  }
+
   //Handling the changes for the multi select
-  handleMultiSelectChange = (e) => {
-    this.setState({ selectedCategory: e.value });
+  const handleMultiSelectChange = (e) => {
+    setselectedCategory(e.value)
   }
 
-  handleChange = (e) => {
 
-    const { id, value } = e.target;
-    let updatedState = { [id]: value };
-    const { ExpectedBuyBack, initPricePerToken } = this.state;
-    const ROI = this.calculateROI(initPricePerToken, ExpectedBuyBack);
-    updatedState.ReturnOnInvestment = ROI.toFixed(0);
-      
-    const { raiseAmount, tokenization } = this.state;
-    const price = this.calculateTokenPrice(raiseAmount, tokenization);
-    updatedState.initPricePerToken = price.toFixed(18);
-    this.setState(updatedState);
-  }
-
-  calculateROI = (tokenPrice, buyBackAmount) => {
+  const calculateROI = (tokenPrice, buyBackAmount) => {
+    console.log(tokenPrice, buyBackAmount);
+    console.log(typeof(tokenPrice, buyBackAmount));
     return ((buyBackAmount-tokenPrice)/tokenPrice)*100
   }
 
-  calculateTokenPrice = (raiseAmount, totalTokens) => {
+  const calculateTokenPrice = (raiseAmount, totalTokens) => {
+    console.log(raiseAmount, totalTokens);
+    console.log(typeof(raiseAmount, totalTokens));
     return raiseAmount/totalTokens
   }
   
   //Once the button is clicked this is the function called
-  handleButtonClick = () => {
-    const {
-      submitorAddress,
-      projectName,
-      projectImage,
-      projectDetails,
-      linkToPlans,
-      linkToFinancials,
-      projectCost,
-      raiseAmount,
-      tokenization,
-      initPricePerToken,
-      ExpectedBuyBack,
-      ReturnOnInvestment,
-      contractedDevelopers,
-      selectedCategory,
-      files,
-      financials
-    } = this.state;
+  const handleButtonClick = () => {
   
     // Perform any necessary processing or validations on the values
   
@@ -108,61 +132,60 @@ export default class SubmitProject extends Component {
       ExpectedBuyBack,
       ReturnOnInvestment,
       contractedDevelopers,
+      mileStones,
       selectedCategory,
       files,
       financials
     };
 
-    let InformationToAppent =   {
-      "projectName": projectName,
-      "projectShortDescription":"With this project we aim to build a better hospital in a certain area ",
-      "projectImage":projectImage,
-      "projectType":selectedCategory,
-      "fullDescription": projectDetails,
-      "projectDevelopers": contractedDevelopers,
-      "ammountToBeRaised": raiseAmount,
-    }
-
-
-    if (!submitorAddress||
-        !projectName||
-        !projectImage||
-        !projectDetails||
-        !linkToPlans||
-        !linkToFinancials||
-        !projectCost||
-        !raiseAmount||
-        !tokenization||
-        !initPricePerToken||
-        !ExpectedBuyBack||
-        !ReturnOnInvestment||
-        !contractedDevelopers||
-        !selectedCategory
+    if (    
+      !submitorAddress ||
+      !projectName ||
+      !projectImage ||
+      !projectDetails ||
+      !linkToPlans ||
+      !linkToFinancials||
+      !projectCost||
+      !raiseAmount||
+      !tokenization||
+      !initPricePerToken||
+      !ExpectedBuyBack||
+      !ReturnOnInvestment||
+      !selectedCategory
       ){
 
-        this.toast.show({severity:'error', summary: 'Error', detail:'Please complete all inputs', life: 3000});
+        toast.current.show({severity:'error', summary: 'Error', detail:'Please complete all inputs', life: 3000});
     }else{
 
-      NeedApproval.push({
-        projectName: projectName,
-        projectShortDescription:"With this project we aim to build a better hospital in a certain area ",
-        projectImage:projectImage,
-        projectType:"selectedCategory",
-        fullDescription: projectDetails,
-        projectDevelopers: contractedDevelopers,
-        ammountToBeRaised: raiseAmount,
-      })
+    service.setUnApprovedProject({
+      projectName: projectName,
+      projectShortDescription:"With this project we aim to build a better hospital in a certain area ",
+      projectImage:projectImage,
+      projectType:selectedCategory,
+      fullDescription: projectDetails,
+      projectDevelopers: contractedDevelopers,
+      ammountToBeRaised: raiseAmount,
+    })
 
       console.log(NeedApproval);
-      this.toast.show({
+      toast.current.show({
         severity: 'success',
         summary: 'Successfully uploaded Project',
         detail: JSON.stringify(values)
       });
+
+      navigate('/member/view-projects')
+
     }
+
   }
+
+  const handleSubmit = (event) => {
+    // TODO: Submit the form data to the server
+    event.preventDefault();
+  };
    
-  renderHeader = () => {
+  const renderHeader = () => {
     return (
       <span className="ql-formats">
         <button className="ql-bold" aria-label="Bold"></button>
@@ -172,36 +195,16 @@ export default class SubmitProject extends Component {
       );
   };
 
-  render() {
-    const {
-      selectedCategory,
-      submitorAddress,
-      projectImage,
-      projectName,
-      projectDetails,
-      linkToPlans,
-      linkToFinancials,
-      projectCost,
-      raiseAmount,
-      tokenization,
-      initPricePerToken,
-      ExpectedBuyBack,
-      ReturnOnInvestment,
-      contractedDevelopers,
-      files,
-      financials,
-      error,
-    } = this.state;
   
-    const header = this.renderHeader();
-    // const { selectedCategory } = this.state;
+    const header = renderHeader();
+    // const { selectedCategory } = state;
     return (
     <div>
 
       <div>
-      <Toast ref={(el) => (this.toast = el)} />
+      <Toast ref={toast} />
       </div>
-
+      <form onSubmit={handleSubmit}>
       <div style={{ height: "60px" }}></div>
         <div className="flex align-items-center justify-content-center">
           <div className="surface-card p-4 shadow-2 border-round w-full lg:w-6">
@@ -211,48 +214,48 @@ export default class SubmitProject extends Component {
             </div>
               <div>
                 <label htmlFor="SubmitorAddress" className="block text-900 font-medium mb-2">Submitor</label>
-                <InputText id="submitorAddress" type="text" placeholder="Submitor Address" className="w-full mb-3" onChange={this.handleChange} value={submitorAddress} />
+                <InputText id="submitorAddress" type="text" placeholder="Submitor Address" className="w-full mb-3" onChange={handleSubmitorAddressChange} value={submitorAddress} />
                 <div style={{ height: "12px" }}></div>
 
                 <label htmlFor="ProjectName" className="block text-900 font-medium mb-2">Project Name</label>
                 <div style={{height:"13px"}}></div>
-                <InputText id="projectName" type="text" placeholder="Project Name" className="w-full mb-3" onChange={this.handleChange} value={projectName} />
+                <InputText id="projectName" type="text" placeholder="Project Name" className="w-full mb-3" onChange={handleProjectNameChange} value={projectName} />
                 <div style={{ height: "12px" }}></div>
 
                 
                 <label htmlFor="projectImage" className="block text-900 font-medium mb-2">Project Image Url</label>
                 <div style={{height:"13px"}}></div>
-                <InputText id="projectImage" type="text" placeholder="Project Image" className="w-full mb-3" onChange={this.handleChange} value={projectImage} />
+                <InputText id="projectImage" type="text" placeholder="Project Image" className="w-full mb-3" onChange={handleProjectImageChange} value={projectImage} />
                 <div style={{ height: "12px" }}></div>
 
                 
                 <label htmlFor="SelectCategory" className="block text-900 font-medium w-full">Select Project Category</label>
-                <MultiSelect value={selectedCategory} onChange={this.handleMultiSelectChange} options={this.InfrastructureOptions} optionLabel="name"
+                <MultiSelect value={selectedCategory} onChange={handleMultiSelectChange} options={InfrastructureOptions} optionLabel="name"
                   placeholder="Select Infrastructure Category"  className="w-full md:w-20rem" />
                 
                 <div style={{ height: "12px" }}></div>
               
                 <div className="card">
                     <label htmlFor="ProjectDetails" className="block text-900 font-medium mb-2">Project Details</label>
-                    <Editor headerTemplate={header} style={{ height: '320px' }} value={projectDetails} onTextChange={(e) => this.setState({ projectDetails: e.htmlValue })} />
+                    <Editor headerTemplate={header} style={{ height: '320px' }} value={projectDetails} onTextChange={(e) => { setprojectDetails(e.htmlValue) }} />
                 </div>
                 <div style={{ height: "12px" }}></div>
 
                 <label htmlFor="linkToPlans" className="block text-900 font-medium mb-2">Link to the project plans</label>
                 <div style={{height:"13px"}}></div>
-                <InputText id="linkToPlans" type="text" placeholder="Link to the project plans" className="w-full mb-3" onChange={this.handleChange} value={linkToPlans} />
+                <InputText id="linkToPlans" type="text" placeholder="Link to the project plans" className="w-full mb-3" onChange={handleLinkToPlansChange} value={linkToPlans} />
                 <div style={{ height: "12px" }}></div>
 
                 <label htmlFor="linkToFinancials" className="block text-900 font-medium mb-2">Link to your financials</label>
                 <div style={{height:"13px"}}></div>
-                <InputText id="linkToFinancials" type="text" placeholder="Link to financials" className="w-full mb-3" onChange={this.handleChange} value={linkToFinancials} />
+                <InputText id="linkToFinancials" type="text" placeholder="Link to financials" className="w-full mb-3" onChange={handleLinktToFinancialsChange} value={linkToFinancials} />
                 <div style={{ height: "12px" }}></div>
 
                 <label htmlFor="FileUpload" className="block text-900 font-medium mb-2">Upload KYC</label>
                 <FileUpload name="PlanUpload" url={'/api/upload'} multiple 
                 accept="image/*" 
                 emptyTemplate={<p className="m-0">Upload all your project plans </p>} 
-                onUpload={(e) => this.setState({ files: e.files })}/>
+                onUpload={(e) => {files(e.files)}}/>
 
                 <div style={{ height: "12px" }}></div>
 
@@ -260,40 +263,48 @@ export default class SubmitProject extends Component {
                 <div style={{ height: "12px" }}></div>
 
                 <label htmlFor="ProjectCost" className="block text-900 font-medium mb-2">Project Cost</label>
-                <InputText id="projectCost" placeholder="Project Cost" className="w-full mb-3" onChange={this.handleChange} value={projectCost} keyfilter="int" />
+                <InputText id="projectCost" placeholder="Project Cost" className="w-full mb-3" onChange={handleProjectCostChange} value={projectCost} keyfilter="int" />
                 <div style={{ height: "12px" }}></div>
 
                 <label htmlFor="RaiseAmount" className="block text-900 font-medium mb-2">Raise Amount Required</label>
-                <InputText id="raiseAmount" inputMode="numeric" placeholder="Raise amount required" className="w-full mb-3" onChange={this.handleChange} value={raiseAmount} keyfilter="int" />
+                <InputText id="raiseAmount" inputMode="numeric" placeholder="Raise amount required" className="w-full mb-3" onChange={handleRaiseAmountChange} value={raiseAmount} keyfilter="int" />
                 <div style={{ height: "12px" }}></div>
 
                 <label htmlFor="TotalTokenAmount" className="block text-900 font-medium mb-2">Total Token Amount</label>
-                <InputText id="tokenization" type="text" placeholder="Total token amount" className="w-full mb-3" onChange={this.handleChange} value={tokenization}  keyfilter="int"/>
+                <InputText id="tokenization" type="text" placeholder="Total token amount" className="w-full mb-3" onChange={handleTokenization} value={tokenization}  keyfilter="int"/>
                 <div style={{ height: "12px" }}></div>
 
                 <label htmlFor="InitPrice" className="block text-900 font-medium mb-2">Initial Price per Token</label>
-                <InputText id="initPricePerToken" type="text" placeholder="Initial Price per Token" className="w-full mb-3" onChange={this.handleChange} readOnly value={initPricePerToken} keyfilter="int"/>
+                <InputText id="initPricePerToken" type="text" placeholder="Initial Price per Token" className="w-full mb-3" readOnly value={initPricePerToken} keyfilter="int"/>
                 <div style={{ height: "12px" }}></div>
 
                 <label htmlFor="ExpectedBuyBack" className="block text-900 font-medium mb-2">Expected Token Buy Back {"(After project completion)"}</label>
-                <InputText id="ExpectedBuyBack" type="text" placeholder="Expected Token Buy Back" className="w-full mb-3" onChange={this.handleChange} value={ExpectedBuyBack} keyfilter="int" />
+                <InputText id="ExpectedBuyBack" type="text" placeholder="Expected Token Buy Back" className="w-full mb-3" onChange={handleExpectedBuyBackChange} value={ExpectedBuyBack} keyfilter="int" />
                 <div style={{ height: "12px" }}></div>
 
                 <label htmlFor="ReturnOnInvestment" className="block text-900 font-medium mb-2"> Return On Investment </label>
-                <InputText id="ReturnOnInvestment" type="text" placeholder="ROI" className="w-full mb-3" onChange={this.handleChange} readOnly value={ReturnOnInvestment} keyfilter="int"/>
+                <InputText id="ReturnOnInvestment" type="text" placeholder="ROI" className="w-full mb-3" readOnly value={ReturnOnInvestment} keyfilter="int"/>
                 <div style={{ height: "12px" }}></div>
 
                 <label htmlFor="ContractedDevelopers" className="block text-900 font-medium mb-2">Contracted Developers</label>
-                <InputText id="contractedDevelopers" type="text" placeholder="Contracted Developers" className="w-full mb-3" onChange={this.handleChange} value={contractedDevelopers} />
+                <InputText id="contractedDevelopers" type="text" placeholder="Contracted Developers" className="w-full mb-3" onChange={handleContractedDevelopersChange} value={contractedDevelopers} />
                 <div style={{ height: "12px" }}></div>
 
-                <Button label="Submit Your Project" icon="pi pi-cloud-upload" className="w-full" onClick={this.handleButtonClick} />
+                <p></p>
+
+                
+                <label htmlFor="mileStones" className="block text-900 font-medium mb-2">Project Milestones</label>
+                <InputText id="mileStones" type="text" placeholder="Project Milestones" className="w-full mb-3" onChange={handleMilestanesChange} value={mileStones} />
+                <div style={{ height: "12px" }}></div>
+
+                <Button label="Submit Your Project" icon="pi pi-cloud-upload" className="w-full" onClick={handleButtonClick} />
                 </div>
             </div>
         </div>
 
         <div style={{ height: "40px" }}></div>
+      </form>
     </div>
     );
-  }
+  // }
 }
