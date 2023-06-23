@@ -158,11 +158,15 @@ export default function SubmitProject(){
     }else{
 
     service.setUnApprovedProject({
+      submitorAddress:submitorAddress,
       projectName: projectName,
       projectShortDescription:"With this project we aim to build a better hospital in a certain area ",
       projectImage:projectImage,
       projectType:selectedCategory,
       fullDescription: projectDetails,
+      linkToPlans: linkToPlans,
+      linkToFinancials: linkToFinancials,
+      returnOnInvestment:`${ReturnOnInvestment}%`,
       projectDevelopers: contractedDevelopers,
       ammountToBeRaised: raiseAmount,
     })
@@ -173,8 +177,7 @@ export default function SubmitProject(){
         summary: 'Successfully uploaded Project',
         detail: JSON.stringify(values)
       });
-
-      navigate('/member/view-projects')
+      // setTimeout(navigate('/member/view-projects'), 13000)
 
     }
 

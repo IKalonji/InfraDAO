@@ -13,14 +13,18 @@ export default function Viewprojects(){
     }
 
     const GoToViewProject = (Project) => {
-        const data = {
-            name: Project.projectName,
-            description: Project.projectShortDescription,
-            projectType: Project.projectType,
-            fullDescription: Project.fullDescription,
-            projectDevelopers: Project.projectDevelopers,
-            amountRaise: Project.ammountToBeRaised
-          };
+      const data = {
+        name: Project.projectName,
+        description: Project.projectShortDescription,
+        projectType: Project.projectType,
+        fullDescription: Project.fullDescription,
+        plansLink:Project.linkToPlans,
+        finacialsLink:Project.linkToFinancials,
+        amountOfTokens: Project.totalTokenAmount,
+        projectDevelopers: Project.projectDevelopers,
+        projectROI:Project.returnOnInvestment,
+        amountRaise: Project.ammountToBeRaised
+      };
           const encodedData = encodeURIComponent(JSON.stringify(data));
           // window.location.pathname = `/user/view-the-project?data=${encodedData}`;
 
@@ -33,7 +37,11 @@ export default function Viewprojects(){
             description: Project.projectShortDescription,
             projectType: Project.projectType,
             fullDescription: Project.fullDescription,
+            plansLink:Project.linkToPlans,
+            finacialsLink:Project.linkToFinancials,
+            amountOfTokens: Project.totalTokenAmount,
             projectDevelopers: Project.projectDevelopers,
+            projectROI:Project.returnOnInvestment,
             amountRaise: Project.ammountToBeRaised
           };
           const encodedData = encodeURIComponent(JSON.stringify(data));

@@ -1,4 +1,6 @@
 import { ApprovedProjects, NeedApproval } from '../Models/ApprovedAndUnapprovedProjects';
+import { Polybase } from "@polybase/client";
+
 
 export default class AppStateService {
 
@@ -12,7 +14,9 @@ export default class AppStateService {
 
         this.ApproveProject = ApprovedProjects;
         this.UnApproved = NeedApproval;
-        
+        this.db = new Polybase({
+            defaultNamespace: "your-namespace",
+          });
     }
 
     getApprovedProject(){

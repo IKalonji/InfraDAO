@@ -17,8 +17,8 @@ import ProfilePage from './pages/ProfilePage.pages';
 function App() {
   return (
     <div className="App">
-      <Navbar/>
       <BrowserRouter>
+        <Navbar/>
         <Routes>
           <Route path='/' element={<Landingpage/>}/>
           <Route path='/user/view-projects' element={<Viewprojects/>}/>
