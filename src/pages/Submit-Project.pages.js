@@ -79,12 +79,11 @@ export default function SubmitProject(){
 
   const handleTokenization = (event) => {
     settokenization(Number(event.target.value))
-    setinitPricePerToken(raiseAmount / tokenization)
   }
 
   const handleExpectedBuyBackChange = (event) => {
     setExpectedBuyBack(Number(event.target.value)); 
-    setReturnOnInvestment(Number(((ExpectedBuyBack-tokenization)/tokenization)*100))
+    
   }
 
   const handleContractedDevelopersChange = (event) => {
@@ -115,9 +114,11 @@ export default function SubmitProject(){
   
   //Once the button is clicked this is the function called
   const handleButtonClick = () => {
-  
+    
+    setinitPricePerToken(Number(raiseAmount / tokenization))
+    setReturnOnInvestment(Number(((ExpectedBuyBack-tokenization)/tokenization)*100))
     // Perform any necessary processing or validations on the values
-  
+    
     const values = {
       submitorAddress,
       projectName,
@@ -170,6 +171,27 @@ export default function SubmitProject(){
       projectDevelopers: contractedDevelopers,
       ammountToBeRaised: raiseAmount,
     })
+
+
+    var projectObject = {
+      submitorAddress: submitorAddress,
+      projectName: projectName,
+      projectImage: projectName,
+      projectCategory:"residency",
+      projectFullDescription: projectDetails,
+      linkToPlans: linkToPlans,
+      linkToFinancials: linkToFinancials,
+      projectCost: projectCost,
+      raiseAmount: raiseAmount,
+      totalTokenAmount: tokenization,
+      initialTokenPrice: initPricePerToken,
+      ecpectedBuyBack: ExpectedBuyBack,
+      returnOnInvestment: ReturnOnInvestment,
+      contractedDevelopers: contractedDevelopers,
+      milestones: mileStones,
+    }
+
+    service.createProject(projectObject)
 
       console.log(NeedApproval);
       toast.current.show({
@@ -240,7 +262,7 @@ export default function SubmitProject(){
               
                 <div className="card">
                     <label htmlFor="ProjectDetails" className="block text-900 font-medium mb-2">Project Details</label>
-                    <Editor headerTemplate={header} style={{ height: '320px' }} value={projectDetails} onTextChange={(e) => { setprojectDetails(e.htmlValue) }} />
+                    <Editor headerTemplate={header} style={{ height: '320px' }} value={projectDetails} onTextChange={(e) => { setprojectDetails(e.textValue) }} />
                 </div>
                 <div style={{ height: "12px" }}></div>
 
