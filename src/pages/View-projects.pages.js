@@ -1,16 +1,12 @@
 import React, { Component } from 'react'
 import { Button } from 'primereact/button'
 import { useNavigate } from 'react-router-dom';
-import AppStateService from '../AppstateService/AppState.service';
+import {AppStateService} from '../AppstateService/AppState.service';
 
 export default function Viewprojects(){
 
     let service = new AppStateService();
     const navigate = useNavigate();
-       
-    function ViewSpecificProject(){
-        window.location.pathname = "/user/view-the-project"
-    }
 
     const GoToViewProject = (Project) => {
       const data = {
@@ -44,19 +40,11 @@ export default function Viewprojects(){
             projectROI:Project.returnOnInvestment,
             amountRaise: Project.ammountToBeRaised
           };
-          const encodedData = encodeURIComponent(JSON.stringify(data));
-          // window.location.pathname = `/member/view-the-project?data=${encodedData}`;
           navigate("/member/view-the-project", {state: data})
       };
-
-  // render() {
-    console.log("appstate: ", service.getApprovedProject());
-
-    const Approved = service.getApprovedProject()
-    const UnApproved = service.getUnApprovedProject()
-
-    console.log('Approved List: ', Approved);
-    console.log('Un Approved list: ', UnApproved)
+    
+    let Approved = service.response;
+    let UnApproved = service.response;
 
     if (window.location.pathname === "/member/view-projects"){
         return(
@@ -102,14 +90,12 @@ export default function Viewprojects(){
                           </div>
                         ))
                   }
-              
               </div>
           </div>
-      
         </div>    
         )
     }else if (window.location.pathname === "/user/view-projects"){
-
+      console.log(Approved, UnApproved);
     return (
         <div>
         <div className="surface-0">
@@ -154,12 +140,11 @@ export default function Viewprojects(){
                         </div>
                       ))
                 }
-            
             </div>
         </div>
     
       </div>
     )
     }
-  // }
+
 }

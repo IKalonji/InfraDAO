@@ -4,9 +4,10 @@ import { Dialog } from 'primereact/dialog';
 import { InputText } from 'primereact/inputtext';
 import { MultiSelect } from 'primereact/multiselect';
 
-import Image from './Assets/Icon.png'
+import {AppStateService} from '../AppstateService/AppState.service';
 
 export default class DexPage extends Component {
+  service = new AppStateService();
   constructor(props) {
     super(props);
     this.state = {
@@ -18,6 +19,7 @@ export default class DexPage extends Component {
     };
   }
 
+
   handleFirstInputChange = (e) => {
     this.setState({ firstInputValue: e.target.value });
   };
@@ -25,6 +27,7 @@ export default class DexPage extends Component {
   handleFirstInputBlockchainChange = (e) => {
     this.setState({ firstInputBlockchain: e.value });
   };
+
 
   handleSecondInputBlockchainChange = (e) => {
     const { firstInputValue } = this.state;
@@ -42,8 +45,9 @@ export default class DexPage extends Component {
   onShowDialog = () => {
     this.setState({ visible: true });
   };
-
+  
   render() {
+    this.service.listRecords();
     const { firstInputValue, firstInputBlockchain, secondInputValue, secondInputBlockchain } = this.state;
     const blockchainOptions = [
       { label: 'Bitcoin', value: 'BTC' },

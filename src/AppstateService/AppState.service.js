@@ -1,8 +1,7 @@
-import { ApprovedProjects, NeedApproval } from '../Models/ApprovedAndUnapprovedProjects';
 import { Polybase } from "@polybase/client";
 import { Auth } from '@polybase/auth'
 
-export default class AppStateService {
+export class AppStateService {
 
     
     constructor(){
@@ -12,13 +11,10 @@ export default class AppStateService {
         }
         AppStateService.instance = this;
         console.log("instance created");
-
-        this.ApproveProject = ApprovedProjects;
-        this.UnApproved = NeedApproval;
         const db = new Polybase({
             defaultNamespace: "pk/0xbd242ce427525d219c617b9856f0052b52334321d47d1793a7653cab5b2dac45792735a33e4b2789cbf8063555816d8a37226f8b393645c78244c175a010fbed/InfraDAO",
         });
-
+        
         const auth = new Auth()
 
         db.signer(async (data) => {
@@ -27,15 +23,14 @@ export default class AppStateService {
                 sig: await auth.ethPersonalSign(data)
         }})
         this.collectionReference = db.collection('InfrastructureProject')
+        this.response = [];
+        this.getItemsFromRecord();
 
     }
 
     async createProject(projectObject){
-        console.log("Initial price: ", projectObject.initialTokenPrice);
-        console.log("ROI: ", projectObject.returnOnInvestment);
-
         await this.collectionReference.create([
-            "Approved",
+            "5",
             projectObject.submitorAddress,
             projectObject.projectName,
             projectObject.projectImage,
@@ -58,41 +53,36 @@ export default class AppStateService {
         })
     }
 
-
-        async getItemFromRecord () {
-        const record = await this.collectionReference.record("Approved").get();
-        // Get data from the record
-        const { data } = record; // or const data = record.data
-        // Record is CollectionRecordResponse instance, so you can also get again to refresh
-        const updatedRecord = record.get();
-        console.log("updated record:", data);
-
-      }
-
-      async listRecords () {
-        const records = await this.collectionReference.get();
-
-        console.log("record: ", records)
-      }
-
-    getApprovedProject(){
-        return this.ApproveProject
+    async getItemFromRecord () {
+        await this.collectionReference.record("Approved").get().then((data)=>{
+            let item = data.data;
+            console.log("item:", item);
+            return item;
+        }).catch((error)=>{
+            console.log(error);
+        });        
     }
 
-    setApprovedProject(project){
-        this.ApproveProject.push(project)
+    async getItemsFromRecord () {
+        await this.collectionReference.get().then((data)=>{
+            let array = data.data;
+            let temp = []  
+            array.forEach(element => {
+                temp.push(element.data)
+            });
+            console.log(temp);
+            this.response = temp;
+        }).catch((error)=>{
+            console.log(error)
+        });
     }
 
-    //Unapproved projects
-    getUnApprovedProject(){
-        console.log("getting Un Approved");
-        return this.UnApproved
+    getUnApproved(){  
+        return this.response;
     }
 
-    setUnApprovedProject(project){
-        console.log("setUnApproved");
-        this.UnApproved.push(project)
+    getApproved(){
+        return this.response;
     }
 
 }
-

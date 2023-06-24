@@ -4,28 +4,26 @@ import { SplitButton } from 'primereact/splitbutton';
 import { Toolbar } from 'primereact/toolbar';
 import { useNavigate } from 'react-router-dom';
 
-
-
 function Navbar() {
+  const navigate = useNavigate();
 
   function GoBackHome() {
-    window.location.pathname = "/";
-    
+    navigate("/");
   }
 
   function GoToSubmit() {
-    window.location.pathname = '/submit';
+    navigate("/submit");
   }
 
   function GoToView() {
-    window.location.pathname = '/user/view-projects';
+    navigate('/user/view-projects');
   }
 
   function GoToDexPage() {
-    window.location.pathname = '/dex-page';
+    navigate('/dex-page');
   }
   function GoToProfilePage() {
-    window.location.pathname = '/profile';
+    navigate('/profile');
   }
 
   let items = [
@@ -33,14 +31,14 @@ function Navbar() {
       label: 'Pending Projects',
       icon: 'pi pi-external-link',
       command: () => {
-        window.location.pathname = '/member/view-projects';
+        navigate('/member/view-projects');
       }
     },
     {
       label: 'Join DAO',
       icon: 'pi pi-refresh',
       command: () => {
-        window.location.pathname = '/joinDAO';
+        navigate('/joinDAO');
       }
     },
   ];

@@ -9,7 +9,7 @@ import { FileUpload } from 'primereact/fileupload';
 import { Toast } from 'primereact/toast';
 
 import { NeedApproval } from '../Models/ApprovedAndUnapprovedProjects';
-import AppStateService from '../AppstateService/AppState.service';
+import {AppStateService} from '../AppstateService/AppState.service';
 
 import Image from './Assets/ai.jpg'
 let service = new AppStateService();
@@ -35,6 +35,7 @@ export default function SubmitProject(){
   const toast = useRef(null);
 
   service.getItemFromRecord();
+  console.log("record data: " , service.record)
 
   const navigate = useNavigate();
 
@@ -101,19 +102,6 @@ export default function SubmitProject(){
     setselectedCategory(e.value)
   }
 
-
-  const calculateROI = (tokenPrice, buyBackAmount) => {
-    console.log(tokenPrice, buyBackAmount);
-    console.log(typeof(tokenPrice, buyBackAmount));
-    return ((buyBackAmount-tokenPrice)/tokenPrice)*100
-  }
-
-  const calculateTokenPrice = (raiseAmount, totalTokens) => {
-    console.log(raiseAmount, totalTokens);
-    console.log(typeof(raiseAmount, totalTokens));
-    return raiseAmount/totalTokens
-  }
-  
   //Once the button is clicked this is the function called
   const handleButtonClick = () => {
     
@@ -193,6 +181,8 @@ export default function SubmitProject(){
     }
 
     service.createProject(projectObject)
+    console.log("This is the records ::: ", service.records);
+
 
       console.log(NeedApproval);
       toast.current.show({
@@ -301,7 +291,7 @@ export default function SubmitProject(){
                 <div style={{ height: "12px" }}></div>
 
                 <label htmlFor="InitPrice" className="block text-900 font-medium mb-2">Initial Price per Token</label>
-                <InputText id="initPricePerToken" type="text" placeholder="Initial Price per Token" className="w-full mb-3" readOnly value={initPricePerToken} keyfilter="int"/>
+                <InputText id="initPricePerToken" disabled type="text" placeholder="Initial Price per Token" className="w-full mb-3" readOnly value={initPricePerToken} keyfilter="int"/>
                 <div style={{ height: "12px" }}></div>
 
                 <label htmlFor="ExpectedBuyBack" className="block text-900 font-medium mb-2">Expected Token Buy Back {"(After project completion)"}</label>
@@ -309,7 +299,7 @@ export default function SubmitProject(){
                 <div style={{ height: "12px" }}></div>
 
                 <label htmlFor="ReturnOnInvestment" className="block text-900 font-medium mb-2"> Return On Investment </label>
-                <InputText id="ReturnOnInvestment" type="text" placeholder="ROI" className="w-full mb-3" readOnly value={ReturnOnInvestment} keyfilter="int"/>
+                <InputText id="ReturnOnInvestment"  disabled type="text" placeholder="ROI" className="w-full mb-3" readOnly value={ReturnOnInvestment} keyfilter="int"/>
                 <div style={{ height: "12px" }}></div>
 
                 <label htmlFor="ContractedDevelopers" className="block text-900 font-medium mb-2">Contracted Developers</label>
