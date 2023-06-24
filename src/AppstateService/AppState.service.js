@@ -27,7 +27,7 @@ export default class AppStateService {
                 sig: await auth.ethPersonalSign(data)
         }})
         this.collectionReference = db.collection('InfrastructureProject')
-        
+
     }
 
     async createProject(projectObject){
@@ -57,6 +57,23 @@ export default class AppStateService {
             console.info("error: ", error)
         })
     }
+
+
+        async getItemFromRecord () {
+        const record = await this.collectionReference.record("Approved").get();
+        // Get data from the record
+        const { data } = record; // or const data = record.data
+        // Record is CollectionRecordResponse instance, so you can also get again to refresh
+        const updatedRecord = record.get();
+        console.log("updated record:", data);
+
+      }
+
+      async listRecords () {
+        const records = await this.collectionReference.get();
+
+        console.log("record: ", records)
+      }
 
     getApprovedProject(){
         return this.ApproveProject

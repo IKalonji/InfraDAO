@@ -34,6 +34,8 @@ export default function SubmitProject(){
   const [financials, setfinancials] = useState([]);
   const toast = useRef(null);
 
+  service.getItemFromRecord();
+
   const navigate = useNavigate();
 
   const InfrastructureOptions = [
@@ -171,7 +173,6 @@ export default function SubmitProject(){
       projectDevelopers: contractedDevelopers,
       ammountToBeRaised: raiseAmount,
     })
-
 
     var projectObject = {
       submitorAddress: submitorAddress,
