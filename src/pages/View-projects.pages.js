@@ -1,45 +1,50 @@
 import React, { Component } from 'react'
 import { Button } from 'primereact/button'
+import { useNavigate } from 'react-router-dom';
+import {AppStateService} from '../AppstateService/AppState.service';
 
-import { ApprovedProjects, NeedApproval } from '../Models/ApprovedAndUnapprovedProjects'
+export default function Viewprojects(){
 
-export default class Viewprojects extends Component {
+    let service = new AppStateService();
+    const navigate = useNavigate();
+
+    const GoToViewProject = (Project) => {
+      const data = {
+        name: Project.projectName,
+        description: Project.milestones,
+        projectType: Project.projectCategory,
+        fullDescription: Project.projectFullDescription,
+        plansLink:Project.linkToPlans,
+        finacialsLink:Project.linkToFinancials,
+        amountOfTokens: Project.totalTokenAmount,
+        projectDevelopers: Project.contractedDevelopers,
+        projectROI:Project.returnOnInvestment,
+        amountRaise: Project.raiseAmount
+      };
+          const encodedData = encodeURIComponent(JSON.stringify(data));
+          // window.location.pathname = `/user/view-the-project?data=${encodedData}`;
+
+          navigate("/user/view-the-project", {state: data})
+      };
+
+      const GoToMemberViewProject = (Project) => {
+        const data = {
+            name: Project.projectName,
+            description: Project.milestones,
+            projectType: Project.projectCategory,
+            fullDescription: Project.projectFullDescription,
+            plansLink:Project.linkToPlans,
+            finacialsLink:Project.linkToFinancials,
+            amountOfTokens: Project.totalTokenAmount,
+            projectDevelopers: Project.contractedDevelopers,
+            projectROI:Project.returnOnInvestment,
+            amountRaise: Project.raiseAmount
+          };
+          navigate("/member/view-the-project", {state: data})
+      };
     
-    project = ApprovedProjects;
-    unApproved = NeedApproval;
-
-    ViewSpecificProject(){
-        window.location.href = "/user/view-the-project"
-    }
-
-    GoToViewProject = (Project) => {
-        const data = {
-            name: Project.projectName,
-            description: Project.projectShortDescription,
-            projectType: Project.projectType,
-            fullDescription: Project.fullDescription,
-            projectDevelopers: Project.projectDevelopers,
-            amountRaise: Project.ammountToBeRaised
-          };
-          const encodedData = encodeURIComponent(JSON.stringify(data));
-          window.location.href = `/user/view-the-project?data=${encodedData}`;
-      };
-
-      GoToMemberViewProject = (Project) => {
-        const data = {
-            name: Project.projectName,
-            description: Project.projectShortDescription,
-            projectType: Project.projectType,
-            fullDescription: Project.fullDescription,
-            projectDevelopers: Project.projectDevelopers,
-            amountRaise: Project.ammountToBeRaised
-          };
-          const encodedData = encodeURIComponent(JSON.stringify(data));
-          window.location.href = `/member/view-the-project?data=${encodedData}`;
-      };
-
-  render() {
-
+    let Approved = service.response;
+    let UnApproved = service.response;
 
     if (window.location.pathname === "/member/view-projects"){
         return(
@@ -49,12 +54,12 @@ export default class Viewprojects extends Component {
               <div className="text-700 text-xl mb-6 text-center line-height-3"> These are all the project that have been approved by the communtiy. </div>  
               <div className="grid">
                   {
-                      this.unApproved.map((project, index) => (
+                      UnApproved.map((project, index) => (
                           <div className="col-12 lg:col-4" key={index}>
                             <div className="p-3 h-full">
                               <div className="shadow-2 p-3 h-full flex flex-column" style={{ borderRadius: '6px' }}>
                                 <div className="text-900 font-medium text-xl mb-2">{project.projectName}</div>
-                                <div className="text-600">{project.projectShortDescription}</div>
+                                <div className="text-600">{project.milestones}</div>
                                 <hr className="my-3 mx-0 border-top-1 border-bottom-none border-300" />
                                 <div className="flex justify-content-center flex-wrap" >
                                   <img
@@ -79,20 +84,18 @@ export default class Viewprojects extends Component {
                                   </li>
                                 </ul>
                                 <hr className="mb-3 mx-0 border-top-1 border-bottom-none border-300" />
-                                <Button label="View" className="p-3 w-full mt-auto" onClick={() => {this.GoToMemberViewProject(project)}} />
+                                <Button label="View" className="p-3 w-full mt-auto" icon="pi pi-eye" onClick={() => {GoToMemberViewProject(project)}} />
                               </div>
                             </div>
                           </div>
                         ))
                   }
-              
               </div>
           </div>
-      
         </div>    
         )
     }else if (window.location.pathname === "/user/view-projects"){
-
+      console.log(Approved, UnApproved);
     return (
         <div>
         <div className="surface-0">
@@ -101,12 +104,12 @@ export default class Viewprojects extends Component {
 
             <div className="grid">
                 {
-                    this.project.map((project, index) => (
+                    Approved.map((project, index) => (
                         <div className="col-12 lg:col-4" key={index}>
                           <div className="p-3 h-full">
                             <div className="shadow-2 p-3 h-full flex flex-column" style={{ borderRadius: '6px' }}>
                               <div className="text-900 font-medium text-xl mb-2">{project.projectName}</div>
-                              <div className="text-600">{project.projectShortDescription}</div>
+                              <div className="text-600">{project.milestones}</div>
                               <hr className="my-3 mx-0 border-top-1 border-bottom-none border-300" />
                               <div className="flex justify-content-center flex-wrap" >
                                 <img
@@ -131,18 +134,17 @@ export default class Viewprojects extends Component {
                                 </li>
                               </ul>
                               <hr className="mb-3 mx-0 border-top-1 border-bottom-none border-300" />
-                              <Button label="View" className="p-3 w-full mt-auto" onClick={() => {this.GoToViewProject(project)}} />
+                              <Button label="View" className="p-3 w-full mt-auto" icon="pi pi-eye" onClick={() => {GoToViewProject(project)}} />
                             </div>
                           </div>
                         </div>
                       ))
                 }
-            
             </div>
         </div>
     
       </div>
     )
     }
-  }
+
 }

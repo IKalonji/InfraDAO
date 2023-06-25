@@ -1,40 +1,18 @@
 import React, { Component } from 'react'
 import {Chip} from 'primereact/chip'
 import { Button } from 'primereact/button'
+import { useLocation } from 'react-router-dom'
 import './Styles/View-Project.style.css'
 
-import { NeedApproval } from '../Models/ApprovedAndUnapprovedProjects'
+export default function ViewProject(){
 
-export default class ViewProject extends Component {
+    const location = useLocation();
+    const data = location.state
 
-    constructor(props) {
-        super(props);
-        this.state = {
-          name: '',
-          description: '',
-          projectType:'',
-          fullDescription:'',
-          projectDevelopers:'',
-          amountRaise:'',
-
-        };
-      }
-
-    componentDidMount() {
-        const query = new URLSearchParams(window.location.search);
-        const encodedData = query.get('data');
-        const decodedData = JSON.parse(decodeURIComponent(encodedData));
-        const { name, description, projectType, fullDescription, projectDevelopers, amountRaise } = decodedData;
-        this.setState({ name, description, projectType, fullDescription, projectDevelopers, amountRaise });
-      }
-
-  render() {
-    const { name, description, projectType, fullDescription, projectDevelopers, amountRaise } = this.state;
-    console.log('The array: ',NeedApproval);
     if (window.location.pathname ==="/member/view-the-project"){
         
         return(
-            <div>
+        <div>
 
         <div style={{height:"20px"}}></div>
 
@@ -44,7 +22,7 @@ export default class ViewProject extends Component {
                     <div className="flex justify-content-between mb-3">
                         <div>
                             <span className="block text-500 font-medium mb-3">Project Amount</span>
-                            <div className="text-900 font-medium text-xl">152</div>
+                            <div className="text-900 font-medium text-xl">${data.amountRaise}</div>
                         </div>
                         <div className="flex align-items-center justify-content-center bg-blue-100 border-round" style={{ width: '2.5rem', height: '2.5rem' }}>
                             <i className="pi pi-money-bill text-blue-500 text-xl"></i>
@@ -59,7 +37,7 @@ export default class ViewProject extends Component {
                     <div className="flex justify-content-between mb-3">
                         <div>
                             <span className="block text-500 font-medium mb-3">Tokens Allocated</span>
-                            <div className="text-900 font-medium text-xl">$2.100</div>
+                            <div className="text-900 font-medium text-xl">{data.amountOfTokens} total tokens</div>
                         </div>
                         <div className="flex align-items-center justify-content-center bg-orange-100 border-round" style={{ width: '2.5rem', height: '2.5rem' }}>
                             <i className="pi pi-map-marker text-orange-500 text-xl"></i>
@@ -73,7 +51,7 @@ export default class ViewProject extends Component {
                 <div className="surface-0 shadow-2 p-3 border-1 border-50 border-round">
                     <div className="flex justify-content-between mb-3">
                         <div>
-                            <span className="block text-500 font-medium mb-3">Token Price</span>
+                            <span className="block text-500 font-medium mb-3">Voted Yes</span>
                             <div className="text-900 font-medium text-xl">$28441</div>
                         </div>
                         <div className="flex align-items-center justify-content-center bg-cyan-100 border-round" style={{ width: '2.5rem', height: '2.5rem' }}>
@@ -88,7 +66,7 @@ export default class ViewProject extends Component {
                 <div className="surface-0 shadow-2 p-3 border-1 border-50 border-round">
                     <div className="flex justify-content-between mb-3">
                         <div>
-                            <span className="block text-500 font-medium mb-3">Comments</span>
+                            <span className="block text-500 font-medium mb-3">Voted No</span>
                             <div className="text-900 font-medium text-xl">152 Unread</div>
                         </div>
                         <div className="flex align-items-center justify-content-center bg-purple-100 border-round" style={{ width: '2.5rem', height: '2.5rem' }}>
@@ -106,13 +84,13 @@ export default class ViewProject extends Component {
         <div className='horizontal-spacer' ></div>
         <div className="surface-0">
             <div className="font-medium text-3xl text-900 mb-3">
-                {name}
+                {data.name}
             </div>
-            <div className="text-500 mb-5">{description}</div>
+            <div className="text-500 mb-5">{data.description}</div>
             <ul className="list-none p-0 m-0">
                 <li className="flex align-items-center py-3 px-2 border-top-1 border-300 flex-wrap">
                     <div className="text-500 w-6 md:w-2 font-medium">Project Name:</div>
-                    <div className="text-900 w-full md:w-8 md:flex-order-0 flex-order-1">{name}</div>
+                    <div className="text-900 w-full md:w-8 md:flex-order-0 flex-order-1">{data.name}</div>
                     <div className="w-6 md:w-2 flex justify-content-end">
                         
                     </div>
@@ -120,7 +98,7 @@ export default class ViewProject extends Component {
                 <li className="flex align-items-center py-3 px-2 border-top-1 border-300 flex-wrap">
                     <div className="text-500 w-6 md:w-2 font-medium">Type of project:</div>
                     <div className="text-900 w-full md:w-8 md:flex-order-0 flex-order-1">
-                        <Chip label={`${projectType}`} className="mr-2" />
+                        <Chip label={`${data.projectType}`} className="mr-2" />
                        
                     </div>
                     <div className="w-6 md:w-2 flex justify-content-end">
@@ -129,14 +107,35 @@ export default class ViewProject extends Component {
                 </li>
                 <li className="flex align-items-center py-3 px-2 border-top-1 border-300 flex-wrap">
                     <div className="text-500 w-6 md:w-2 font-medium">Developers:</div>
-                    <div className="text-900 w-full md:w-8 md:flex-order-0 flex-order-1">{projectDevelopers}</div>
+                    <div className="text-900 w-full md:w-8 md:flex-order-0 flex-order-1">{data.projectDevelopers}</div>
+                    <div className="w-6 md:w-2 flex justify-content-end">
+                        
+                    </div>
+                </li>
+                <li className="flex align-items-center py-3 px-2 border-top-1 border-300 flex-wrap">
+                    <div className="text-500 w-6 md:w-2 font-medium">Expected ROI:</div>
+                    <div className="text-900 w-full md:w-8 md:flex-order-0 flex-order-1">{data.projectROI}</div>
+                    <div className="w-6 md:w-2 flex justify-content-end">
+                        
+                    </div>
+                </li>
+                <li className="flex align-items-center py-3 px-2 border-top-1 border-300 flex-wrap">
+                    <div className="text-500 w-6 md:w-2 font-medium">Link to Financials:</div>
+                    <div className="text-900 w-full md:w-8 md:flex-order-0 flex-order-1">{data.finacialsLink}</div>
+                    <div className="w-6 md:w-2 flex justify-content-end">
+                        
+                    </div>
+                </li>
+                <li className="flex align-items-center py-3 px-2 border-top-1 border-300 flex-wrap">
+                    <div className="text-500 w-6 md:w-2 font-medium">Link to project plans:</div>
+                    <div className="text-900 w-full md:w-8 md:flex-order-0 flex-order-1">{data.plansLink}</div>
                     <div className="w-6 md:w-2 flex justify-content-end">
                         
                     </div>
                 </li>
                 <li className="flex align-items-center py-3 px-2 border-top-1 border-300 flex-wrap">
                     <div className="text-500 w-6 md:w-2 font-medium">Amount Raised: </div>
-                    <div className="text-900 w-full md:w-8 md:flex-order-0 flex-order-1">{amountRaise}</div>
+                    <div className="text-900 w-full md:w-8 md:flex-order-0 flex-order-1">{data.amountRaise}</div>
                     <div className="w-6 md:w-2 flex justify-content-end">
                         
                     </div>
@@ -144,7 +143,7 @@ export default class ViewProject extends Component {
                 <li className="flex align-items-center py-3 px-2 border-top-1 border-bottom-1 border-300 flex-wrap">
                     <div className="text-500 w-6 md:w-2 font-medium">Full description:</div>
                     <div className="text-900 w-full md:w-8 md:flex-order-0 flex-order-1 line-height-3">
-                        {fullDescription}
+                        {data.fullDescription}
                     </div>
                     <div className="w-6 md:w-2 flex justify-content-end">
                         
@@ -155,25 +154,22 @@ export default class ViewProject extends Component {
             <Button label="Buy Tokens" className="w-full"/>
             <div style={{height:"20px"}}></div>
         </div>
-    
-    
       </div>
         )
-    }
-    
+    }    
     else if (window.location.pathname === "/user/view-the-project"){
         return (
-        <div>
+            <div>
 
             <div style={{height:"20px"}}></div>
-
+    
             <div className="grid">
                 <div className="col-12 md:col-6 lg:col-3">
                     <div className="surface-0 shadow-2 p-3 border-1 border-50 border-round">
                         <div className="flex justify-content-between mb-3">
                             <div>
                                 <span className="block text-500 font-medium mb-3">Project Amount</span>
-                                <div className="text-900 font-medium text-xl">152</div>
+                                <div className="text-900 font-medium text-xl">${data.amountRaise}</div>
                             </div>
                             <div className="flex align-items-center justify-content-center bg-blue-100 border-round" style={{ width: '2.5rem', height: '2.5rem' }}>
                                 <i className="pi pi-money-bill text-blue-500 text-xl"></i>
@@ -188,7 +184,7 @@ export default class ViewProject extends Component {
                         <div className="flex justify-content-between mb-3">
                             <div>
                                 <span className="block text-500 font-medium mb-3">Tokens Allocated</span>
-                                <div className="text-900 font-medium text-xl">$2.100</div>
+                                <div className="text-900 font-medium text-xl">{data.amountOfTokens} total tokens</div>
                             </div>
                             <div className="flex align-items-center justify-content-center bg-orange-100 border-round" style={{ width: '2.5rem', height: '2.5rem' }}>
                                 <i className="pi pi-map-marker text-orange-500 text-xl"></i>
@@ -202,7 +198,7 @@ export default class ViewProject extends Component {
                     <div className="surface-0 shadow-2 p-3 border-1 border-50 border-round">
                         <div className="flex justify-content-between mb-3">
                             <div>
-                                <span className="block text-500 font-medium mb-3">Token Price</span>
+                                <span className="block text-500 font-medium mb-3">Voted Yes</span>
                                 <div className="text-900 font-medium text-xl">$28441</div>
                             </div>
                             <div className="flex align-items-center justify-content-center bg-cyan-100 border-round" style={{ width: '2.5rem', height: '2.5rem' }}>
@@ -217,7 +213,7 @@ export default class ViewProject extends Component {
                     <div className="surface-0 shadow-2 p-3 border-1 border-50 border-round">
                         <div className="flex justify-content-between mb-3">
                             <div>
-                                <span className="block text-500 font-medium mb-3">Comments</span>
+                                <span className="block text-500 font-medium mb-3">Voted No</span>
                                 <div className="text-900 font-medium text-xl">152 Unread</div>
                             </div>
                             <div className="flex align-items-center justify-content-center bg-purple-100 border-round" style={{ width: '2.5rem', height: '2.5rem' }}>
@@ -229,19 +225,19 @@ export default class ViewProject extends Component {
                     </div>
                 </div>
             </div>
-
+    
             {/* Additional Information for each project */}
-
+    
             <div className='horizontal-spacer' ></div>
             <div className="surface-0">
                 <div className="font-medium text-3xl text-900 mb-3">
-                    {name}
+                    {data.name}
                 </div>
-                <div className="text-500 mb-5">{description}</div>
+                <div className="text-500 mb-5">{data.description}</div>
                 <ul className="list-none p-0 m-0">
                     <li className="flex align-items-center py-3 px-2 border-top-1 border-300 flex-wrap">
                         <div className="text-500 w-6 md:w-2 font-medium">Project Name:</div>
-                        <div className="text-900 w-full md:w-8 md:flex-order-0 flex-order-1">{name}</div>
+                        <div className="text-900 w-full md:w-8 md:flex-order-0 flex-order-1">{data.name}</div>
                         <div className="w-6 md:w-2 flex justify-content-end">
                             
                         </div>
@@ -249,8 +245,8 @@ export default class ViewProject extends Component {
                     <li className="flex align-items-center py-3 px-2 border-top-1 border-300 flex-wrap">
                         <div className="text-500 w-6 md:w-2 font-medium">Type of project:</div>
                         <div className="text-900 w-full md:w-8 md:flex-order-0 flex-order-1">
-                            <Chip label={`${projectType}`} className="mr-2" />
-                        
+                            <Chip label={`${data.projectType}`} className="mr-2" />
+                           
                         </div>
                         <div className="w-6 md:w-2 flex justify-content-end">
                             
@@ -258,14 +254,35 @@ export default class ViewProject extends Component {
                     </li>
                     <li className="flex align-items-center py-3 px-2 border-top-1 border-300 flex-wrap">
                         <div className="text-500 w-6 md:w-2 font-medium">Developers:</div>
-                        <div className="text-900 w-full md:w-8 md:flex-order-0 flex-order-1">{projectDevelopers}</div>
+                        <div className="text-900 w-full md:w-8 md:flex-order-0 flex-order-1">{data.projectDevelopers}</div>
+                        <div className="w-6 md:w-2 flex justify-content-end">
+                            
+                        </div>
+                    </li>
+                    <li className="flex align-items-center py-3 px-2 border-top-1 border-300 flex-wrap">
+                        <div className="text-500 w-6 md:w-2 font-medium">Expected ROI:</div>
+                        <div className="text-900 w-full md:w-8 md:flex-order-0 flex-order-1">{data.projectROI}</div>
+                        <div className="w-6 md:w-2 flex justify-content-end">
+                            
+                        </div>
+                    </li>
+                    <li className="flex align-items-center py-3 px-2 border-top-1 border-300 flex-wrap">
+                        <div className="text-500 w-6 md:w-2 font-medium">Link to Financials:</div>
+                        <div className="text-900 w-full md:w-8 md:flex-order-0 flex-order-1">{data.finacialsLink}</div>
+                        <div className="w-6 md:w-2 flex justify-content-end">
+                            
+                        </div>
+                    </li>
+                    <li className="flex align-items-center py-3 px-2 border-top-1 border-300 flex-wrap">
+                        <div className="text-500 w-6 md:w-2 font-medium">Link to project plans:</div>
+                        <div className="text-900 w-full md:w-8 md:flex-order-0 flex-order-1">{data.plansLink}</div>
                         <div className="w-6 md:w-2 flex justify-content-end">
                             
                         </div>
                     </li>
                     <li className="flex align-items-center py-3 px-2 border-top-1 border-300 flex-wrap">
                         <div className="text-500 w-6 md:w-2 font-medium">Amount Raised: </div>
-                        <div className="text-900 w-full md:w-8 md:flex-order-0 flex-order-1">{amountRaise}</div>
+                        <div className="text-900 w-full md:w-8 md:flex-order-0 flex-order-1">{data.amountRaise}</div>
                         <div className="w-6 md:w-2 flex justify-content-end">
                             
                         </div>
@@ -273,7 +290,7 @@ export default class ViewProject extends Component {
                     <li className="flex align-items-center py-3 px-2 border-top-1 border-bottom-1 border-300 flex-wrap">
                         <div className="text-500 w-6 md:w-2 font-medium">Full description:</div>
                         <div className="text-900 w-full md:w-8 md:flex-order-0 flex-order-1 line-height-3">
-                            {fullDescription}
+                            {data.fullDescription}
                         </div>
                         <div className="w-6 md:w-2 flex justify-content-end">
                             
@@ -284,10 +301,9 @@ export default class ViewProject extends Component {
                 <Button label="Buy Tokens" className="w-full"/>
                 <div style={{height:"20px"}}></div>
             </div>
-        
-        
-        </div>
+
+          </div>
         )
     }
-  }
+//   }
 }

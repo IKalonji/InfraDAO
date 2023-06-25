@@ -1,4 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { PolybaseProvider } from "@polybase/react";
+import { Polybase } from "@polybase/client";
 
 import "primereact/resources/themes/lara-light-indigo/theme.css";     
 import "primeflex/primeflex.css";
@@ -14,11 +16,14 @@ import JoinDAO from './pages/Join-DAO.pages';
 import DexPage from './pages/Dex.pages';
 import ProfilePage from './pages/ProfilePage.pages';
 
+const polybase = new Polybase();
+
 function App() {
   return (
     <div className="App">
-      <Navbar/>
+      <PolybaseProvider polybase={polybase}>
       <BrowserRouter>
+        <Navbar/>
         <Routes>
           <Route path='/' element={<Landingpage/>}/>
           <Route path='/user/view-projects' element={<Viewprojects/>}/>
@@ -31,6 +36,7 @@ function App() {
           <Route path='/profile' element={<ProfilePage />}/>
         </Routes>
       </BrowserRouter>
+      </PolybaseProvider>
     </div>
   );
 }
