@@ -20,6 +20,125 @@ InfraDAO targets a wide range of industries and communities that can benefit fro
 
 The issue identified for submission is the lack of inclusive and community-driven funding mechanisms for projects in various industries. InfraDAO aims to provide a platform where projects can seek support from the community and receive funding based on democratic voting.
 
+## Design 
+
+```mermaid
+graph LR
+    subgraph Investor
+        A((Investor))
+        A --> B(Sign In)
+        B --> C(View Project List)
+        C --> D(Select Project)
+        D --> E(Invest in Project)
+        E --> F{Investment Successful?}
+        F -- Yes --> G(Receive Project Tokens)
+        G --> H(Sell Tokens at Higher Rate)
+        H --> I[Profit]
+        F -- No --> J(Investment Failed)
+        J --> K[No Profit]
+    end
+
+    subgraph Project Creator
+        L((Project Creator))
+        L --> B
+        B --> M(Create Project Proposal)
+        M --> N{Project Approved?}
+        N -- Yes --> O(Release Project Tokens)
+        N -- No --> P[Project Rejected]
+    end
+
+    subgraph Member
+        Q((Member))
+        Q --> B
+        B --> C
+    end
+
+    B --> R{Admin?}
+    R -- Yes --> S(Approve Project)
+    S --> O
+    R -- No --> C
+```
+
+```mermaid
+
+sequenceDiagram
+    participant PC as Project Creator
+    participant PI as Project Investor
+    participant DM as DAO Member
+    participant DAO as InfraDAO
+
+    Note over DAO: Initialization
+
+    PC->>DAO: Submit Project Proposal
+    DAO-->>PC: Proposal Submitted
+
+    Note over DAO: Proposal Review
+
+    DAO->>DAO: Check Proposal Status
+    alt Proposal Rejected
+        DAO-->>PC: Proposal Rejected
+        PC->>PC: End
+    else Proposal Approved
+        DAO-->>PC: Proposal Approved
+        PC->>DAO: Create Token
+        DAO-->>PC: Token Created
+
+        PC->>DAO: Submit Proposal Details
+        DAO-->>PC: Details Submitted
+
+        Note over DAO: Community Voting
+
+        DAO->>DAO: Conduct Community Voting
+        DAO-->>PC: Voting Result
+
+        alt Voting Approved
+            PC->>DAO: Release Project Tokens
+            DAO-->>PC: Tokens Released
+            PC->>PC: End
+        else Voting Rejected
+            DAO-->>PC: Voting Rejected
+            PC->>PC: End
+        end
+    end
+
+    Note over DAO: Project Investment
+
+    PI->>DAO: Sign In
+    DAO-->>PI: Sign In Successful
+
+    PI->>DAO: Explore Projects
+    DAO-->>PI: Projects Available
+
+    alt Projects Available
+        PI->>PI: Select Project
+        PI->>DAO: Invest in Project
+        DAO-->>PI: Investment Successful
+        PI->>PI: Receive Project Tokens
+        PI->>PI: Sell Tokens
+        PI->>PI: End
+    else No Projects Available
+        DAO-->>PI: No Projects Available
+        PI->>PI: End
+    end
+
+    Note over DAO: DAO Member Experience
+
+    DM->>DAO: Sign In
+    DAO-->>DM: Sign In Successful
+
+    DM->>DAO: Explore Projects
+    DAO-->>DM: Projects Available
+
+    alt Projects Available
+        DM->>DAO: View Project Details
+        DAO-->>DM: Project Details
+        DM->>DM: End
+    else No Projects Available
+        DAO-->>DM: No Projects Available
+        DM->>DM: End
+    end
+```
+
 ## Thought Process behind the Project
 
 The team behind InfraDAO believes that by leveraging Web3 technologies and the Hedera blockchain network, they can empower projects and communities to overcome traditional funding limitations. The thought process behind the project includes:
