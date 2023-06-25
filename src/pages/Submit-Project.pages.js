@@ -2,7 +2,6 @@ import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
-import { InputNumber } from 'primereact/inputnumber'
 import { Editor } from 'primereact/editor';
 import { MultiSelect } from 'primereact/multiselect';
 import { FileUpload } from 'primereact/fileupload';
@@ -82,19 +81,27 @@ export default function SubmitProject(){
 
   const handleTokenization = (event) => {
     settokenization(Number(event.target.value))
+    setinitPricePerToken(Number(raiseAmount / tokenization))
   }
 
   const handleExpectedBuyBackChange = (event) => {
     setExpectedBuyBack(Number(event.target.value)); 
+    setinitPricePerToken(Number(raiseAmount / tokenization))
+    setReturnOnInvestment(Number(((ExpectedBuyBack-tokenization)/tokenization)*100))
     
   }
 
+
   const handleContractedDevelopersChange = (event) => {
     setcontractedDevelopers(event.target.value)
+    setReturnOnInvestment(Number(((ExpectedBuyBack-tokenization)/tokenization)*100))
+    setinitPricePerToken(Number(raiseAmount / tokenization))
   }
 
   const handleMilestanesChange  = (event) => {
     setmileStones(event.target.value)
+    setReturnOnInvestment(Number(((ExpectedBuyBack-tokenization)/tokenization)*100))
+    setinitPricePerToken(Number(raiseAmount / tokenization))
   }
 
   //Handling the changes for the multi select
@@ -105,8 +112,7 @@ export default function SubmitProject(){
   //Once the button is clicked this is the function called
   const handleButtonClick = () => {
     
-    setinitPricePerToken(Number(raiseAmount / tokenization))
-    setReturnOnInvestment(Number(((ExpectedBuyBack-tokenization)/tokenization)*100))
+    
     // Perform any necessary processing or validations on the values
     
     const values = {
@@ -148,25 +154,11 @@ export default function SubmitProject(){
         toast.current.show({severity:'error', summary: 'Error', detail:'Please complete all inputs', life: 3000});
     }else{
 
-    service.setUnApprovedProject({
-      submitorAddress:submitorAddress,
-      projectName: projectName,
-      projectShortDescription:"With this project we aim to build a better hospital in a certain area ",
-      projectImage:projectImage,
-      projectType:selectedCategory,
-      fullDescription: projectDetails,
-      linkToPlans: linkToPlans,
-      linkToFinancials: linkToFinancials,
-      returnOnInvestment:`${ReturnOnInvestment}%`,
-      projectDevelopers: contractedDevelopers,
-      ammountToBeRaised: raiseAmount,
-    })
-
     var projectObject = {
       submitorAddress: submitorAddress,
       projectName: projectName,
-      projectImage: projectName,
-      projectCategory:"residency",
+      projectImage: projectImage,
+      projectCategory:`${selectedCategory}`,
       projectFullDescription: projectDetails,
       linkToPlans: linkToPlans,
       linkToFinancials: linkToFinancials,
@@ -299,7 +291,7 @@ export default function SubmitProject(){
                 <div style={{ height: "12px" }}></div>
 
                 <label htmlFor="ReturnOnInvestment" className="block text-900 font-medium mb-2"> Return On Investment </label>
-                <InputText id="ReturnOnInvestment"  disabled type="text" placeholder="ROI" className="w-full mb-3" readOnly value={ReturnOnInvestment} keyfilter="int"/>
+                <InputText id="ReturnOnInvestment"    type="text" placeholder="ROI" className="w-full mb-3" readOnly value={ReturnOnInvestment} keyfilter="int" tooltip='Return on Investment (field is read only)' tooltipOptions={{position: 'right'}}/>
                 <div style={{ height: "12px" }}></div>
 
                 <label htmlFor="ContractedDevelopers" className="block text-900 font-medium mb-2">Contracted Developers</label>

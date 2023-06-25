@@ -54,7 +54,7 @@ export class AppStateService {
     }
 
     async getItemFromRecord () {
-        await this.collectionReference.record("Approved").get().then((data)=>{
+        await this.collectionReference.record("1").get().then((data)=>{
             let item = data.data;
             console.log("item:", item);
             return item;
@@ -71,6 +71,7 @@ export class AppStateService {
                 temp.push(element.data)
             });
             console.log(temp);
+            console.log("lenth: ", temp.length);
             this.response = temp;
         }).catch((error)=>{
             console.log(error)

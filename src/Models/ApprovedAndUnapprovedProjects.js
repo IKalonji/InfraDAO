@@ -24,7 +24,7 @@ export let ApprovedProjects = [
         linkToFinancials:"https://docs.google.com/document/d/1pRs_WdTcF0_ur7Ys7SZh7Pf37-jCVkXNBqO6PZD6M-Q/edit?usp=sharing",
         totalTokenAmount:"1000",
         returnOnInvestment: "89%",
-        fullDescription: "Safety and Efficiency: The construction of well-d",
+        fullDescription: "These are the details: ____",
         projectDevelopers: "African rural urbaniser's ",
         ammountToBeRaised: "59000000",
     },

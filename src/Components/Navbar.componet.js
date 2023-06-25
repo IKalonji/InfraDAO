@@ -62,13 +62,11 @@ function Navbar() {
     </>
   );
 
-  // render() {
     return (
       <div className="card">
         <Toolbar start={startContent} end={endContent} />
       </div>
     );
-  // }
 }
 
 export default Navbar;

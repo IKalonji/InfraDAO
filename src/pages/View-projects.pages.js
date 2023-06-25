@@ -11,15 +11,15 @@ export default function Viewprojects(){
     const GoToViewProject = (Project) => {
       const data = {
         name: Project.projectName,
-        description: Project.projectShortDescription,
-        projectType: Project.projectType,
-        fullDescription: Project.fullDescription,
+        description: Project.milestones,
+        projectType: Project.projectCategory,
+        fullDescription: Project.projectFullDescription,
         plansLink:Project.linkToPlans,
         finacialsLink:Project.linkToFinancials,
         amountOfTokens: Project.totalTokenAmount,
-        projectDevelopers: Project.projectDevelopers,
+        projectDevelopers: Project.contractedDevelopers,
         projectROI:Project.returnOnInvestment,
-        amountRaise: Project.ammountToBeRaised
+        amountRaise: Project.raiseAmount
       };
           const encodedData = encodeURIComponent(JSON.stringify(data));
           // window.location.pathname = `/user/view-the-project?data=${encodedData}`;
@@ -30,15 +30,15 @@ export default function Viewprojects(){
       const GoToMemberViewProject = (Project) => {
         const data = {
             name: Project.projectName,
-            description: Project.projectShortDescription,
-            projectType: Project.projectType,
-            fullDescription: Project.fullDescription,
+            description: Project.milestones,
+            projectType: Project.projectCategory,
+            fullDescription: Project.projectFullDescription,
             plansLink:Project.linkToPlans,
             finacialsLink:Project.linkToFinancials,
             amountOfTokens: Project.totalTokenAmount,
-            projectDevelopers: Project.projectDevelopers,
+            projectDevelopers: Project.contractedDevelopers,
             projectROI:Project.returnOnInvestment,
-            amountRaise: Project.ammountToBeRaised
+            amountRaise: Project.raiseAmount
           };
           navigate("/member/view-the-project", {state: data})
       };
@@ -59,7 +59,7 @@ export default function Viewprojects(){
                             <div className="p-3 h-full">
                               <div className="shadow-2 p-3 h-full flex flex-column" style={{ borderRadius: '6px' }}>
                                 <div className="text-900 font-medium text-xl mb-2">{project.projectName}</div>
-                                <div className="text-600">{project.projectShortDescription}</div>
+                                <div className="text-600">{project.milestones}</div>
                                 <hr className="my-3 mx-0 border-top-1 border-bottom-none border-300" />
                                 <div className="flex justify-content-center flex-wrap" >
                                   <img
@@ -109,7 +109,7 @@ export default function Viewprojects(){
                           <div className="p-3 h-full">
                             <div className="shadow-2 p-3 h-full flex flex-column" style={{ borderRadius: '6px' }}>
                               <div className="text-900 font-medium text-xl mb-2">{project.projectName}</div>
-                              <div className="text-600">{project.projectShortDescription}</div>
+                              <div className="text-600">{project.milestones}</div>
                               <hr className="my-3 mx-0 border-top-1 border-bottom-none border-300" />
                               <div className="flex justify-content-center flex-wrap" >
                                 <img

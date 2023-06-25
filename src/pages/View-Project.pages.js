@@ -4,34 +4,7 @@ import { Button } from 'primereact/button'
 import { useLocation } from 'react-router-dom'
 import './Styles/View-Project.style.css'
 
-import { NeedApproval } from '../Models/ApprovedAndUnapprovedProjects'
-
 export default function ViewProject(){
-
-    // constructor(props) {
-    //     super(props);
-    //     this.state = {
-    //       name: '',
-    //       description: '',
-    //       projectType:'',
-    //       fullDescription:'',
-    //       projectDevelopers:'',
-    //       amountRaise:'',
-
-    //     };
-    //   }
-
-    // componentDidMount() {
-    //     const query = new URLSearchParams(window.location.search);
-    //     const encodedData = query.get('data');
-    //     const decodedData = JSON.parse(decodeURIComponent(encodedData));
-    //     const { name, description, projectType, fullDescription, projectDevelopers, amountRaise } = decodedData;
-    //     this.setState({ name, description, projectType, fullDescription, projectDevelopers, amountRaise });
-    //   }
-
-//   render() {
-    // const { name, description, projectType, fullDescription, projectDevelopers, amountRaise } = this.state;
-    // console.log('The array: ',NeedApproval);
 
     const location = useLocation();
     const data = location.state
