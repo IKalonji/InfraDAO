@@ -4,21 +4,23 @@ import { Toast } from 'primereact/toast';
 import { SplitButton } from 'primereact/splitbutton';
 import { Toolbar } from 'primereact/toolbar';
 import { useNavigate } from 'react-router-dom';
-import { MetaMaskSDK } from '@metamask/sdk';
+import {AppStateService} from '../AppstateService/AppState.service';
+
 
 function Navbar() {
   const navigate = useNavigate();
   const toast  = useRef(null)
+  const service = new AppStateService();
 
   const goToMemeberView = () =>{
-    const MMSDK = new MetaMaskSDK();
-    const ethereum = MMSDK.getProvider(); // You can also access via window.ethereum
-    ethereum.request({ method: 'eth_requestAccounts', params: [] }).then((data) => {
-      toast.current.show({severity:'success', summary: 'Connected', detail:`'successfully connected to wallet' `, life: 3000});
-      navigate('/member/view-projects');
-    }).catch((error) => {
-      toast.current.show({severity:'error', summary: 'Error', detail:'Can not diplay the page until user is connected', life: 3000});
-    })
+    if(service.connected){
+      navigate("/member/view-projects")
+    }
+    else {
+      service.connectToMetamask().then(()=>{
+        toast.current.show({severity:'success', summary: 'Connected', detail:`'successfully connected to wallet' `, life: 3000});
+      }).catch((error)=> {toast.current.show({severity:'error', summary: 'Error', detail:'Can not diplay the page until user is connected', life: 3000});})
+    }
   }
 
   function GoBackHome() {
@@ -26,15 +28,14 @@ function Navbar() {
   }
 
   function GoToSubmit() {
-    const MMSDK = new MetaMaskSDK();
-
-    const ethereum = MMSDK.getProvider(); // You can also access via window.ethereum
-    ethereum.request({ method: 'eth_requestAccounts', params: [] }).then((data) => {
-      toast.current.show({severity:'success', summary: 'Connected', detail:`'successfully connected to wallet' `, life: 3000});
-      navigate("/submit");
-    }).catch((error) => {
-      toast.current.show({severity:'error', summary: 'Error', detail:'Can not diplay the page until user is connected', life: 3000});
-    })
+    if(service.connected){
+      navigate("/submit")
+    }
+    else {
+      service.connectToMetamask().then(()=>{
+        toast.current.show({severity:'success', summary: 'Connected', detail:`'successfully connected to wallet' `, life: 3000});
+      }).catch((error)=> {toast.current.show({severity:'error', summary: 'Error', detail:'Can not diplay the page until user is connected', life: 3000});})
+    }
     
   }
 
@@ -43,28 +44,25 @@ function Navbar() {
   }
 
   function GoToDexPage() {
-    const MMSDK = new MetaMaskSDK();
-
-    const ethereum = MMSDK.getProvider(); // You can also access via window.ethereum
-    const accounts = ethereum
-    ethereum.request({ method: 'eth_requestAccounts', params: [] }).then((data) => {
-      toast.current.show({severity:'success', summary: 'Connected', detail:`'successfully connected to wallet' ${accounts[0]}`, life: 3000});
-      navigate('/dex-page');
-    }).catch((error) => {
-      toast.current.show({severity:'error', summary: 'Error', detail:'Can not diplay the page until user is connected', life: 3000});
-    })
+    if(service.connected){
+      navigate("/dex-page")
+    }
+    else {
+      service.connectToMetamask().then(()=>{
+        toast.current.show({severity:'success', summary: 'Connected', detail:`'successfully connected to wallet' `, life: 3000});
+      }).catch((error)=> {toast.current.show({severity:'error', summary: 'Error', detail:'Can not diplay the page until user is connected', life: 3000});})
+    }
     
   }
   function GoToProfilePage() {
-    const MMSDK = new MetaMaskSDK();
-
-    const ethereum = MMSDK.getProvider(); // You can also access via window.ethereum
-    ethereum.request({ method: 'eth_requestAccounts', params: [] }).then((data) => {
-      toast.current.show({severity:'success', summary: 'Connected', detail:`'successfully connected to wallet' `, life: 3000});
-      navigate('/profile');
-    }).catch((error) => {
-      toast.current.show({severity:'error', summary: 'Error', detail:'Can not diplay the page until user is connected', life: 3000});
-    })
+    if(service.connected){
+      navigate("/profile")
+    }
+    else {
+      service.connectToMetamask().then(()=>{
+        toast.current.show({severity:'success', summary: 'Connected', detail:`'successfully connected to wallet' `, life: 3000});
+      }).catch((error)=> {toast.current.show({severity:'error', summary: 'Error', detail:'Can not diplay the page until user is connected', life: 3000});})
+    }
     
   }
 
