@@ -1,70 +1,45 @@
-# Getting Started with Create React App
+# InfraDAO
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+InfraDAO is a Web3 Infrastructure DAO built on the Hedera blockchain network. It provides a decentralized funding platform for projects, allowing them to receive financial support from the community. The DAO operates through a voting mechanism, where projects are proposed, voted on, and approved by the community. Once a project is approved, project tokens are released to community members who have staked specific amounts on the project.
 
-## Available Scripts
+## Theme of Submission
 
-In the project directory, you can run:
+### Problem Addressed
 
-### `npm start`
+InfraDAO aims to address the funding challenges faced by projects in the target industry/community. Many projects struggle to secure adequate funding through traditional centralized financial institutions, hindering their growth and potential impact. InfraDAO provides a decentralized alternative, enabling projects to access funding from a community of stakeholders.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Target Industry and Pain Points Addressed
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+InfraDAO targets a wide range of industries and communities that can benefit from decentralized funding. It addresses the pain points of:
 
-### `npm test`
+1. Lack of Accessible Funding: Many projects, especially those in emerging markets or with unconventional ideas, face difficulties in accessing traditional funding sources. InfraDAO opens up new avenues for funding by leveraging the power of decentralized finance.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+2. Centralized Control and Bias: Traditional funding sources are often centralized, leading to potential biases and limited transparency in decision-making. InfraDAO promotes decentralized governance, giving the community a voice in determining which projects receive funding.
 
-### `npm run build`
+## Issue Identified for Submission
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+The issue identified for submission is the lack of inclusive and community-driven funding mechanisms for projects in various industries. InfraDAO aims to provide a platform where projects can seek support from the community and receive funding based on democratic voting.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Thought Process behind the Project
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+The team behind InfraDAO believes that by leveraging Web3 technologies and the Hedera blockchain network, they can empower projects and communities to overcome traditional funding limitations. The thought process behind the project includes:
 
-### `npm run eject`
+1. Empowering the Community: InfraDAO enables the community to participate in the decision-making process, allowing them to have a direct impact on the projects they believe in. By decentralizing funding, the project aims to create a more inclusive and transparent ecosystem.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+2. Leveraging Web3 Infrastructure: Web3 technologies provide the necessary tools for decentralized governance and secure financial transactions. InfraDAO utilizes these technologies to ensure the integrity and efficiency of the funding process.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+3. Enhancing Project Success: By aligning project funding with community interests, InfraDAO aims to increase the likelihood of project success. Community members who have a stake in the projects are more likely to contribute their expertise, connections, and resources to support the projects' growth.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Future Plans for the Project
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+The team has ambitious plans for the future development and expansion of InfraDAO. Some of the key future plans include:
 
-## Learn More
+1. Scaling and Adoption: The project intends to scale its infrastructure and attract a larger user base. This will enable a more diverse range of projects to benefit from decentralized funding and foster a vibrant ecosystem.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+2. Partnerships and Collaborations: InfraDAO aims to forge partnerships and collaborations with other blockchain projects, communities, and industry stakeholders. This will foster synergies, expand the reach of InfraDAO, and create opportunities for cross-platform collaborations.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+3. Continuous Improvement: The team is committed to actively seeking feedback from the community and incorporating improvements based on their input. Regular updates and enhancements to the platform will ensure a seamless and user-friendly experience for both project owners and community members.
 
-### Code Splitting
+## License
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+This project is licensed under the [MIT License](LICENSE). Feel free to use, modify, and distribute the code for personal or commercial purposes.

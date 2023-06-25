@@ -5,6 +5,7 @@ import { Dialog } from 'primereact/dialog';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
+
 const Landingpage = () => {
     const navigate = useNavigate();
     const [visible, setVisible] = useState(false);
@@ -30,6 +31,7 @@ const Landingpage = () => {
             <Button label="View Projects" type="button" className="mr-3 p-button-raised" onClick={GoViewProjects} />
             <Button label="Watch Demo" type="button" className="p-button-outlined" icon="pi pi-external-link" onClick={() => setVisible(true)} />
             <Dialog header="Click the link below to watch the live demo" visible={visible} style={{ width: '50vw' }} onHide={() => setVisible(false)} footer={footerContent}>
+                <iframe src='https://www.youtube.com/watch?v=C0_SuVG8KvM&t=26s&pp=ygUNemFkZW4gbmdvYmVuaQ%3D%3D' title="The demo video"></iframe>
                 <p className="mt-0 mb-4 text-700 line-height-3">
                     <a href='https://www.youtube.com/watch?v=C0_SuVG8KvM&t=26s&pp=ygUNemFkZW4gbmdvYmVuaQ%3D%3D' style={{textDecoration:"none"}} target='_blank'>Demo Video</a>
                 </p>
