@@ -21,10 +21,8 @@ export default function Viewprojects(){
         projectROI:Project.returnOnInvestment,
         amountRaise: Project.raiseAmount
       };
-          const encodedData = encodeURIComponent(JSON.stringify(data));
-          // window.location.pathname = `/user/view-the-project?data=${encodedData}`;
 
-          navigate("/user/view-the-project", {state: data})
+        navigate("/user/view-the-project", {state: data})
       };
 
       const GoToMemberViewProject = (Project) => {
