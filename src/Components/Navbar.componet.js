@@ -1,18 +1,41 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import { Button } from 'primereact/button';
+import { Toast } from 'primereact/toast';
 import { SplitButton } from 'primereact/splitbutton';
 import { Toolbar } from 'primereact/toolbar';
 import { useNavigate } from 'react-router-dom';
+import { MetaMaskSDK } from '@metamask/sdk';
 
 function Navbar() {
   const navigate = useNavigate();
+  const toast  = useRef(null)
+
+  const goToMemeberView = () =>{
+    const MMSDK = new MetaMaskSDK();
+    const ethereum = MMSDK.getProvider(); // You can also access via window.ethereum
+    ethereum.request({ method: 'eth_requestAccounts', params: [] }).then((data) => {
+      toast.current.show({severity:'success', summary: 'Connected', detail:`'successfully connected to wallet' `, life: 3000});
+      navigate('/member/view-projects');
+    }).catch((error) => {
+      toast.current.show({severity:'error', summary: 'Error', detail:'Can not diplay the page until user is connected', life: 3000});
+    })
+  }
 
   function GoBackHome() {
     navigate("/");
   }
 
   function GoToSubmit() {
-    navigate("/submit");
+    const MMSDK = new MetaMaskSDK();
+
+    const ethereum = MMSDK.getProvider(); // You can also access via window.ethereum
+    ethereum.request({ method: 'eth_requestAccounts', params: [] }).then((data) => {
+      toast.current.show({severity:'success', summary: 'Connected', detail:`'successfully connected to wallet' `, life: 3000});
+      navigate("/submit");
+    }).catch((error) => {
+      toast.current.show({severity:'error', summary: 'Error', detail:'Can not diplay the page until user is connected', life: 3000});
+    })
+    
   }
 
   function GoToView() {
@@ -20,10 +43,29 @@ function Navbar() {
   }
 
   function GoToDexPage() {
-    navigate('/dex-page');
+    const MMSDK = new MetaMaskSDK();
+
+    const ethereum = MMSDK.getProvider(); // You can also access via window.ethereum
+    const accounts = ethereum
+    ethereum.request({ method: 'eth_requestAccounts', params: [] }).then((data) => {
+      toast.current.show({severity:'success', summary: 'Connected', detail:`'successfully connected to wallet' ${accounts[0]}`, life: 3000});
+      navigate('/dex-page');
+    }).catch((error) => {
+      toast.current.show({severity:'error', summary: 'Error', detail:'Can not diplay the page until user is connected', life: 3000});
+    })
+    
   }
   function GoToProfilePage() {
-    navigate('/profile');
+    const MMSDK = new MetaMaskSDK();
+
+    const ethereum = MMSDK.getProvider(); // You can also access via window.ethereum
+    ethereum.request({ method: 'eth_requestAccounts', params: [] }).then((data) => {
+      toast.current.show({severity:'success', summary: 'Connected', detail:`'successfully connected to wallet' `, life: 3000});
+      navigate('/profile');
+    }).catch((error) => {
+      toast.current.show({severity:'error', summary: 'Error', detail:'Can not diplay the page until user is connected', life: 3000});
+    })
+    
   }
 
   let items = [
@@ -31,7 +73,7 @@ function Navbar() {
       label: 'Pending Projects',
       icon: 'pi pi-external-link',
       command: () => {
-        navigate('/member/view-projects');
+        goToMemeberView()
       }
     },
     {
@@ -64,6 +106,7 @@ function Navbar() {
 
     return (
       <div className="card">
+        <Toast ref={toast} />
         <Toolbar start={startContent} end={endContent} />
       </div>
     );

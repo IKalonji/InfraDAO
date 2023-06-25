@@ -1,13 +1,22 @@
 import React from 'react';
 import { Button } from 'primereact/button';
 import Divider from '@mui/material/Divider';
+import { Dialog } from 'primereact/dialog';
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 const Landingpage = () => {
     const navigate = useNavigate();
-  const GoViewProjects = () => {
-    navigate("/user/view-projects");
-  };
+    const [visible, setVisible] = useState(false);
+    const GoViewProjects = () => {
+        navigate("/user/view-projects");
+    };
+
+    const footerContent = (
+        <div>
+            <Button label="Close" icon="pi pi-times" severity="danger" onClick={() => setVisible(false)} className="p-button-text" />
+        </div>
+    );
 
   return (
     <div>
@@ -19,7 +28,12 @@ const Landingpage = () => {
             <p className="mt-0 mb-4 text-700 line-height-3">With InfraDAO projects are tokenized to maximize funding opportunities in the DeFi ecosystem</p>
 
             <Button label="View Projects" type="button" className="mr-3 p-button-raised" onClick={GoViewProjects} />
-            <Button label="Watch Demo" type="button" className="p-button-outlined" />
+            <Button label="Watch Demo" type="button" className="p-button-outlined" icon="pi pi-external-link" onClick={() => setVisible(true)} />
+            <Dialog header="Click the link below to watch the live demo" visible={visible} style={{ width: '50vw' }} onHide={() => setVisible(false)} footer={footerContent}>
+                <p className="mt-0 mb-4 text-700 line-height-3">
+                    <a href='https://www.youtube.com/watch?v=C0_SuVG8KvM&t=26s&pp=ygUNemFkZW4gbmdvYmVuaQ%3D%3D' style={{textDecoration:"none"}} target='_blank'>Demo Video</a>
+                </p>
+            </Dialog>
           </section>
         </div>
         <div className="col-12 md:col-6 overflow-hidden">
