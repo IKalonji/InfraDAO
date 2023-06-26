@@ -13,7 +13,7 @@ interface IHederaTokenService {
     /// transaction fee is still charged. This transaction must be signed by the keys for all the sending
     /// accounts, and for any receiving accounts that have receiverSigRequired == true. The signatures
     /// are in the same order as the accounts, skipping those accounts that don't need a signature.
-    /// @custom:version 0.3.0 previous version did not include isApproval
+    ///  0.3.0 previous version did not include isApproval
     struct AccountAmount {
         // The Account ID, as a solidity address, that sends/receives cryptocurrency or tokens
         address accountID;
@@ -30,7 +30,7 @@ interface IHederaTokenService {
     /// A sender account, a receiver account, and the serial number of an NFT of a Token with
     /// NON_FUNGIBLE_UNIQUE type. When minting NFTs the sender will be the default AccountID instance
     /// (0.0.0 aka 0x0) and when burning NFTs, the receiver will be the default AccountID instance.
-    /// @custom:version 0.3.0 previous version did not include isApproval
+    ///  0.3.0 previous version did not include isApproval
     struct NftTransfer {
         // The solidity address of the sender
         address senderAccountID;
@@ -171,61 +171,45 @@ interface IHederaTokenService {
 
     /// Additional post creation fungible and non fungible properties of a Hedera Token.
     struct TokenInfo {
-        /// Basic properties of a Hedera Token
+        
         HederaToken token;
 
-        /// The number of tokens (fungible) or serials (non-fungible) of the token
         int64 totalSupply;
 
-        /// Specifies whether the token is deleted or not
         bool deleted;
 
-        /// Specifies whether the token kyc was defaulted with KycNotApplicable (true) or Revoked (false)
         bool defaultKycStatus;
 
-        /// Specifies whether the token is currently paused or not
         bool pauseStatus;
 
-        /// The fixed fees collected when transferring the token
         FixedFee[] fixedFees;
 
-        /// The fractional fees collected when transferring the token
         FractionalFee[] fractionalFees;
 
-        /// The royalty fees collected when transferring the token
         RoyaltyFee[] royaltyFees;
 
-        /// The ID of the network ledger
         string ledgerId;
     }
 
     /// Additional fungible properties of a Hedera Token.
     struct FungibleTokenInfo {
-        /// The shared hedera token info
         TokenInfo tokenInfo;
 
-        /// The number of decimal places a token is divisible by
         int32 decimals;
     }
 
     /// Additional non fungible properties of a Hedera Token.
     struct NonFungibleTokenInfo {
-        /// The shared hedera token info
         TokenInfo tokenInfo;
 
-        /// The serial number of the nft
         int64 serialNumber;
 
-        /// The account id specifying the owner of the non fungible token
         address ownerId;
 
-        /// The epoch second at which the token was created.
         int64 creationTime;
 
-        /// The unique metadata of the NFT
         bytes metadata;
 
-        /// The account id specifying an account that has been granted spending permissions on this nft
         address spenderId;
     }
 
@@ -237,16 +221,12 @@ interface IHederaTokenService {
 
         int64 amount;
 
-        // Specifies ID of token that should be used for fixed fee denomination
         address tokenId;
 
-        // Specifies this fixed fee should be denominated in Hbar
         bool useHbarsForPayment;
 
-        // Specifies this fixed fee should be denominated in the Token currently being created
         bool useCurrentTokenForPayment;
 
-        // The ID of the account to receive the custom fee, expressed as a solidity address
         address feeCollector;
     }
 
@@ -277,33 +257,24 @@ interface IHederaTokenService {
     /// any fungible value, the ledger will assess the fallback fee, if present, to the new NFT owner.
     /// Royalty fees can only be added to tokens of type type NON_FUNGIBLE_UNIQUE.
     struct RoyaltyFee {
-        // A fraction's numerator of fungible value exchanged for an NFT to collect as royalty
         int64 numerator;
 
-        // A fraction's denominator of fungible value exchanged for an NFT to collect as royalty
         int64 denominator;
 
-        // If present, the fee to assess to the NFT receiver when no fungible value
-        // is exchanged with the sender. Consists of:
-        // amount: the amount to charge for the fee
-        // tokenId: Specifies ID of token that should be used for fixed fee denomination
-        // useHbarsForPayment: Specifies this fee should be denominated in Hbar
+        
         int64 amount;
         address tokenId;
         bool useHbarsForPayment;
 
-        // The ID of the account to receive the custom fee, expressed as a solidity address
         address feeCollector;
     }
 
-    /**********************
-     * Direct HTS Calls   *
-     **********************/
+    // Direct HTS Calls
 
     /// Performs transfers among combinations of tokens and hbars
     /// @param transferList the list of hbar transfers to do
     /// @param tokenTransfers the list of token transfers to do
-    /// @custom:version 0.3.0 the signature of the previous version was cryptoTransfer(TokenTransferList[] memory tokenTransfers)
+    ///  0.3.0 the signature of the previous version was cryptoTransfer(TokenTransferList[] memory tokenTransfers)
     function cryptoTransfer(TransferList memory transferList, TokenTransferList[] memory tokenTransfers)
         external
         returns (int64 responseCode);
@@ -454,9 +425,7 @@ interface IHederaTokenService {
         RoyaltyFee[] memory royaltyFees
     ) external payable returns (int64 responseCode, address tokenAddress);
 
-    /**********************
-     * ABIV1 calls        *
-     **********************/
+    // ABIV1 calls
 
     /// Initiates a Fungible Token Transfer
     /// @param token The ID of the token as a solidity address

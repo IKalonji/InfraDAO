@@ -45,6 +45,7 @@ export default function Viewprojects(){
     let UnApproved = service.response;
 
     if (window.location.pathname === "/member/view-projects"){
+        service.contractGetPendingProjects();
         return(
           <div>
           <div className="surface-0">
