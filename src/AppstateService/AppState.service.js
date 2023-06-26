@@ -23,7 +23,7 @@ export class AppStateService {
                 h: 'eth-personal-sign',
                 sig: await auth.ethPersonalSign(data)
         }})
-
+        
         this.collectionReference = db.collection('InfrastructureProject')
         this.response = [];
         this.getItemsFromRecord();
@@ -76,22 +76,22 @@ export class AppStateService {
                 console.error(error);
               }
         }
-        
 
         //connect
         this.ethereum.request({ method: 'eth_requestAccounts', params: [] }).then((data) => {
         this.walletAddress = data[0];
         this.connected = true;
-        alert("Connected to Metamask: ", this.walletAddress)
-        
+        // alert("Connected to Metamask: ", this.walletAddress)        
         }).catch((error) => {
             alert("Could not connect: ", error)
         })
+
+
     }
 
     async createProject(projectObject){
         await this.collectionReference.create([
-            "5",
+            "6",
             projectObject.submitorAddress,
             projectObject.projectName,
             projectObject.projectImage,
