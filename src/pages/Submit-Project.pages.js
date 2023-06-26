@@ -111,8 +111,7 @@ export default function SubmitProject(){
 
   //Once the button is clicked this is the function called
   const handleButtonClick = () => {
-    
-    
+
     // Perform any necessary processing or validations on the values
     
     const values = {
@@ -150,15 +149,22 @@ export default function SubmitProject(){
       !ReturnOnInvestment||
       !selectedCategory
       ){
-
         toast.current.show({severity:'error', summary: 'Error', detail:'Please complete all inputs', life: 3000});
     }else{
-
+      let categoryString = "";
+      for(let i = 0; i < selectedCategory.length; i++) {
+        if(i === 0){
+          categoryString = selectedCategory[i].name
+        }
+        else {
+          categoryString = categoryString + ", " + selectedCategory[i].name
+        }
+    };
     var projectObject = {
       submitorAddress: submitorAddress,
       projectName: projectName,
       projectImage: projectImage,
-      projectCategory:`${selectedCategory}`,
+      projectCategory: categoryString,
       projectFullDescription: projectDetails,
       linkToPlans: linkToPlans,
       linkToFinancials: linkToFinancials,

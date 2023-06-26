@@ -246,7 +246,6 @@ export default function ViewProject(){
                         <div className="text-500 w-6 md:w-2 font-medium">Type of project:</div>
                         <div className="text-900 w-full md:w-8 md:flex-order-0 flex-order-1">
                             <Chip label={`${data.projectType}`} className="mr-2" />
-                           
                         </div>
                         <div className="w-6 md:w-2 flex justify-content-end">
                             
@@ -298,7 +297,7 @@ export default function ViewProject(){
                     </li>
                 </ul>
                 <div style={{height:"20px"}}></div>
-                <Button label="Buy Tokens" className="w-full"/>
+                <Button label="Buy Tokens" className="w-full" disabled/>
                 <div style={{height:"20px"}}></div>
             </div>
 

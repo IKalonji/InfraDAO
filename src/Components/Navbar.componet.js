@@ -34,11 +34,10 @@ function Navbar() {
     }
     else {
       service.connectToMetamask().then(()=>{
-        
+        navigate("/submit")
         toast.current.show({severity:'success', summary: 'Connected', detail:`'successfully connected to wallet' `, life: 3000});
       }).catch((error)=> {toast.current.show({severity:'error', summary: 'Error', detail:'Can not diplay the page until user is connected', life: 3000});})
     }
-    navigate("/submit")
 
   }
 
