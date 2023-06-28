@@ -4,10 +4,17 @@ import { Button } from 'primereact/button'
 import { useLocation } from 'react-router-dom'
 import './Styles/View-Project.style.css'
 
+import { AppStateService } from '../AppstateService/AppState.service'
+
 export default function ViewProject(){
 
+    const service = new AppStateService();
     const location = useLocation();
-    const data = location.state
+    const data = location.state;
+
+    const vote = () => {
+        service.projectVote(data.id)
+    }
 
     if (window.location.pathname ==="/member/view-the-project"){
         
@@ -151,7 +158,7 @@ export default function ViewProject(){
                 </li>
             </ul>
             <div style={{height:"20px"}}></div>
-            <Button label="Buy Tokens" className="w-full"/>
+            <Button label="Vote" className="w-full" onClick={vote} />
             <div style={{height:"20px"}}></div>
         </div>
       </div>

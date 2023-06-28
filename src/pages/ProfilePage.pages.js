@@ -34,9 +34,7 @@ const ProfilePage = () => {
               <div>
                 <strong>DAO member:</strong> 0
               </div>
-              <div>
-                <strong>Portfolio:</strong> New York, USA
-              </div>
+
             </Card>
           </div>
 

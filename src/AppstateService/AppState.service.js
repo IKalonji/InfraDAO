@@ -26,23 +26,28 @@ export class AppStateService {
         }})
         
         this.collectionReference = db.collection('InfrastructureProject')
-        this.response = [];
-        this.getItemsFromRecord();
 
         const MMSDK = new MetaMaskSDK();
         this.ethereum = MMSDK.getProvider();
         this.provider = new ethers.BrowserProvider(this.ethereum);
 
-        this.projectContractAddress = "0x1807da60f87BC5F43C05C4E1f3C3507A8508Ef75";
-        this.membersContractAddress = "0x3F459f7bedA6b93f2337b2757c0352494fC05CFD";
+        this.projectContractAddress = "0xDCEba341671a69283839f736d68885DDa0027F8d";
+        this.membersContractAddress = "0xBc891E9012cAdEd71fEc8988a2ec093c4D82ED77";
         this.walletAddress = "";
         this.isUserMemeber = false;
         this.connected = false;
         this.nextPolybaseRecordID = null;
+
+        this.contractPendingProjects = [];
+        this.contractApprovedProjects = [];
+        this.polybaseResponse = []
+
+        this.getItemsFromRecord()
+        this.contractGetApprovedProjects();
+        this.contractGetPendingProjects()
     }
 
     async connectToMetamask(){
-        //change chain:
         if(!this.ethereum){
             alert("Please install Metamask and configure Hedera Testnet")
             throw Error("Metamask not installed");
@@ -79,11 +84,12 @@ export class AppStateService {
                 console.error(error);
               }
         }
-
         //connect
         this.ethereum.request({ method: 'eth_requestAccounts', params: [] }).then((data) => {
         this.walletAddress = data[0];
         this.connected = true;
+        const event = new Event("loggedIn");
+        window.dispatchEvent(event);
         this.contractIsUserMemeber();       
         }).catch((error) => {
             alert("Could not connect: ", error)
@@ -93,15 +99,14 @@ export class AppStateService {
     }
 
     generatePolybaseID = () => {
-        this.getItemsFromRecord().then(()=>{
-            this.nextPolybaseRecordID = this.response.length;
-        })
+        this.nextPolybaseRecordID = this.polybaseResponse.length + 1;
+        return this.nextPolybaseRecordID.toString();
     }
 
     async createProject(projectObject){
-        this.generatePolybaseID()
+        let id = this.generatePolybaseID()
         await this.collectionReference.create([
-            this.nextPolybaseRecordID,
+            id,
             projectObject.submitorAddress,
             projectObject.projectName,
             projectObject.projectImage,
@@ -119,19 +124,10 @@ export class AppStateService {
             projectObject.milestones
         ]).then((data) => {
             console.info("data: ", data)
+            this.contractSubmitProject(projectObject.projectName, this.nextPolybaseRecordID)
         }).catch((error) => {
             console.info("error: ", error)
         })
-    }
-
-    async getItemFromRecord () {
-        await this.collectionReference.record("1").get().then((data)=>{
-            let item = data.data;
-            console.log("item:", item);
-            return item;
-        }).catch((error)=>{
-            console.log(error);
-        });        
     }
 
     async getItemsFromRecord () {
@@ -143,28 +139,47 @@ export class AppStateService {
             });
             console.log(temp);
             console.log("lenth: ", temp.length);
-            this.response = temp;
+            this.polybaseResponse = temp;
         }).catch((error)=>{
             console.log(error)
         });
     }
 
     getUnApproved(){  
-        return this.response;
+        let temp = []
+        this.contractPendingProjects.forEach(contractItem => {
+            this.polybaseResponse.forEach(polybaseItem => {
+                console.log("contract item: ", contractItem);
+                console.log("Polybase item: ", polybaseItem);
+                if(polybaseItem.id == contractItem[1].toString()){
+                    temp.push(polybaseItem)
+                }
+            });
+        });
+        return temp
     }
 
     getApproved(){
-        return this.response;
+        let temp = []
+        this.contractApprovedProjects.forEach(contractItem => {
+            this.polybaseResponse.forEach(polybaseItem => {
+                if(polybaseItem.id == contractItem[1].toString()){
+                    temp.push(polybaseItem)
+                }
+            });
+        });
+        return temp
     }
 
     async contractGetApprovedProjects(){
         console.log("contract called");
-        let signer = this.provider.getSigner();
+        let signer = await this.provider.getSigner();
         let contract = new ethers.Contract(this.projectContractAddress, projectsABI, signer);
 
         try {
-            const result = await contract.approvedProjects();
+            const result = await contract.getApproved();
             console.log('approved projects: ', result);
+            this.contractApprovedProjects = result;
           } catch (error) {
             alert("There was getting the projects. " + error.reason);
             console.error('Error calling contract function:', error);
@@ -173,12 +188,13 @@ export class AppStateService {
 
     async contractGetPendingProjects(){
         console.log("contract called");
-        let signer = this.provider.getSigner();
+        let signer = await this.provider.getSigner();
         let contract = new ethers.Contract(this.projectContractAddress, projectsABI, signer);
 
         try {
-            const result = await contract.pendingProjects();
+            const result = await contract.getPending();
             console.log('pending projects: ', result);
+            this.contractPendingProjects = result;
           } catch (error) {
             alert("There was getting the projects. " + error.reason);
             console.error('Error calling contract function:', error);
@@ -186,10 +202,11 @@ export class AppStateService {
     }
 
     async contractIsUserMemeber(){
-        let signer = this.provider.getSigner();
+        let signer = await this.provider.getSigner();
         let contract = new ethers.Contract(this.membersContractAddress, infradaoABI, signer);
 
         try {
+            console.log(this.walletAddress);
             const result = await contract.isMember(this.walletAddress);
             console.log('is member: ', result);
             this.isUserMemeber = result;
@@ -199,12 +216,21 @@ export class AppStateService {
           }
     }
 
-    async contractVote(_index, _votes){
-        let signer = this.provider.getSigner();
+    projectVote(id){
+        for(let i = 0; i < this.contractPendingProjects.length; i++){
+            if( this.contractPendingProjects[i][1].toString() === id ) {
+                this.contractVote(i);
+            }
+        }
+    }
+
+    async contractVote(_index, _votes=100){
+        console.log(_index, _votes);
+        let signer = await this.provider.getSigner();
         let contract = new ethers.Contract(this.membersContractAddress, infradaoABI, signer);
 
         try {
-            const result = await contract.vote(_index, _votes);
+            const result = await contract.vote(_index, _votes).then().catch((error)=>{console.log(error);});
             console.log('voted: ', result);
           } catch (error) {
             alert("There was an error voting. " + error.reason);
@@ -213,7 +239,7 @@ export class AppStateService {
     }
 
     async contractJoin(_stakeAmount){
-        let signer = this.provider.getSigner();
+        let signer = await this.provider.getSigner();
         let contract = new ethers.Contract(this.membersContractAddress, infradaoABI, signer);
         let amount = ethers.parseEther(_stakeAmount.toString())
         try {
@@ -226,7 +252,7 @@ export class AppStateService {
     }
 
     async contractSubmitProject(_name, _polybaseID){
-        let signer = this.provider.getSigner();
+        let signer = await this.provider.getSigner();
         let contract = new ethers.Contract(this.projectContractAddress, projectsABI, signer);
 
         try {

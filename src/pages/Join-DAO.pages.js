@@ -1,8 +1,22 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Button } from 'primereact/button';
 import { InputText } from 'primereact/inputtext';
+import { AppStateService } from '../AppstateService/AppState.service';
 
 const JoinDAO = () => {
+  let service = new AppStateService();
+  const [inputTextValue, setInputTextValue] = useState('');
+
+  const handleButtonClick = () => {
+    
+    console.log(inputTextValue)
+    service.contractJoin(inputTextValue)
+  }
+
+  const handleInputChange = (event) => {
+    setInputTextValue(Number(event.target.value));
+  }
+
   return (
     <div>
       <div style={{ height: "60px" }}></div>
@@ -13,16 +27,15 @@ const JoinDAO = () => {
             <img src="https://blocks.primereact.org/demo/images/blocks/logos/hyper.svg" alt="hyper" height={50} className="mb-3" />
             <div className="text-900 text-3xl font-medium mb-3">Join DAO</div>
             <span className="text-600 font-medium line-height-3">
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. 
-              Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+              Join our DAO and become a member by staking your desired amount.
+               Your stake will contribute to the growth and development of our infrastructure projects.
             </span>
           </div>
 
           <div>
             <label htmlFor="email" className="block text-900 font-medium mb-2">Stake</label>
-            <InputText id="text" type="text" placeholder="Stake to dApp" className="w-full mb-3" />
-            <Button label="Stake" icon="pi pi-user" className="w-full" />
+            <InputText id="text" type="text" placeholder="Stake to dApp" className="w-full mb-3" keyfilter="int" onChange={handleInputChange} value={inputTextValue}/>
+            <Button label="Stake" icon="pi pi-user" className="w-full" onClick={handleButtonClick}/>
           </div>
         </div>
       </div>

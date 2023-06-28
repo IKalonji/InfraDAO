@@ -1,16 +1,19 @@
-import React, { Component } from 'react'
+import React, { Component, useState, useEffect } from 'react'
 import { Button } from 'primereact/button'
 import { useNavigate } from 'react-router-dom';
 import {AppStateService} from '../AppstateService/AppState.service';
 
 export default function Viewprojects(){
+  const service = new AppStateService();
+  const navigate = useNavigate();
 
-    let service = new AppStateService();
-    const navigate = useNavigate();
+    let approved = service.getApproved();
+    let unapproved = service.getUnApproved();
 
-    const GoToViewProject = (Project) => {
+    const GoToViewProject = (Project, path) => {
       const data = {
         name: Project.projectName,
+        id: Project.id,
         description: Project.milestones,
         projectType: Project.projectCategory,
         fullDescription: Project.projectFullDescription,
@@ -21,39 +24,19 @@ export default function Viewprojects(){
         projectROI:Project.returnOnInvestment,
         amountRaise: Project.raiseAmount
       };
-
-        navigate("/user/view-the-project", {state: data})
+        navigate(path, {state: data})
       };
-
-      const GoToMemberViewProject = (Project) => {
-        const data = {
-            name: Project.projectName,
-            description: Project.milestones,
-            projectType: Project.projectCategory,
-            fullDescription: Project.projectFullDescription,
-            plansLink:Project.linkToPlans,
-            finacialsLink:Project.linkToFinancials,
-            amountOfTokens: Project.totalTokenAmount,
-            projectDevelopers: Project.contractedDevelopers,
-            projectROI:Project.returnOnInvestment,
-            amountRaise: Project.raiseAmount
-          };
-          navigate("/member/view-the-project", {state: data})
-      };
-    
-    let Approved = service.response;
-    let UnApproved = service.response;
 
     if (window.location.pathname === "/member/view-projects"){
-        service.contractGetPendingProjects();
+        
         return(
           <div>
           <div className="surface-0">
               <div className="text-900 font-bold text-6xl mb-4 text-center">The following projects require approval</div>
-              <div className="text-700 text-xl mb-6 text-center line-height-3"> These are all the project that have been approved by the communtiy. </div>  
+              <div className="text-700 text-xl mb-6 text-center line-height-3"> These are all the project that have not been approved by the communtiy as yet. </div>  
               <div className="grid">
                   {
-                      UnApproved.map((project, index) => (
+                      unapproved.map((project, index) => (
                           <div className="col-12 lg:col-4" key={index}>
                             <div className="p-3 h-full">
                               <div className="shadow-2 p-3 h-full flex flex-column" style={{ borderRadius: '6px' }}>
@@ -83,7 +66,7 @@ export default function Viewprojects(){
                                   </li>
                                 </ul>
                                 <hr className="mb-3 mx-0 border-top-1 border-bottom-none border-300" />
-                                <Button label="View" className="p-3 w-full mt-auto" icon="pi pi-eye" onClick={() => {GoToMemberViewProject(project)}} />
+                                <Button label="View" className="p-3 w-full mt-auto" icon="pi pi-eye" onClick={() => {GoToViewProject(project, "/member/view-the-project")}} />
                               </div>
                             </div>
                           </div>
@@ -94,7 +77,6 @@ export default function Viewprojects(){
         </div>    
         )
     }else if (window.location.pathname === "/user/view-projects"){
-      console.log(Approved, UnApproved);
     return (
         <div>
         <div className="surface-0">
@@ -103,7 +85,7 @@ export default function Viewprojects(){
 
             <div className="grid">
                 {
-                    Approved.map((project, index) => (
+                    approved.map((project, index) => (
                         <div className="col-12 lg:col-4" key={index}>
                           <div className="p-3 h-full">
                             <div className="shadow-2 p-3 h-full flex flex-column" style={{ borderRadius: '6px' }}>
@@ -133,7 +115,7 @@ export default function Viewprojects(){
                                 </li>
                               </ul>
                               <hr className="mb-3 mx-0 border-top-1 border-bottom-none border-300" />
-                              <Button label="View" className="p-3 w-full mt-auto" icon="pi pi-eye" onClick={() => {GoToViewProject(project)}} />
+                              <Button label="View" className="p-3 w-full mt-auto" icon="pi pi-eye" onClick={() => {GoToViewProject(project, "/user/view-the-project")}} />
                             </div>
                           </div>
                         </div>

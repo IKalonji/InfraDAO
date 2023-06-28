@@ -32,19 +32,17 @@ export default function SubmitProject(){
   const [files, setfiles] = useState([]);
   const [financials, setfinancials] = useState([]);
   const toast = useRef(null);
-
-  service.getItemFromRecord();
-  console.log("record data: " , service.record)
-
-  const navigate = useNavigate();
-
+ 
   const InfrastructureOptions = [
     { name: 'Residency', code: 'RES' },
     { name: 'Railway', code: 'RW' },
     { name: 'Telecoms', code: 'TLKM' },
     { name: 'Roads', code: 'ROAD' },
     { name: 'Manufacturing', code: 'MAN' },
-    { name: 'Forestry', code: 'FOR' }
+    { name: 'Forestry', code: 'FOR' },
+    {name: 'Education', code:"EDU"},
+    {name: 'Public goods', code:"PGO"},
+    {name: 'Water and Sanitation', code:"W&S"}
   ];
 
   const handleSubmitorAddressChange = (event) => {

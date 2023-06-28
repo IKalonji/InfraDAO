@@ -1,17 +1,49 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import { Button } from 'primereact/button';
 import Divider from '@mui/material/Divider';
 import { Dialog } from 'primereact/dialog';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
+import { AppStateService } from '../AppstateService/AppState.service';
+import { Toast } from 'primereact/toast';
+
+
 
 
 const Landingpage = () => {
     const navigate = useNavigate();
     const [visible, setVisible] = useState(false);
+    const toast = useRef(null);
+    const service = new AppStateService();
+
     const GoViewProjects = () => {
+      if(service.connected){
         navigate("/user/view-projects");
+      }
+      else {
+        confirmConnect();
+      }
+        
     };
+
+    const confirmConnect = () => {
+      confirmDialog({
+          message: 'You need to connect your Metamask to proceed',
+          header: 'Confirmation',
+          icon: 'pi pi-exclamation-triangle',
+          accept,
+          reject
+      });
+  };
+
+  const accept = () => {
+    service.connectToMetamask()
+}
+
+const reject = () => {
+    toast.current.show({ severity: 'warn', summary: 'Rejected', detail: 'You have rejected', life: 3000 });
+}
 
     const footerContent = (
         <div>
@@ -24,17 +56,16 @@ const Landingpage = () => {
       <div className="grid grid-nogutter surface-0 text-800">
         <div className="col-12 md:col-6 p-6 text-center md:text-left flex align-items-center ">
           <section>
+          <Toast ref={toast} />
+          <ConfirmDialog/>
             <span className="block text-6xl font-bold mb-1">Infrastructure Tokenization</span>
             <div className="text-6xl text-primary font-bold mb-3">For Decentralized Project Financing</div>
             <p className="mt-0 mb-4 text-700 line-height-3">With InfraDAO projects are tokenized to maximize funding opportunities in the DeFi ecosystem</p>
 
             <Button label="View Projects" type="button" className="mr-3 p-button-raised" onClick={GoViewProjects} />
             <Button label="Watch Demo" type="button" className="p-button-outlined" icon="pi pi-external-link" onClick={() => setVisible(true)} />
-            <Dialog header="Click the link below to watch the live demo" visible={visible} style={{ width: '50vw' }} onHide={() => setVisible(false)} footer={footerContent}>
-                <iframe src='https://www.youtube.com/watch?v=C0_SuVG8KvM&t=26s&pp=ygUNemFkZW4gbmdvYmVuaQ%3D%3D' title="The demo video"></iframe>
-                <p className="mt-0 mb-4 text-700 line-height-3">
-                    <a href='https://youtu.be/oa0pmjf-dsQ' style={{textDecoration:"none"}} target='_blank'>Demo Video</a>
-                </p>
+            <Dialog visible={visible} style={{ width: '50vw', textAlign:"center" }} onHide={() => setVisible(false)} footer={footerContent}>
+                <iframe src='https://www.youtube.com/embed/oa0pmjf-dsQ' title="The demo video" width="500" height="400"></iframe>
             </Dialog>
           </section>
         </div>
