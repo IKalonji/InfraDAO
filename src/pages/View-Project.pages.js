@@ -1,25 +1,39 @@
-import React, { Component } from 'react'
-import {Chip} from 'primereact/chip'
-import { Button } from 'primereact/button'
-import { useLocation } from 'react-router-dom'
-import './Styles/View-Project.style.css'
+import React, { useState, useRef } from 'react';
+import {Chip} from 'primereact/chip';
+import { Button } from 'primereact/button';
+import { useLocation } from 'react-router-dom';
+import { Toast } from 'primereact/toast';
+import { ConfirmDialog, confirmDialog } from 'primereact/confirmdialog';
+import './Styles/View-Project.style.css';
 
-import { AppStateService } from '../AppstateService/AppState.service'
+import { AppStateService } from '../AppstateService/AppState.service';
 
 export default function ViewProject(){
 
+    const [visible, setVisible] = useState(false);
     const service = new AppStateService();
     const location = useLocation();
     const data = location.state;
+    const toast = useRef(null);
 
     const vote = () => {
-        service.projectVote(data.id)
+        
+        toast.current.show({ severity: 'success', summary: 'Rejected', detail: 'Waiting for Metamask to open', life: 3000 });
+        setVisible(true);
+        setTimeout(()=>{service.projectVote(data.id)}, 4000)
+    }
+
+    const accept = () => {
+        toast.current.show({ severity: 'info', summary: 'Confirmed', detail: 'You have accepted', life: 3000 });
     }
 
     if (window.location.pathname ==="/member/view-the-project"){
         
         return(
         <div>
+            <Toast ref={toast} />
+            <ConfirmDialog visible={visible} onHide={() => setVisible(false)} message={`View the transaction on https://hashscan.io/testnet/dashboard paste the following address into the search bar: ${service.walletAddress} `} 
+                header="Confirmation" icon="pi pi-exclamation-triangle" accept={accept} />
 
         <div style={{height:"20px"}}></div>
 

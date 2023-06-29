@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import React, {useState} from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { PolybaseProvider } from "@polybase/react";
 import { Polybase } from "@polybase/client";
@@ -18,12 +18,12 @@ import ViewProject from './pages/View-Project.pages';
 import JoinDAO from './pages/Join-DAO.pages';
 import DexPage from './pages/Dex.pages';
 import ProfilePage from './pages/ProfilePage.pages';
-import { AppStateService } from './AppstateService/AppState.service';
+import ErrorBoundary from './ErrorBoundaryAndCatching/ErrorBoundary'
 
 const polybase = new Polybase();
 
+
 function App() {
-  const service = new AppStateService();
   const [visible, setVisible] = useState(true);
   const footerContent = (
       <div>
@@ -32,10 +32,12 @@ function App() {
   );
 return (
     <div className="App">
+      
       <PolybaseProvider polybase={polybase}>
       <BrowserRouter>
+      <ErrorBoundary>
 
-        <Dialog header="Header" visible={visible} style={{ width: '50vw' }} onHide={() => setVisible(false)} footer={footerContent}>
+        <Dialog header="Notice" visible={visible} style={{ width: '50vw' }} onHide={() => setVisible(false)} footer={footerContent}>
           <h4 className="m-0">
               Please ensure that you are on the Hedera Testnet,
               and that you are using the Arkhia RPC
@@ -54,6 +56,7 @@ return (
           <Route path='/dex-page' element={<DexPage/>}/>
           <Route path='/profile' element={<ProfilePage />}/>
         </Routes>
+        </ErrorBoundary>
       </BrowserRouter>
       </PolybaseProvider>
     </div>

@@ -3,6 +3,7 @@ import { Button } from 'primereact/button';
 import { Dialog } from 'primereact/dialog';
 import { InputText } from 'primereact/inputtext';
 import { MultiSelect } from 'primereact/multiselect';
+import { Message } from 'primereact/message';
 
 const DexPage = () => {
   const [firstInputValue, setFirstInputValue] = useState('');
@@ -53,8 +54,12 @@ const DexPage = () => {
 
   return (
     <div>
-      <div style={{ height: '60px' }}></div>
 
+      <div class="flex align-items-center justify-content-center h-4rem bg-transparent font-bold border-round m-2">
+        <Message severity="warn" text={"Currently the Dex page is not completed for the hackathon\nplease enjoy the experience with the rest of the app"}  />
+      </div>
+
+      <div style={{ height: '60px' }}></div>
       <div className="flex justify-content-center flex-wrap justify-content-center">
         <div className="surface-card p-4 shadow-2 border-round w-full lg:w-6">
           <div className="text-center mb-5">
@@ -66,7 +71,7 @@ const DexPage = () => {
             />
             <div className="text-900 text-3xl font-medium mb-3">Dex</div>
             <div className="flex mb-3">
-              <div style={{ position: "relative", left: "15%" }}>
+              <div style={{ position: "relative", left: 100 }}>
                 <InputText
                   id="firstInput"
                   type="text"
@@ -75,7 +80,8 @@ const DexPage = () => {
                   onChange={handleFirstInputChange}
                 />
               </div>
-              <div style={{ position: "relative", left: "24%" }}>
+
+              <div style={{ position: "relative", left: 150 }}>
                 <MultiSelect
                   id="firstInputBlockchain"
                   value={firstInputBlockchain}
@@ -87,7 +93,7 @@ const DexPage = () => {
             </div>
 
             <div className="flex mb-3">
-              <div style={{ position: "relative", left: "15%" }}>
+              <div style={{ position: "relative", left: 100 }}>
                 <InputText
                   id="secondInput"
                   type="text"
@@ -98,7 +104,7 @@ const DexPage = () => {
                 />
               </div>
               <div className="mr-2 ">
-                <div style={{ position: "relative", left: "96%" }}>
+                <div style={{ position: "relative", left: 150 }}>
                   <MultiSelect
                     id="secondInputBlockchain"
                     value={secondInputBlockchain}
@@ -109,6 +115,7 @@ const DexPage = () => {
                 </div>
               </div>
             </div>
+
 
             <Dialog
               header="Header"
@@ -121,7 +128,7 @@ const DexPage = () => {
               <Button label="Stake" icon="pi pi-check-circle" className="w-full" />
             </Dialog>
 
-            <Button label="Swap" icon="pi pi-external-link" className="w-full" onClick={onShowDialog} />
+            <Button label="Swap" icon="pi pi-external-link" className="w-full" onClick={onShowDialog} disabled/>
           </div>
         </div>
       </div>
