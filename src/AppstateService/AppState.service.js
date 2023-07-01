@@ -42,7 +42,9 @@ export class AppStateService {
         this.contractApprovedProjects = [];
         this.polybaseResponse = []
 
-        this.getItemsFromRecord()
+        this.getItemsFromRecord();
+        this.contractGetPendingProjects();
+        this.contractGetApprovedProjects();
     }
 
     async connectToMetamask(){
@@ -144,7 +146,6 @@ export class AppStateService {
     }
 
     getUnApproved(){  
-        this.contractGetPendingProjects();
         let temp = []
         this.contractPendingProjects.forEach(contractItem => {
             this.polybaseResponse.forEach(polybaseItem => {
@@ -159,7 +160,6 @@ export class AppStateService {
     }
 
     getApproved(){
-        this.contractGetApprovedProjects();
         let temp = []
         this.contractApprovedProjects.forEach(contractItem => {
             this.polybaseResponse.forEach(polybaseItem => {

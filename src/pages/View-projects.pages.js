@@ -3,12 +3,19 @@ import { Button } from 'primereact/button'
 import { useNavigate } from 'react-router-dom';
 import {AppStateService} from '../AppstateService/AppState.service';
 
+import { useMountEffect } from 'primereact/hooks';
+
 export default function Viewprojects(){
   const service = new AppStateService();
   const navigate = useNavigate();
 
-    let approved = service.getApproved();
-    let unapproved = service.getUnApproved();
+  useMountEffect(() => {
+    service.getApproved();
+    service.getUnApproved();
+  })
+  
+  let approved = service.getApproved();
+  let unapproved = service.getUnApproved();
 
     const GoToViewProject = (Project, path) => {
       const data = {
